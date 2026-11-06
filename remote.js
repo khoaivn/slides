@@ -4,7 +4,7 @@
  const $ = id => document.getElementById(id);
  const {slidePoint}=await import('./remote-coordinates.mjs?v=20261028-coordinates8');
  const DEFAULT_DATABASE='https://slides-35d62-default-rtdb.asia-southeast1.firebasedatabase.app';
- const PRESENTATIONS={csonet:{path:'NCS-csonet2026.html',title:'CSONET'},'chuyen-de-2':{path:'NCS-CD2.html',title:'Chuyên đề 2'},'ltc-introduction':{path:'LTC-introduction.html',title:'Lập trình C/C++'}};
+ const PRESENTATIONS={'dsa-sort':{path:'dsa-sort.html',title:'DSA · Sort'},csonet:{path:'NCS-csonet2026.html',title:'CSONET'},'chuyen-de-2':{path:'NCS-CD2.html',title:'Chuyên đề 2'},'ltc-introduction':{path:'LTC-introduction.html',title:'Lập trình C/C++'}};
  let loadedPresentation=null;
  const FIXED_ROOM='464f25357d6c0340eca766a44c6824ce';
  const controller = document.body.dataset.remote === 'controller';

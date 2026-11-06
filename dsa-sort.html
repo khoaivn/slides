@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="DSA Sort — Thuật toán sắp xếp.">
+<title>DSA Sort · Thuật toán sắp xếp</title>
+<link rel="stylesheet" href="styles.css?v=20261029-beamer24">
+<link rel="stylesheet" href="remote.css?v=20261028-remote20">
+<link rel="stylesheet" href="assets/katex/katex.min.css?v=0.19.1">
+<script defer src="assets/katex/katex.min.js?v=0.19.1"></script>
+<script defer src="math.js?v=20261029-beamer22"></script>
+<link rel="stylesheet" href="dsa-sort.css?v=20261105-helvetica">
+</head>
+<body data-presentation="dsa-sort">
+<script>if(new URLSearchParams(location.search).has("preview"))document.body.classList.add("preview");</script>
+<header class="toolbar"><a class="brand" href="#1" aria-label="First slide">DSA <span>Sorting algorithms</span></a><div class="tools"><a class="library-link" href="index.html" title="Chọn bài thuyết trình" aria-label="Chọn bài thuyết trình"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/></path></svg></a><button id="remoteBtn" type="button" title="Điều khiển bằng điện thoại" aria-label="Điều khiển bằng điện thoại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/></rect><path d="M10 18h4"/></path></svg></button><button id="laserBtn" title="Laser pointer (L)" aria-pressed="false" aria-label="Laser pointer (L)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></path></svg></button><button id="penBtn" title="Pen (P)" aria-pressed="false" aria-label="Pen (P)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 16-1 5 5-1L20 8l-4-4L4 16Zm10-10 4 4M4 16l4 4"/></path></svg></button><button id="clearInkBtn" title="Clear drawing on this slide (C)" aria-label="Clear drawing on this slide (C)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 14 9-10a2 2 0 0 1 3 0l6 6a2 2 0 0 1 0 3l-7 8H9l-6-6a1 1 0 0 1 0-1Zm4-4 10 9M14 21h8"/></path></svg></button><button id="overviewBtn" title="Slide overview (O)" aria-label="Slide overview (O)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/></rect><rect x="14" y="3" width="7" height="7" rx="1"/></rect><rect x="3" y="14" width="7" height="7" rx="1"/></rect><rect x="14" y="14" width="7" height="7" rx="1"/></rect></svg></button><button id="notesBtn" title="Speaker notes (N)" aria-pressed="false" aria-label="Speaker notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h16v14l-5 4H4V3Zm11 18v-5h5M8 7h8M8 11h8M8 15h3"/></path></svg></button><button id="fullBtn" title="Fullscreen (F)" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></path></svg></button></div></header>
+<main id="deck" aria-label="DSA Sort — Thuật toán sắp xếp">
+<section class="slide sort-slide cover" data-title="Sorting algorithm" data-time="—" data-source-slide="1"><h1>Sorting algorithm</h1><p class="authors">dung.phamtrung@phenikaa-uni.edu.vn</p><aside class="speaker-notes">Nguồn: 6. slide Sort.pptx, trang 1.</aside></section>
+<section class="slide sort-slide" data-title="Bài toán sắp xếp" data-time="—" data-source-slide="2"><h2>Bài toán sắp xếp</h2><div class="sort-body with-visual"><div class="sort-text"><div class="sort-prose"><p>Thuật toán sắp xếp là một thuật toán đặt các phần tử của một danh sách theo thứ tự. </p><p>Chúng ta sắp xếp dãy số theo thứ tự tăng dần (không giảm) còn thứ tự giảm dần (không tăng) giải quyết tương tự</p></div></div><div class="sort-visual"><svg class="sort-diagram" viewBox="554.3753280839895 84.38582677165354 358.503937007874 277.740157480315" role="img" aria-label="Bài toán sắp xếp — sơ đồ gốc"><text x="733.6272965879266" y="187.0262467191601" text-anchor="middle" dominant-baseline="central" fill="var(--ink)" font-size="25">5	4	6	3	1	9	3</text><text x="733.6272965879266" y="322.1496062992126" text-anchor="middle" dominant-baseline="central" fill="var(--ink)" font-size="25">1	3	3	4	5	6	9</text><text x="733.6272965879265" y="119.46456692913385" text-anchor="middle" dominant-baseline="central" fill="var(--ink)" font-size="24.89763779527559">INPUT</text><text x="733.6272965879266" y="254.58792650918636" text-anchor="middle" dominant-baseline="central" fill="var(--ink)" font-size="24.89763779527559">OUTPUT</text></svg></div></div><aside class="speaker-notes">Nguồn: 6. slide Sort.pptx, trang 2.</aside></section>
+<section class="slide sort-slide sort-section" data-title="Selection Sort" data-time="—" data-source-slide="3"><h1>Selection Sort</h1><aside class="speaker-notes">Nguồn: 6. slide Sort.pptx, trang 3.</aside></section>
+<section class="slide sort-slide" data-title="Selection Sort" data-time="—" data-source-slide="4"><h2>Selection Sort</h2><div class="sort-body with-visual"><div class="sort-text"></div><div class="sort-visual"><svg class="sort-diagram" viewBox="118.27034120734908 43.732283464566926 723.459317585302 425.2020997375328" role="img" aria-label="Selection Sort — sơ đồ gốc"><text x="283.54068241469815" y="140.03937007874015" text-anchor="middle" dominant-baseline="central" fill="#315bb5" font-size="50">2</text><text x="406.38057742782155" y="185.6509186351706" text-anchor="middle" dominant-baseline="central" fill="#b34045" font-size="50">1</text><text x="273.3884514435695" y="283.4356955380577" text-anchor="middle" dominant-baseline="central" fill="#317a40" font-size="50">6</text><text x="525.5905511811023" y="270.0" text-anchor="middle" dominant-baseline="central" fill="#087f81" font-size="50">0</text><text x="600.4593175853018" y="204.43044619422574" text-anchor="middle" dominant-baseline="central" fill="#a33170" font-size="50">9</text><text x="447.8477690288714" y="301.4383202099737" text-anchor="middle" dominant-baseline="central" fill="#8744a0" font-size="50">5</text><text x="502.3674540682415" y="85.83464566929133" text-anchor="middle" dominant-baseline="central" fill="#c34b22" font-size="50">7</text><text x="704.4225721784777" y="121.94488188976378" text-anchor="middle" dominant-baseline="central" fill="#94601b" font-size="50">4</text><text class="sort-reveal-number" visibility="hidden" x="256.94792650918635" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#b34045" font-size="50">1</text><text class="sort-reveal-number" visibility="hidden" x="346.16871391076114" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#315bb5" font-size="50">2</text><text class="sort-reveal-number" visibility="hidden" x="167.7270341207349" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#087f81" font-size="50">0</text><text class="sort-reveal-number" visibility="hidden" x="435.38960629921263" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#94601b" font-size="50">4</text><text class="sort-reveal-number" visibility="hidden" x="524.6103937007874" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#8744a0" font-size="50">5</text><text class="sort-reveal-number" visibility="hidden" x="613.8312860892388" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#317a40" font-size="50">6</text><text class="sort-reveal-number" visibility="hidden" x="703.0520734908137" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#c34b22" font-size="50">7</text><text class="sort-reveal-number" visibility="hidden" x="792.2729658792651" y="426.8320209973753" text-anchor="middle" dominant-baseline="central" fill="#a33170" font-size="50">9</text></svg></div></div><aside class="speaker-notes">Nguồn: 6. slide Sort.pptx, trang 4.</aside></section>
+<section class="slide sort-slide sort-simulation-slide" data-title="Selection Sort" data-time="—" data-source-slide="5"><h2>Selection Sort</h2><iframe id="selectionSimulation" class="sort-simulation" src="assets/dsa-sort/selection-simulation/index.html?v=20261105-keyboard3" aria-label="Mô phỏng Selection Sort" loading="lazy"></iframe><aside class="speaker-notes">Nguồn mô phỏng: https://khoaivn.github.io/mptt/ — bản nhúng Selection Sort, giữ mã thuật toán và các điều khiển gốc.</aside></section>
+<section class="slide sort-slide sort-simulation-slide" data-title="Selection Sort" data-time="—" data-source-slide="5-copy"><h2>Selection Sort</h2><iframe id="selectionSimulationThreePasses" class="sort-simulation" src="assets/dsa-sort/selection-simulation/index.html?v=20261105-keyboard3&amp;selection-code-end=2&amp;pseudocode=open" aria-label="Mô phỏng Selection Sort" loading="lazy"></iframe><aside class="speaker-notes">Nguồn mô phỏng: https://khoaivn.github.io/mptt/ — bản nhúng Selection Sort, giữ mã thuật toán và các điều khiển gốc.</aside></section>
+
+<section class="slide sort-slide" data-title="Selection Sort" data-time="—" data-source-slide="7"><h2>Selection Sort</h2><div class="sort-body "><div class="sort-text"><div class="sort-prose"><p>Độ phức tạp là O(n2)</p><p>Không giữ nguyên thứ tự của các phần tử bằng nhau</p><p>Khi tìm một vài số lớn nhất thì không cần sắp xếp toàn bộ</p></div></div></div><aside class="speaker-notes">Nguồn: 6. slide Sort.pptx, trang 7.</aside></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="slide sort-slide sort-section" data-title="Bubble Sort" data-time="—"><h1>Bubble Sort</h1><aside class="speaker-notes">Giới thiệu Bubble Sort.</aside></section>
+<section class="slide sort-slide" data-title="Bubble Sort · Ý tưởng" data-time="—"><h2>Bubble Sort</h2><div class="sort-body"><div class="sort-text"><div class="sort-prose"><p>So sánh hai phần tử liền kề và đổi chỗ nếu chúng sai thứ tự.</p><p>Sau mỗi lượt, phần tử lớn nhất còn lại được đưa về cuối mảng.</p><p>Dừng sớm nếu một lượt không có đổi chỗ.</p></div></div></div><aside class="speaker-notes">Giải thích ý tưởng trước khi chạy mô phỏng.</aside></section>
+<section class="slide sort-slide sort-simulation-slide" data-title="Bubble Sort · Mô phỏng" data-time="—"><h2>Bubble Sort</h2><iframe id="bubbleSimulation" class="sort-simulation" src="assets/dsa-sort/selection-simulation/index.html?v=20261105-sorting&amp;algorithm=bubble&amp;pseudocode=open" aria-label="Mô phỏng Bubble Sort" loading="lazy"></iframe><aside class="speaker-notes">Random tạo mảng theo số lượng đã chọn. ↑/↓ để xem từng bước; ←/→ chuyển slide. Mã giả được tô màu và đánh dấu dòng đang chạy.</aside></section>
+<section class="slide sort-slide" data-title="Bubble Sort · Độ phức tạp" data-time="—"><h2>Bubble Sort</h2><div class="sort-body"><div class="sort-text"><div class="sort-prose"><p>Tốt nhất: O(n) khi mảng đã có thứ tự và có kiểm tra dừng sớm.</p><p>Trung bình và xấu nhất: O(n²). Bộ nhớ phụ: O(1).</p><p>Ổn định: các phần tử bằng nhau giữ nguyên thứ tự.</p></div></div></div><aside class="speaker-notes">Độ phức tạp và tính ổn định của Bubble Sort.</aside></section>
+<section class="slide sort-slide sort-section" data-title="Insertion Sort" data-time="—"><h1>Insertion Sort</h1><aside class="speaker-notes">Giới thiệu Insertion Sort.</aside></section>
+<section class="slide sort-slide" data-title="Insertion Sort · Ý tưởng" data-time="—"><h2>Insertion Sort</h2><div class="sort-body"><div class="sort-text"><div class="sort-prose"><p>Duy trì phần đầu mảng đã có thứ tự; lấy phần tử kế tiếp làm key.</p><p>Dịch các phần tử lớn hơn key sang phải, rồi chèn key vào đúng vị trí.</p><p>Phù hợp với mảng nhỏ hoặc gần được sắp xếp.</p></div></div></div><aside class="speaker-notes">Giải thích ý tưởng trước khi chạy mô phỏng.</aside></section>
+<section class="slide sort-slide sort-simulation-slide" data-title="Insertion Sort · Mô phỏng" data-time="—"><h2>Insertion Sort</h2><iframe id="insertionSimulation" class="sort-simulation" src="assets/dsa-sort/selection-simulation/index.html?v=20261105-sorting&amp;algorithm=insertion&amp;pseudocode=open" aria-label="Mô phỏng Insertion Sort" loading="lazy"></iframe><aside class="speaker-notes">Random tạo mảng theo số lượng đã chọn. ↑/↓ để xem từng bước; ←/→ chuyển slide. Mã giả được tô màu và đánh dấu dòng đang chạy.</aside></section>
+<section class="slide sort-slide" data-title="Insertion Sort · Độ phức tạp" data-time="—"><h2>Insertion Sort</h2><div class="sort-body"><div class="sort-text"><div class="sort-prose"><p>Tốt nhất: O(n) khi mảng đã có thứ tự.</p><p>Trung bình và xấu nhất: O(n²). Bộ nhớ phụ: O(1).</p><p>Ổn định: chỉ dịch phần tử lớn hơn key.</p></div></div></div><aside class="speaker-notes">Độ phức tạp và tính ổn định của Insertion Sort.</aside></section>
+</main>
+<aside id="notesPanel" hidden aria-label="Speaker notes"><div class="notes-header"><strong>Speaker notes</strong><span id="slideTime"></span><button id="closeNotes" aria-label="Close notes">×</button></div><p id="noteText"></p></aside>
+<div id="overview" hidden role="dialog" aria-modal="true" aria-label="Slide overview"><div class="overview-head"><h2>Slide overview</h2><button id="closeOverview">Close ×</button></div><div id="overviewGrid"></div></div>
+<footer class="controls"><span id="sectionLabel"></span><div><button id="prevBtn" aria-label="Previous slide">←</button><span id="counter" aria-live="polite"></span><button id="nextBtn" aria-label="Next slide">→</button></div><span class="keyboard-hint">← → navigate <span>·</span> N notes <span>·</span> F fullscreen</span></footer>
+<div class="progress" aria-hidden="true"><div id="progressFill"></div></div>
+<canvas id="annotationCanvas" aria-label="Slide annotations"></canvas><div id="laserPointer" hidden aria-hidden="true"></div>
+<dialog id="remoteDialog" class="remote-login-dialog"><button id="remoteClose" aria-label="Đóng">×</button><div id="remoteInternal" hidden><h2>Điều khiển bằng điện thoại</h2>
+<div id="remoteSetup"><label for="databaseUrl">Firebase Database URL</label><input id="databaseUrl" type="url"><button id="remoteStart">Kết nối lại</button></div>
+<div id="remoteConnection" hidden><label for="remoteLink">Liên kết mở trên điện thoại</label><input id="remoteLink" readonly><button id="remoteCopy">Sao chép liên kết</button><button id="remoteStop">Ngắt kết nối</button></div><p id="remoteStatus" role="status"></p></div></dialog>
+<script src="script.js?v=20261105-steps"></script><script src="remote.js?v=20261105-dsa-sort"></script>
+<script src="dsa-sort.js?v=20261105-keyboard2"></script>
+</body>
+</html>

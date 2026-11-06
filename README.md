@@ -4,6 +4,7 @@
 - `NCS-csonet2026.html`: bài CSONET gốc, 12 trang.
 - `NCS-CD2.html`: Chuyên đề 2, hiện có 1 trang tiêu đề, chưa có nội dung chuyên đề.
 - `LTC-introduction.html`: bài giới thiệu lập trình C/C++, 26 trang giữ nguyên nội dung PowerPoint, trình bày theo style chung của thư viện.
+- `dsa-sort.html`: bài thuật toán sắp xếp, 67 trang từ PowerPoint, dùng theme CSONET; 7 trang cuối giữ nội dung mẫu của tệp nguồn.
 - `remote.html`: liên kết cố định điều khiển trên iPhone. Tự tải bài đang mở trên máy tính, dùng chung đăng nhập, vuốt, Laser/Pen và ghi chú.
 
 Đẩy tất cả file cập nhật và file mới lên GitHub Pages. **Publish lại firebase.rules.json** để cho phép trường nhận diện bài thuyết trình mới. Xem [REMOTE-SETUP.md](REMOTE-SETUP.md) để cấu hình đăng nhập riêng tư.

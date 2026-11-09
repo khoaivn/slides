@@ -4,7 +4,6 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="CSONET presentation: Streaming Algorithms for Monotone k-Submodular Maximization under Fairness Constraints.">
 <title>CSONET · Fair Streaming Algorithms</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css">
 <link rel="stylesheet" href="styles.css?v=20261029-beamer24">
 <link rel="stylesheet" href="remote.css?v=20261028-remote20">
 <link rel="stylesheet" href="assets/katex/katex.min.css?v=0.19.1">
@@ -17,6 +16,16 @@ body[data-presentation="csonet"] .cover-content h1{margin-top:0}
 body[data-presentation="csonet"] .labels .label-ellipsis{justify-content:center;padding:4px 0;border-bottom:0;color:var(--muted);line-height:1}
 body[data-presentation="csonet"] .labels .label-ellipsis>span{font:inherit;letter-spacing:.56em;margin-right:-.56em}
 body[data-presentation="csonet"] .labels .last-label{color:var(--gold)}
+/* Prose uses the Vietnamese Computer Modern Sans outlines bundled locally.
+   KaTeX retains its Computer Modern math families and extension metrics. */
+@font-face{font-family:"Vn Computer Modern Sans Serif";src:url("assets/fonts/vncm/VnCMSansWeb-Regular.woff2") format("woff2");font-style:normal;font-weight:100 500;font-display:swap}
+@font-face{font-family:"Vn Computer Modern Sans Serif";src:url("assets/fonts/vncm/VnCMSansWeb-Bold.woff2") format("woff2");font-style:normal;font-weight:600 900;font-display:swap}
+@font-face{font-family:"Vn Computer Modern Sans Serif";src:url("assets/fonts/vncm/VnCMSansWeb-Italic.woff2") format("woff2");font-style:italic;font-weight:100 900;font-display:swap}
+body[data-presentation="csonet"],
+body[data-presentation="csonet"] :is(button,input,.slide,h1,h2,h3,p,li,th,td,.formula,.constraints p,.constraints p>span:not(.math),.explanation .formula,.labels>div>span,.tokens b,.index,.key-formula>span:not(.math),.quota-calculation,.big-stat,.big-stat>span:not(.math),.rho strong,.network-name,.conclusions li>span,.closing-bottom strong,.conflict b){font-family:"Vn Computer Modern Sans Serif",sans-serif}
+/* Do not override .katex descendants: Math Italic (CMMI), Main Roman
+   (CMR), symbols (CMSY), and Size1–Size4 extensions (CMEX) are selected
+   by the bundled KaTeX stylesheet, with matching glyph metrics. */
 </style>
 </head>
 <body data-presentation="csonet">

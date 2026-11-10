@@ -12,6 +12,7 @@
 .sort-slide[data-source-slide="4"] .sort-diagram{width:100%;height:490px;max-height:490px}
 
 .sort-simulation-slide h2{margin-bottom:20px}.sort-simulation{display:block;width:100%;height:545px;border:0;background:white}
+.sort-simulation-slide{padding-left:33px;padding-right:33px}
 
 /* Font có đầy đủ dấu tiếng Việt, tránh trộn glyph từ Computer Modern. */
 body[data-presentation="dsa-sort"],body[data-presentation="dsa-sort"] button,

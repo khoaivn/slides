@@ -10,14 +10,14 @@ export async function authorizeRemote({ controller }) {
  if(controller)document.querySelector('.remote-page').hidden=true;
  const explain=text=>{message.textContent=text;};
  const reveal=()=>{panel.hidden=true;if(controller)document.querySelector('.remote-page').hidden=false;else if(parent.open)parent.close();};
- if(!firebaseConfig.apiKey){explain('Chưa có Firebase Web apiKey. Cần điền firebaseConfig và bật Google trong Firebase Authentication.');login.disabled=true;if(!controller)parent.showModal();throw Error('Thiếu cấu hình Firebase Authentication.');}
+ if(!firebaseConfig.apiKey){explain('Chưa có Firebase Web apiKey. Cần điền firebaseConfig và bật Google trong Firebase Authentication.');login.disabled=true;throw Error('Thiếu cấu hình Firebase Authentication.');}
  let appSdk,authSdk;
  try{
   [appSdk,authSdk]=await Promise.all([
    import('https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js'),
    import('https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js')
   ]);
- }catch(error){explain('Không tải được đăng nhập. Kiểm tra Internet rồi tải lại trang.');login.disabled=true;if(!controller)parent.showModal();throw error;}
+ }catch(error){explain('Không tải được đăng nhập. Kiểm tra Internet rồi tải lại trang.');login.disabled=true;throw error;}
  const app=appSdk.initializeApp(firebaseConfig);
  const auth=authSdk.getAuth(app);
  try{await authSdk.setPersistence(auth,authSdk.browserLocalPersistence);}catch{await authSdk.setPersistence(auth,authSdk.browserSessionPersistence);}
@@ -42,7 +42,6 @@ export async function authorizeRemote({ controller }) {
    if(isOwner(user)){if(granted){location.reload();return;}granted=true;reveal();resolve();}
    else{
     panel.hidden=false;if(controller)document.querySelector('.remote-page').hidden=true;
-    if(!controller&&!parent.open)parent.showModal();
     explain(user?'Tài khoản này không có quyền điều khiển. Hãy đăng nhập bằng tài khoản được cấp quyền.':'Đăng nhập tài khoản Google được cấp quyền để tiếp tục.');
     if(granted)window.dispatchEvent(new Event('remote-access-lost'));
    }

@@ -27,6 +27,9 @@
   const example = document.querySelector('.sort-slide[data-source-slide="4"]');
   const row = Array.from(example.querySelectorAll('.sort-reveal-number'))
     .sort((a, b) => Number(a.getAttribute('x')) - Number(b.getAttribute('x')));
+  const sources = Array.from(example.querySelectorAll('svg text:not(.sort-reveal-number)'));
+  const sourceForNumber = row.map(number => sources.find(source =>
+    source.textContent.trim() === number.textContent.trim()));
   const exampleIndex = Array.from(document.querySelectorAll('.slide')).indexOf(example);
   let revealed = 0;
   let wasActive = example.classList.contains('active');
@@ -35,6 +38,11 @@
       const visible = index < revealed;
       number.setAttribute('visibility', visible ? 'visible' : 'hidden');
       number.setAttribute('aria-hidden', String(!visible));
+      const source = sourceForNumber[index];
+      if (source) {
+        source.setAttribute('visibility', visible ? 'hidden' : 'visible');
+        source.setAttribute('aria-hidden', String(visible));
+      }
     });
   }
   window.presentationStep = (from, to) => {

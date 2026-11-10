@@ -70,18 +70,12 @@
 (() => {
  const frames = [...document.querySelectorAll('iframe.sort-simulation')];
  document.addEventListener('slidechange', () => {
-  for(const frame of frames)if(!frame.closest('.slide').classList.contains('active'))frame.contentWindow?.postMessage({type:'selection-pause'},location.origin==='null'?'*':location.origin);
+  for(const frame of frames)if(!frame.closest('.slide').classList.contains('active'))frame.contentWindow?.postMessage({type:'selection-pause'},location.protocol==='file:'||location.origin==='null'?'*':location.origin);
  });
  window.addEventListener('message',event=>{
   if(event.origin!==location.origin||event.data?.type!=='selection-slide'||![1,-1].includes(event.data.delta))return;
   const frame=frames.find(frame=>frame.contentWindow===event.source&&frame.closest('.slide').classList.contains('active'));
   if(frame)go(current+event.data.delta);
  });
- document.addEventListener('keydown',event=>{
-  if(event.altKey||event.ctrlKey||event.metaKey||/INPUT|TEXTAREA|SELECT/.test(event.target.tagName)||!document.getElementById('overview').hidden)return;
-  const frame=frames.find(frame=>frame.closest('.slide').classList.contains('active'));
-  if(!frame||!['ArrowUp','ArrowDown'].includes(event.key))return;
-  event.preventDefault();event.stopImmediatePropagation();
-  frame.contentWindow?.postMessage({type:'selection-step',delta:event.key==='ArrowDown'?1:-1},location.origin==='null'?'*':location.origin);
- },true);
+
 })();

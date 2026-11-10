@@ -25,7 +25,7 @@ function renderHeap(s){
 }
 const $=id=>document.getElementById(id);let category='sorting',target=54,lastTypes={sorting:initialAlgorithm,searching:'linear'};let type=initialAlgorithm,input=[42,18,67,9,54,31,82,23,60,12],steps=[],position=0,timer=null;
 function pause(){clearTimeout(timer);timer=null;setPlayIcon(position===steps.length-1?'replay':'play');$('state').textContent=position===steps.length-1?'Hoàn thành':position?'Tạm dừng':'Sẵn sàng'}
-function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);$('chart').replaceChildren(...s.a.map((v,i)=>{const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?' active':s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=document.createElement('small');index.textContent=i;bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar}));$('comparisons').textContent=s.comparisons;$('writes').textContent=s.writes;$('step-count').textContent=`${position} / ${steps.length-1}`;$('timeline').value=position;$('prev').disabled=position===0;$('next').disabled=position===steps.length-1;document.querySelectorAll('.code-line').forEach(el=>el.classList.toggle('highlight',Number(el.dataset.sourceLine)===s.line))}
+function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);$('chart').replaceChildren(...s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?' active':s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+65}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=document.createElement('small');index.textContent=i;bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar}));$('comparisons').textContent=s.comparisons;$('writes').textContent=s.writes;$('step-count').textContent=`${position} / ${steps.length-1}`;$('timeline').value=position;$('prev').disabled=position===0;$('next').disabled=position===steps.length-1;document.querySelectorAll('.code-line').forEach(el=>el.classList.toggle('highlight',Number(el.dataset.sourceLine)===s.line))}
 function setup(){pause();position=0;steps=category==='searching'?generateSearchSteps(input,type,target):generateSteps(input,type,selectionOptions);const algo=algorithms[type];$('about-title').textContent=algo.name;$('about').textContent=algo.about;for(const k of ['time','space','stable'])$(k).textContent=algo[k];$('code').replaceChildren(...algo.code.flatMap((text,sourceLine)=>{const indent=text.match(/^\s*/)[0];return text.split(';').flatMap(part=>{const statement=part.trim();const conditional=statement.match(/^((?:if\b.*|else)):\s*(.+)$/);return conditional?[{text:indent+conditional[1],sourceLine},{text:indent+'  '+conditional[2],sourceLine}]:[{text:indent+statement,sourceLine}]})}).map(({text,sourceLine},i)=>{const el=document.createElement('div');el.className='code-line';el.dataset.sourceLine=sourceLine;const n=document.createElement('span');n.className='code-number';n.textContent=String(i+1);el.append(n,...highlightPseudocode(text));return el}));$('timeline').max=steps.length-1;document.querySelectorAll('#algos button').forEach(b=>b.classList.toggle('selected',b.dataset.algo===type));updateCategoryUI();render();pause()}
 function tick(){if(position<steps.length-1){position++;render()}if(position===steps.length-1){pause();return}timer=setTimeout(tick,650/Number($('speed').value))}
 function play(){if(timer){pause();return}if(position===steps.length-1)position=0;setPlayIcon('pause');$('state').textContent='Đang chạy';timer=setTimeout(tick,650/Number($('speed').value));render()}
@@ -56,8 +56,23 @@ $('random-array').onclick=()=>{
 document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{let a=Array.from({length:12},()=>Math.floor(Math.random()*90)+10);if(b.dataset.preset==='ascending')a.sort((x,y)=>x-y);if(b.dataset.preset==='descending')a.sort((x,y)=>y-x);if(b.dataset.preset==='duplicates')a=a.map(x=>[20,40,60,80][x%4]);if(category==='searching'&&!readTarget())return;input=a;$('array').value=a.join(', ');$('error').textContent='';setup()});
 function readTarget(){const raw=$('target').value;if(!/^\d+$/.test(raw)||Number(raw)<1||Number(raw)>999){$('error').textContent='Giá trị cần tìm phải là số nguyên từ 1 đến 999.';return false}target=Number(raw);return true}
 $('target').onchange=()=>{if(readTarget()){$('error').textContent='';setup()}};
+function changeSpeed(delta){
+ const slider=$('speed');
+ slider.value=String(Math.min(Number(slider.max),Math.max(Number(slider.min),Number(slider.value)+delta*Number(slider.step))));
+ slider.dispatchEvent(new Event('input',{bubbles:true}));
+}
 document.addEventListener('keydown',e=>{
+ // Delegate shortcuts to the same handler used outside this iframe.
+ if(window.parent!==window){
+  try{if(window.parent.handlePresentationKey){window.parent.handlePresentationKey(e);return;}}catch{}
+  if(!e.altKey&&!e.ctrlKey&&!e.metaKey&&!e.isComposing&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','PageUp','PageDown','Home','End','-','=',' ','n','o','f','l','p','c','Escape'].includes(e.key.length===1?e.key.toLowerCase():e.key)){
+   e.preventDefault();e.stopImmediatePropagation();
+   window.parent.postMessage({type:'presentation-key',key:e.key,code:e.code,shiftKey:e.shiftKey},'*');
+   return;
+  }
+ }
  if(e.altKey||e.ctrlKey||e.metaKey)return;
+ if(e.key==='-'||e.key==='='){e.preventDefault();e.stopImmediatePropagation();changeSpeed(e.key==='='?1:-1);return;}
  if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&window.parent!==window){
   e.preventDefault();e.stopImmediatePropagation();
   const delta=e.key==='ArrowRight'?1:-1;
@@ -66,11 +81,11 @@ document.addEventListener('keydown',e=>{
    const button=window.parent.document.getElementById(delta===1?'nextBtn':'prevBtn');
    if(button){button.click();return}
   }catch{}
-  window.parent.postMessage({type:'selection-slide',delta},location.origin==='null'?'*':location.origin);
+  window.parent.postMessage({type:'selection-slide',delta},location.protocol==='file:'||location.origin==='null'?'*':location.origin);
   return;
  }
+ if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();e.stopImmediatePropagation();move(e.key==='ArrowDown'?1:-1);return}
  if(e.target.matches('textarea,select,input:not([type=range])')||e.target.isContentEditable)return;
- if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();move(e.key==='ArrowDown'?1:-1);return}
  if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();play()}
 },true);buildMenu();setup();
 

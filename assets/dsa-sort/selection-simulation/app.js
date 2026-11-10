@@ -1,5 +1,5 @@
 const requestedAlgorithm=new URLSearchParams(location.search).get('algorithm');
-const initialAlgorithm=['selection','bubble','insertion'].includes(requestedAlgorithm)?requestedAlgorithm:'selection';
+const initialAlgorithm=['selection','bubble','bubbleBasic','insertion'].includes(requestedAlgorithm)?requestedAlgorithm:'selection';
 // Biến thể mã giả dành riêng cho slide sao chép.
 const selectionOptions=new URLSearchParams(location.search).get('selection-code-end')==='2'?{selectionEnd:2}:{};
 if(selectionOptions.selectionEnd===2)algorithms.selection.code[0]='for i = 0 đến 2';

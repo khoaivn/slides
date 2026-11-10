@@ -47,6 +47,9 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
 .intro-note>span,.complexity b{font-family:Helvetica,Arial,sans-serif}
 
 /* Font monospace cho mã giả, giữ nguyên cỡ chữ và bố cục. */
+#chart .bar b{font-size:32px;line-height:1;top:auto;bottom:calc(100% + 6px);color:inherit}
+#chart{margin-top:44px}
+
 #code,.code-line,.code-line span{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;font-variant-ligatures:none}
 
 /* Tô màu cú pháp; giữ khoảng cách ký tự của mã giả. */

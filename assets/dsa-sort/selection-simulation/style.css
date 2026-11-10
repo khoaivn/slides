@@ -49,10 +49,10 @@ footer{font-size:22px;justify-content:center;text-align:center;overflow-wrap:any
 
 /* Màu trạng thái tương phản cao để trình chiếu. */
 :root{--status-neutral:#64748b;--status-active:#2563eb;--status-pivot:#d97706;--status-done:#166534}
-.bar,.legend .neutral{background:var(--status-neutral)}
-.bar.active,.legend .active{background:var(--status-active)}
-.bar.pivot,.legend .pivot{background:var(--status-pivot)}
-.bar.done,.legend .done{background:var(--status-done)}
+.bar,.legend .neutral{background:var(--status-neutral);color:var(--status-neutral)}
+.bar.active,.legend .active{background:var(--status-active);color:var(--status-active)}
+.bar.pivot,.legend .pivot{background:var(--status-pivot);color:var(--status-pivot)}
+.bar.done,.legend .done{background:var(--status-done);color:var(--status-done)}
 .legend{color:var(--ink);font-size:12px;font-weight:600}
 .legend i{width:12px;height:12px;border:1px solid rgba(0,0,0,.2);vertical-align:-1px}
 .heap-edge{stroke:var(--status-neutral)}

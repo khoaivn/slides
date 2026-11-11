@@ -19,3 +19,7 @@ body[data-presentation="dsa-sort"],body[data-presentation="dsa-sort"] button,
 body[data-presentation="dsa-sort"] .slide,
 body[data-presentation="dsa-sort"] .slide :is(h1,h2,h3,p,li,th,td,text),
 body[data-presentation="dsa-sort"] #overviewGrid{font-family:Helvetica,Arial,sans-serif}
+
+/* Giảm khoảng trống dưới mô phỏng từ khoảng 58px xuống 29px. */
+.sort-simulation-slide{padding-bottom:22px}
+.sort-simulation{height:574px}

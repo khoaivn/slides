@@ -1,5 +1,6 @@
 const requestedAlgorithm=new URLSearchParams(location.search).get('algorithm');
-const initialAlgorithm=['selection','bubble','bubbleBasic','insertion'].includes(requestedAlgorithm)?requestedAlgorithm:'selection';
+const initialAlgorithm=['selection','bubble','bubbleBasic','insertion','quick','quickDivide','lomutoPartition','quickLomuto','hoarePartition','quickHoareSort'].includes(requestedAlgorithm)?requestedAlgorithm:'selection';
+document.body.classList.toggle('hoare-partition',initialAlgorithm==='hoarePartition');
 // Biến thể mã giả dành riêng cho slide sao chép.
 const selectionOptions=new URLSearchParams(location.search).get('selection-code-end')==='2'?{selectionEnd:2}:{};
 if(selectionOptions.selectionEnd===2)algorithms.selection.code[0]='for i = 0 đến 2';
@@ -26,7 +27,23 @@ function renderHeap(s){
 const $=id=>document.getElementById(id);let category='sorting',target=54,lastTypes={sorting:initialAlgorithm,searching:'linear'};let type=initialAlgorithm,input=[42,18,67,9,54,31,82,23,60,12],steps=[],position=0,timer=null;
 function pause(){clearTimeout(timer);timer=null;setPlayIcon(position===steps.length-1?'replay':'play');$('state').textContent=position===steps.length-1?'Hoàn thành':position?'Tạm dừng':'Sẵn sàng'}
 function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);$('chart').replaceChildren(...s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?' active':s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=document.createElement('small');index.textContent=i;bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar}));$('comparisons').textContent=s.comparisons;$('writes').textContent=s.writes;$('step-count').textContent=`${position} / ${steps.length-1}`;$('timeline').value=position;$('prev').disabled=position===0;$('next').disabled=position===steps.length-1;document.querySelectorAll('.code-line').forEach(el=>el.classList.toggle('highlight',Number(el.dataset.sourceLine)===s.line))}
-function setup(){pause();position=0;steps=category==='searching'?generateSearchSteps(input,type,target):generateSteps(input,type,selectionOptions);const algo=algorithms[type];$('about-title').textContent=algo.name;$('about').textContent=algo.about;for(const k of ['time','space','stable'])$(k).textContent=algo[k];$('code').replaceChildren(...algo.code.flatMap((text,sourceLine)=>{const indent=text.match(/^\s*/)[0];return text.split(';').flatMap(part=>{const statement=part.trim();const conditional=statement.match(/^((?:if\b.*|else)):\s*(.+)$/);return conditional?[{text:indent+conditional[1],sourceLine},{text:indent+'  '+conditional[2],sourceLine}]:[{text:indent+statement,sourceLine}]})}).map(({text,sourceLine},i)=>{const el=document.createElement('div');el.className='code-line';el.dataset.sourceLine=sourceLine;const n=document.createElement('span');n.className='code-number';n.textContent=String(i+1);el.append(n,...highlightPseudocode(text));return el}));$('timeline').max=steps.length-1;document.querySelectorAll('#algos button').forEach(b=>b.classList.toggle('selected',b.dataset.algo===type));updateCategoryUI();render();pause()}
+// Add a function heading while retaining the generator's source-line mapping.
+const pseudocodeFunctions={
+ selection:'selectionSort(A, n)',
+ bubble:'bubbleSort(A, n)',
+ bubbleBasic:'bubbleSort(A, n)',
+ insertion:'insertionSort(A, n)',
+ heap:'heapSort(A, n)',
+ linear:'linearSearch(A, n, target)',
+ binary:'binarySearch(A, n, target)',
+ bst:'bstSearch(root, target)'
+};
+function pseudocodeSource(type,code){
+ const signature=pseudocodeFunctions[type];
+ const lines=code.map((text,sourceLine)=>({text:(signature?'  ':'')+text,sourceLine}));
+ return signature?[{text:signature,sourceLine:-2},...lines]:lines;
+}
+function setup(){pause();position=0;steps=category==='searching'?generateSearchSteps(input,type,target):generateSteps(input,type,selectionOptions);const algo=algorithms[type];$('about-title').textContent=algo.name;$('about').textContent=algo.about;for(const k of ['time','space','stable'])$(k).textContent=algo[k];$('code').replaceChildren(...pseudocodeSource(type,algo.code).flatMap(({text,sourceLine})=>{const indent=text.match(/^\s*/)[0];return (type==='lomutoPartition'?[text]:text.split(';')).flatMap(part=>{const statement=part.trim();const conditional=statement.match(/^((?:if\b.*|else)):\s*(.+)$/);return conditional?[{text:indent+conditional[1],sourceLine},{text:indent+'  '+conditional[2],sourceLine}]:[{text:indent+statement,sourceLine}]})}).map(({text,sourceLine},i)=>{const el=document.createElement('div');el.className='code-line';el.dataset.sourceLine=sourceLine;const n=document.createElement('span');n.className='code-number';n.textContent=String(i+1);el.append(n,...highlightPseudocode(text));return el}));$('timeline').max=steps.length-1;document.querySelectorAll('#algos button').forEach(b=>b.classList.toggle('selected',b.dataset.algo===type));updateCategoryUI();render();pause()}
 function tick(){if(position<steps.length-1){position++;render()}if(position===steps.length-1){pause();return}timer=setTimeout(tick,650/Number($('speed').value))}
 function play(){if(timer){pause();return}if(position===steps.length-1)position=0;setPlayIcon('pause');$('state').textContent='Đang chạy';timer=setTimeout(tick,650/Number($('speed').value));render()}
 function move(delta){pause();position=Math.max(0,Math.min(steps.length-1,position+delta));render();pause()}
@@ -39,6 +56,7 @@ function updateCategoryUI(){
  const searching=category==='searching';
  $('search-controls').hidden=!searching;
  $('legend-neutral').textContent=searching?'Chưa xét':'Chưa xử lý';$('legend-pivot').textContent=searching?'Vị trí giữa':'Mốc / ghi';$('legend-done').textContent=searching?'Tìm thấy':'Đã sắp xếp';
+ if(type==='quickDivide'){$('legend-pivot').textContent='Phần lớn';document.querySelector('.legend .active').nextElementSibling.textContent='Phần nhỏ / đoạn đang xét';}
  $('property-label').textContent=searching?'THỨ TỰ MẢNG':'ỔN ĐỊNH';
  document.querySelectorAll('[data-category]').forEach(b=>{const selected=b.dataset.category===category;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected)});
  document.querySelectorAll('#algos button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.algo===type));

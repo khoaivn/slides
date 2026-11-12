@@ -101,3 +101,8 @@ body[data-remote] .remote-page{padding-bottom:max(8px,env(safe-area-inset-bottom
 
 #remoteOpen{display:inline-block;padding:8px 12px;margin:6px 6px 6px 0;border:1px solid #d9dfdf;border-radius:5px;text-decoration:none}
 #remoteOpen:hover{background:#e0eceb}
+
+/* Double speaker-note text on desktop pointer devices. */
+@media screen and (pointer:fine){
+ .remote-notes-pane #remoteNotes{font-size:28px}
+}

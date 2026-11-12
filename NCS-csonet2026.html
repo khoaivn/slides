@@ -6,7 +6,7 @@
 <title>CSONET · Fair Streaming Algorithms</title>
 <link rel="stylesheet" href="styles.css?v=20261029-beamer24">
 <link rel="stylesheet" href="remote.css?v=20261028-remote20">
-<link rel="stylesheet" href="assets/katex/katex.min.css?v=0.19.1">
+<link rel="stylesheet" href="assets/katex/katex.min.css?v=0.19.1-fontfix">
 <script defer src="assets/katex/katex.min.js?v=0.19.1"></script>
 <script defer src="math.js?v=20261029-beamer22"></script>
 <style>
@@ -26,6 +26,9 @@ body[data-presentation="csonet"] :is(button,input,.slide,h1,h2,h3,p,li,th,td,.fo
 /* Do not override .katex descendants: Math Italic (CMMI), Main Roman
    (CMR), symbols (CMSY), and Size1–Size4 extensions (CMEX) are selected
    by the bundled KaTeX stylesheet, with matching glyph metrics. */
+/* Preserve TeX spacing and normal math weight in headings and bold prose. */
+body[data-presentation="csonet"] .math{letter-spacing:normal;text-transform:none;font-synthesis:none}
+body[data-presentation="csonet"] .math .katex{font-weight:400;font-style:normal;letter-spacing:normal}
 </style>
 </head>
 <body data-presentation="csonet">

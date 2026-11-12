@@ -35,6 +35,7 @@ body[data-presentation="csonet"] .math .katex{font-family:KaTeX_SansSerif,KaTeX_
 body[data-presentation="csonet"] .math .katex :is(.mathnormal,.mathit){font-family:KaTeX_SansSerif,KaTeX_Math,sans-serif;font-style:italic}
 body[data-presentation="csonet"] .math .katex :is(.mathrm,.mainrm,.textrm,.textsf){font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif;font-style:normal}
 body[data-presentation="csonet"] .math .katex .mathbf{font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif;font-weight:700}
+body[data-presentation="csonet"] .slide-page-number{position:absolute;right:24px;bottom:14px;font-size:16px;line-height:1;color:var(--muted);font-weight:400;letter-spacing:normal;pointer-events:none}
 </style>
 </head>
 <body data-presentation="csonet">
@@ -49,62 +50,68 @@ body[data-presentation="csonet"] .math .katex .mathbf{font-family:KaTeX_SansSeri
 </div>
 <aside class="speaker-notes">Good afternoon, everyone. Our work studies how to select and label elements in a stream while meeting fairness quotas. I will introduce the problem, explain our two algorithms, and discuss their guarantees and experimental results.</aside>
 </section>
-<section class="slide" data-title="Streaming assignment" data-time="1:00">
-<div class="eyebrow">01 · Problem setup</div><h2>Streaming n elements with k labels</h2>
-<p class="lead">A stream of n elements arrives one at a time. Select elements and assign each one of k labels.</p>
-<div class="allocation"><div class="stream"><span>Stream: V = {e₁, …, eₙ}</span><div class="tokens"><b><span class="math" data-tex="e_1">e₁</span></b><b><span class="math" data-tex="e_2">e₂</span></b><b><span class="math" data-tex="e_3">e₃</span></b><b><span class="math" data-tex="\ldots">…</span></b><b><span class="math" data-tex="e_n">eₙ</span></b></div><p>Fixed arbitrary order<br>Limited storage<br>No full input in memory</p></div><div class="allocation-rule">Select<br>+<br>assign a label</div><div class="labels"><div><strong>Label 1</strong><span><span class="math" data-tex="S_1">S₁</span></span></div><div><strong>Label 2</strong><span><span class="math" data-tex="S_2">S₂</span></span></div><div class="label-ellipsis" aria-label="Other labels"><span>....................</span></div><div class="last-label"><strong>Label k</strong><span><span class="math" data-tex="S_k">Sₖ</span></span></div></div></div>
-<aside class="speaker-notes">Elements arrive one at a time, and memory is limited. We select some elements and assign each one a single label. The sets on the right collect elements with the same label. The algorithm chooses these labels; they are not fixed groups in the input.</aside>
+<section class="slide" data-title="Overview" data-time="0:15">
+<div class="eyebrow">Overview</div><h2>Overview</h2>
+<ul style="margin:45px 0 0;padding-left:40px;font-size:36px;line-height:2.3"><li>Bài toán</li><li>Thuật toán</li><li>Thực nghiệm</li><li>Kết luận</li></ul>
+<aside class="speaker-notes">The talk has four parts. I will introduce the problem, present our algorithms, discuss the experiments, and conclude with the main takeaways.</aside>
 </section>
+
 <section class="slide" data-title="Problem formulation" data-time="1:30">
-<div class="eyebrow">02 · Full problem</div><h2>Fair streaming maximization</h2>
+<div class="eyebrow">Full problem</div><h2>Fair streaming maximization</h2>
 <div class="split"><div><div class="formula hero-formula"><span class="math" data-tex="\max_{S_1,\ldots,S_k\subseteq V} f(S_1,\ldots,S_k)">maximize <i>f</i>(S₁, …, S<sub>k</sub>)</span></div><div class="constraints"><p><span class="math" data-tex="\ell_i\le |S_i|\le u_i">ℓ<sub>i</sub> ≤ |S<sub>i</sub>| ≤ u<sub>i</sub></span> <span>lower / upper quota for each label group i</span></p><p><span class="math" data-tex="\sum_i |S_i|\le B">∑<sub>i</sub> |S<sub>i</sub>| ≤ B</span> <span>total selection budget</span></p><p><span class="math" data-tex="S_i\cap S_j=\emptyset">S<sub>i</sub> ∩ S<sub>j</sub> = ∅</span> <span>for distinct labels i and j</span></p></div></div><div class="explanation"><h3>Decision variables</h3><p><span class="math" data-tex="S_i">Sᵢ</span>: elements assigned label <span class="math" data-tex="i">i</span>, for <span class="math" data-tex="i=1,\ldots,k">i = 1, …, k</span>.</p><h3>Objective value</h3><p>Find a feasible assignment with maximum value <span class="math" data-tex="f(S_1,\ldots,S_k)">f(S₁, …, Sₖ)</span>.</p><p>The function is monotone and <span class="math" data-tex="k">k</span>-submodular: adding a labeled element cannot reduce the value, and marginal gains satisfy diminishing returns.</p></div></div>
 <p class="footnote">Assumptions: <span class="math" data-tex="n\ge B\ge1,\quad 0\le\ell_i\le u_i,\quad\text{and }\sum_i\ell_i\le B\le\sum_i u_i">n ≥ B ≥ 1, 0 ≤ ℓᵢ ≤ uᵢ, and ∑ᵢ ℓᵢ ≤ B ≤ ∑ᵢ uᵢ</span>. Theory assumes exact value-oracle access.</p>
 <aside class="speaker-notes">We want to maximize f while meeting three constraints: a lower and upper quota for each label, a total budget B, and at most one label per element. Adding elements cannot reduce the objective, and marginal gains diminish for compatible assignments. Under our assumptions, an optimum can use exactly B elements. The theory assumes exact value oracles.</aside>
 </section>
+<section class="slide" data-title="Streaming assignment" data-time="1:00">
+<div class="eyebrow">Problem setup</div><h2>Streaming n elements with k labels</h2>
+<p class="lead">A stream of n elements arrives one at a time. Select elements and assign each one of k labels.</p>
+<div class="allocation"><div class="stream"><span>Stream: V = {e₁, …, eₙ}</span><div class="tokens"><b><span class="math" data-tex="e_1">e₁</span></b><b><span class="math" data-tex="e_2">e₂</span></b><b><span class="math" data-tex="e_3">e₃</span></b><b><span class="math" data-tex="\ldots">…</span></b><b><span class="math" data-tex="e_n">eₙ</span></b></div><p>Fixed arbitrary order<br>Limited storage<br>No full input in memory</p></div><div class="allocation-rule">Select<br>+<br>assign a label</div><div class="labels"><div><strong>Label 1</strong><span><span class="math" data-tex="S_1">S₁</span></span></div><div><strong>Label 2</strong><span><span class="math" data-tex="S_2">S₂</span></span></div><div class="label-ellipsis" aria-label="Other labels"><span>....................</span></div><div class="last-label"><strong>Label k</strong><span><span class="math" data-tex="S_k">Sₖ</span></span></div></div></div>
+<aside class="speaker-notes">Elements arrive one at a time, and memory is limited. We select some elements and assign each one a single label. The sets on the right collect elements with the same label. The algorithm chooses these labels; they are not fixed groups in the input.</aside>
+</section>
 <section class="slide" data-title="Technical challenges" data-time="1:30">
-<div class="eyebrow">03 · Challenges</div><h2>Lower quotas and conflicting labels</h2>
+<div class="eyebrow">Challenges</div><h2>Lower quotas and conflicting labels</h2>
 <div class="split challenges"><div><span class="index">A</span><h3>Budget must leave room for deficits</h3><p>Early selections can consume the slots that other labels still need.</p><p class="example-text">A partial assignment must remain completable.</p></div><div><span class="index"><span class="math" data-tex="B">B</span></span><h3>The same element can have two labels</h3><div class="conflict"><p>Algorithm: <b><span class="math" data-tex="(e,1)">(e, 1)</span></b></p><p>Optimum: <b><span class="math" data-tex="(e,2)">(e, 2)</span></b></p></div><p>The pair-set union is not a valid <span class="math" data-tex="k">k</span>-set.</p></div></div>
 <div class="takeaway">The analysis must compare assignments without creating label conflicts.</div>
 <aside class="speaker-notes">There are two main challenges. First, early choices may leave too little budget to meet the remaining lower quotas. Second, our algorithm and an optimum may give different labels to the same element. Simply combining the two assignments could therefore violate the one-label rule.</aside>
 </section>
 <section class="slide" data-title="Fair extendability" data-time="1:30">
-<div class="eyebrow">04 · Key idea</div><h2>Fair extendability</h2><p class="lead">A partial assignment only needs to admit a fair completion.</p>
+<div class="eyebrow">Key idea</div><h2>Fair extendability</h2><p class="lead">A partial assignment only needs to admit a fair completion.</p>
 <div class="formula key-formula"><span class="math" data-tex="|S_i|\le u_i\ \forall i\qquad\text{and}\qquad\sum_i\max\{|S_i|,\ell_i\}\le B">|S<sub>i</sub>| ≤ u<sub>i</sub> ∀i <span>and</span> ∑<sub>i</sub> max{|S<sub>i</sub>|, ℓ<sub>i</sub>} ≤ B</span></div>
 <div class="quota-demo"><div><p class="small-label">Illustrative example · <span class="math" data-tex="k=3\;\cdot\;B=9\;\cdot\;\ell=(2,2,2)\;\cdot\;u=(6,6,6)">k = 3 · B = 9 · ℓ = (2, 2, 2) · u = (6, 6, 6)</span></p><div id="quotaCounts" class="quota-counts"></div><p id="quotaCalculation" class="quota-calculation"></p></div><div><button id="quotaToggle" class="action">Show a blocked state</button><p id="quotaStatus" role="status"></p></div></div>
 <div class="takeaway">Element–label pairs + quota matroid characterize extendability for valid <span class="math" data-tex="k">k</span>-sets.</div>
 <aside class="speaker-notes">Our key idea is fair extendability: a partial assignment must still be possible to complete. For each label, reserve the larger of its current count and its lower quota. The total must fit within B, and no upper quota may be exceeded. Here, counts of four, one, and zero need eight slots; six, one, and zero need ten. With B equal to nine, only the first state is extendable. The quota matroid captures this condition for valid assignments.</aside>
 </section>
 <section class="slide" data-title="Shared buffer" data-time="1:00">
-<div class="eyebrow">05 · Completion</div><h2>A shared buffer completes the assignment</h2>
+<div class="eyebrow">Completion</div><h2>A shared buffer completes the assignment</h2>
 <div class="buffer-layout"><div class="big-stat"><span class="math" data-tex="\min\{n,2B\}">min{n, 2B}</span><span>first stream elements retained</span></div><ol class="steps"><li><strong>Keep the current assignment</strong><span>Preserve every selected element–label pair.</span></li><li><strong>Fill remaining quota deficits</strong><span>Use distinct unused elements from the buffer.</span></li><li><strong>Fill the remaining budget</strong><span>Respect every upper quota and reach size <span class="math" data-tex="B">B</span>.</span></li></ol></div>
 <div class="takeaway">No extra pass · All quotas satisfied · Objective value never decreases</div>
 <aside class="speaker-notes">Both algorithms keep the first n elements or the first two B elements, whichever is fewer. This buffer provides enough unused elements to complete the solution. We first meet the remaining lower quotas, then fill the budget within the upper quotas. Completion preserves the selected elements and cannot decrease the objective value.</aside>
 </section>
 <section class="slide" data-title="OPFSA" data-time="1:30">
-<div class="eyebrow">06 · One pass</div><h2>OPFSA</h2><p class="lead">Deterministic selection with quota-preserving replacements</p>
+<div class="eyebrow">One pass</div><h2>OPFSA</h2><p class="lead">Deterministic selection with quota-preserving replacements</p>
 <div class="split"><ol class="steps"><li><strong>Maintain geometric value guesses</strong><span>Each lane stores an archive and a live assignment.</span></li><li><strong>Evaluate a new element</strong><span>Compute marginal gains against the archive.</span></li><li><strong>Accept a sufficiently valuable pair</strong><span>Remove a minimum-weight quota blocker if needed.</span></li><li><strong>Complete and compare</strong><span>Return the best completed active lane.</span></li></ol><div class="algorithm-detail"><p class="small-label">Acceptance rule</p><div class="formula"><span class="math" data-tex="a_i\ge(1+\sqrt{2})\theta_i+\varepsilon v/B">a<sub>i</sub> ≥ (1 + √2)θ<sub>i</sub> + εv/B</span></div><p><span class="math" data-tex="a_i">a<sub>i</sub></span>: gain against the archive<br><span class="math" data-tex="\theta_i">θ<sub>i</sub></span>: frozen weight of the blocker<br><span class="math" data-tex="v">v</span>: value guess</p><div class="rule"></div><h3>Proof intuition</h3><p>Frozen weights grow along replacement chains, allowing archive costs to be charged to the final live solution.</p></div></div>
 <aside class="speaker-notes">OPFSA scans the stream once and maintains several value guesses in parallel. Each guess has an archive and a current solution. If insertion is blocked, the algorithm finds a minimum-weight quota blocker. A new pair is accepted only if its gain covers the replacement cost and the extra threshold. The recorded weights stay fixed and grow along replacement chains, which is the key to the analysis.</aside>
 </section>
 <section class="slide" data-title="MPFSA" data-time="1:30">
-<div class="eyebrow">07 · Multiple passes</div><h2>MPFSA</h2><p class="lead">Decreasing thresholds with balanced random label choices</p>
+<div class="eyebrow">Multiple passes</div><h2>MPFSA</h2><p class="lead">Decreasing thresholds with balanced random label choices</p>
 <div class="split"><div><ol class="steps"><li><strong>Find the singleton scale <span class="math" data-tex="M">M</span></strong><span>A preliminary pass also fills the shared buffer.</span></li><li><strong>Replay the fixed stream order</strong><span>Decrease <span class="math" data-tex="\tau">τ</span> by the factor <span class="math" data-tex="1-\varepsilon">1 − ε</span> after each pass.</span></li><li><strong>Sample a feasible label</strong><span>Accept when the best extendable gain reaches <span class="math" data-tex="\tau">τ</span>.</span></li></ol><p class="formula threshold"><span class="math" data-tex="M,\ (1-\varepsilon)M,\ (1-\varepsilon)^2M,\ldots">M, (1 − ε)M, (1 − ε)²M, …</span></p></div><div class="algorithm-detail"><h3>Why randomize the label?</h3><p>A small linear program finds a distribution that balances expected gain against loss in a coupled comparison solution.</p><div class="rule"></div><p class="emphasis">Value guarantee: in expectation</p><p class="emphasis teal">Quota feasibility: every execution</p><p class="footnote">At most <span class="math" data-tex="B">B</span> label-distribution LPs. Oracle counts exclude the separate LP-solving cost.</p></div></div>
 <aside class="speaker-notes">MPFSA replays the stream in the same order and lowers its threshold after each pass. It considers labels that preserve extendability. When the best gain reaches the threshold, a small linear program provides a balanced distribution for choosing a label. The value guarantee holds in expectation. After completion, all quotas hold in every execution.</aside>
 </section>
 <section class="slide" data-title="Theoretical guarantees" data-time="1:00">
-<div class="eyebrow">08 · Theory</div><h2>Passes, memory, and approximation</h2>
+<div class="eyebrow">Theory</div><h2>Passes, memory, and approximation</h2>
 <table class="guarantees"><thead><tr><th>Algorithm</th><th>Passes</th><th>Approximation</th><th>Memory</th></tr></thead><tbody><tr><td>OPFSA<small>Deterministic</small></td><td>1</td><td><span class="math" data-tex="3-2\sqrt{2}-\varepsilon">3 − 2√2 − ε</span><small><span class="math" data-tex="\approx0.1716-\varepsilon">≈ 0.1716 − ε</span></small></td><td><span class="math" data-tex="O\!\left(k+(B/\varepsilon)\log^2(B/\varepsilon)\right)">O(k + (B/ε) log²(B/ε))</span></td></tr><tr><td>MPFSA<small>Randomized</small></td><td><span class="math" data-tex="O\!\left(\varepsilon^{-1}\log(B/\varepsilon)\right)">O(ε⁻¹ log(B/ε))</span></td><td><span class="math" data-tex="\rho_k-\varepsilon">ρ<sub>k</sub> − ε</span><small>In expectation</small></td><td><span class="math" data-tex="O(B+k)">O(B + k)</span></td></tr></tbody></table>
 <div class="rho"><p><span class="math" data-tex="k=2">k = 2</span> <strong><span class="math" data-tex="\rho_2=2/(3+\sqrt{2})\approx0.4531">ρ₂ = 2/(3 + √2) ≈ 0.4531</span></strong></p><p><span class="math" data-tex="k\ge3">k ≥ 3</span> <strong><span class="math" data-tex="\rho_k=(k-1)/(3k-4)">ρ<sub>k</sub> = (k − 1)/(3k − 4)</span></strong></p></div>
 <p class="footnote">Common range: <span class="math" data-tex="0&lt;\varepsilon&lt;3-2\sqrt{2}">0 &lt; ε &lt; 3 − 2√2</span>. For <span class="math" data-tex="k=3">k = 3</span> and <span class="math" data-tex="\varepsilon=0.1">ε = 0.1</span>, the MPFSA guarantee is 0.3. Exceeding 1/3 requires <span class="math" data-tex="\varepsilon&lt;1/15">ε &lt; 1/15</span>.</p>
 <aside class="speaker-notes">OPFSA gives a deterministic one-pass guarantee of about 0.1716 minus epsilon. MPFSA uses more passes but gives a stronger expected guarantee with memory linear in B plus k. For three labels, its guarantee is 0.4 minus epsilon, or 0.3 when epsilon is 0.1. Both algorithms return exactly B elements and meet all quotas.</aside>
 </section>
 <section class="slide" data-title="Experimental setup" data-time="0:45">
-<div class="eyebrow">09 · Evaluation</div><h2>Influence maximization on two networks</h2>
+<div class="eyebrow">Evaluation</div><h2>Influence maximization on two networks</h2>
 <div class="split"><div><h3 class="network-name">Email-Eu-core</h3><p>Directed input arcs</p><h3 class="network-name second">ca-GrQc</h3><p>Each undirected edge becomes two arcs</p><p class="footnote">Weighted-Cascade model<br><span class="math" data-tex="p(u,v)=1/\operatorname{indegree}(v)">p(u, v) = 1/indegree(v)</span></p></div><div class="setup"><p><span>Labels</span><strong><span class="math" data-tex="k=3">k = 3</span></strong></p><p><span>Quotas per label</span><strong><span class="math" data-tex="3\le |S_i|\le10">3 ≤ |Sᵢ| ≤ 10</span></strong></p><p><span>Budgets</span><strong>9, 12, …, 30</strong></p><p><span>Accuracy</span><strong><span class="math" data-tex="\varepsilon=0.1">ε = 0.1</span></strong></p><p><span>Monte Carlo worlds</span><strong>100 decision / 1,000 evaluation</strong></p><p><span>Runs</span><strong>One per configuration, seed 42</strong></p></div></div>
 <div class="takeaway">Baselines: Fair-Greedy and Fair-Threshold · All 64 runs pass quota and budget checks</div>
 <aside class="speaker-notes">We test influence maximization on Email-Eu-core and ca-GrQc using the Weighted-Cascade model. We use three labels, quotas from three to ten per label, and budgets from nine to thirty. All methods share the evaluator, seed, and stream order. We use one hundred Monte Carlo worlds for decisions and a separate one thousand for evaluation. Each configuration runs once, so standard errors reflect evaluation sampling, not variation across runs.</aside>
 </section>
 <section class="slide" data-title="Experimental results" data-time="2:00">
-<div class="eyebrow">10 · Results</div><h2>MPFSA stays close to the offline baselines</h2>
+<div class="eyebrow">Results</div><h2>MPFSA stays close to the offline baselines</h2>
 <div class="chart-heading"><p>Objective value at <strong><span class="math" data-tex="B=30">B = 30</span></strong></p><div class="dataset-switch" role="group" aria-label="Dataset"><button class="selected" data-dataset="email" aria-pressed="true">Email-Eu-core</button><button data-dataset="grqc" aria-pressed="false">ca-GrQc</button></div></div>
 <div id="resultsChart" class="bar-chart" aria-label="Objective values"></div>
 <div class="result-summary"><p><strong>OPFSA</strong> supports one pass, with lower values and the highest recorded query and time costs.</p><p><strong>Fair-Threshold</strong> has the fewest queries and the shortest runtime in these runs.</p></div>
@@ -112,7 +119,7 @@ body[data-presentation="csonet"] .math .katex .mathbf{font-family:KaTeX_SansSeri
 <aside class="speaker-notes">This chart shows B equal to thirty. MPFSA stays close to the offline baselines on both networks, while OPFSA gives lower objective values. Fair-Threshold is fastest and uses the fewest oracle calls in these runs. OPFSA records the highest query, memory, and runtime costs. One pass does not necessarily mean faster execution. With only one run per configuration, we cannot claim statistical superiority.</aside>
 </section>
 <section class="slide closing" data-title="Take-home messages" data-time="0:45">
-<div class="eyebrow">11 · Conclusion</div><h2>Exact quotas in streaming assignments</h2>
+<div class="eyebrow">Conclusion</div><h2>Exact quotas in streaming assignments</h2>
 <ol class="conclusions"><li><span>01</span><p><strong>Fair extendability</strong> keeps every partial assignment completable.</p></li><li><span>02</span><p><strong>OPFSA</strong> gives a deterministic one-pass guarantee.</p></li><li><span>03</span><p><strong>MPFSA</strong> gives a stronger expected guarantee with <span class="math" data-tex="O(B+k)">O(B + k)</span> memory.</p></li></ol>
 <div class="closing-bottom"><p>Open questions: improve the one-pass factor<br>and reduce the multi-pass requirement.</p><div><strong>Thank you</strong><a href="https://github.com/tantdhvan/OP-MPFSA" target="_blank" rel="noopener noreferrer">Code &amp; experiment artifact ↗</a></div></div>
 <aside class="speaker-notes">Our framework keeps partial assignments possible to complete fairly. OPFSA provides a deterministic one-pass method. MPFSA offers a stronger expected guarantee with multiple passes and low memory. Both meet all quotas and return exactly B elements. Improving the one-pass factor and reducing the number of passes remain open questions. Thank you. I welcome your questions. Q&amp;A reminders: the one-pass bound has not been proved tight. Fairness applies to labels chosen by the algorithm, rather than fixed input groups. The theory assumes exact value oracles; the experiments use Monte Carlo estimates.</aside>
@@ -127,5 +134,14 @@ body[data-presentation="csonet"] .math .katex .mathbf{font-family:KaTeX_SansSeri
 <div id="remoteSetup"><label for="databaseUrl">Firebase Database URL</label><input id="databaseUrl" type="url"><button id="remoteStart">Kết nối lại</button></div>
 <div id="remoteConnection" hidden><label for="remoteLink">Liên kết dùng trên điện thoại hoặc máy tính</label><input id="remoteLink" readonly><button id="remoteCopy">Sao chép liên kết</button><a id="remoteOpen" target="_blank" rel="noopener">Mở điều khiển trên máy tính</a><button id="remoteStop">Ngắt kết nối</button></div><p id="remoteStatus" role="status"></p></div></dialog>
 <script src="script.js?v=20261110-speed-keys"></script><script src="remote.js?v=20261112-desktop"></script>
+<script>
+document.querySelectorAll('#deck > .slide').forEach((slide,index)=>{
+ const number=document.createElement('span');
+ number.className='slide-page-number';
+ number.textContent=String(index+1);
+ number.setAttribute('aria-label','Slide '+(index+1));
+ slide.append(number);
+});
+</script>
 </body>
 </html>

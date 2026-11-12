@@ -29,6 +29,12 @@ body[data-presentation="csonet"] :is(button,input,.slide,h1,h2,h3,p,li,th,td,.fo
 /* Preserve TeX spacing and normal math weight in headings and bold prose. */
 body[data-presentation="csonet"] .math{letter-spacing:normal;text-transform:none;font-synthesis:none}
 body[data-presentation="csonet"] .math .katex{font-weight:400;font-style:normal;letter-spacing:normal}
+/* Reference style: sans-serif numerals and italic sans-serif variables.
+   Keep KaTeX positioning, extensible symbols, and script-size calculations. */
+body[data-presentation="csonet"] .math .katex{font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif}
+body[data-presentation="csonet"] .math .katex :is(.mathnormal,.mathit){font-family:KaTeX_SansSerif,KaTeX_Math,sans-serif;font-style:italic}
+body[data-presentation="csonet"] .math .katex :is(.mathrm,.mainrm,.textrm,.textsf){font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif;font-style:normal}
+body[data-presentation="csonet"] .math .katex .mathbf{font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif;font-weight:700}
 </style>
 </head>
 <body data-presentation="csonet">

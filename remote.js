@@ -68,7 +68,7 @@
  }
  function setupTools(){
   const surface=$('remoteSurface');
-  const rotated=()=>matchMedia('(orientation:portrait)').matches;
+  const rotated=()=>matchMedia('(orientation:portrait) and (pointer:coarse)').matches;
   const point=event=>slidePoint(event.clientX,event.clientY,$('remotePreview').getBoundingClientRect(),rotated(),preview().geometry());
   document.querySelectorAll('[data-tool]').forEach(button=>button.onclick=()=>setTool(button.dataset.tool));
   $('remoteClear').onclick=()=>{if(!connected)return;phoneInk.delete(session.state.slide);laser=null;queueAnnotation();};
@@ -186,7 +186,7 @@
    if(previous?.annotation)session.annotation=previous.annotation;
    await request('','PUT',session);
    const link=new URL('remote.html',location.href);if(database!==DEFAULT_DATABASE)link.hash=new URLSearchParams({db:database}).toString();
-   $('remoteLink').value=link.href;$('remoteConnection').hidden=false;$('remoteSetup').hidden=true;
+   $('remoteLink').value=link.href;if($('remoteOpen'))$('remoteOpen').href=link.href;$('remoteConnection').hidden=false;$('remoteSetup').hidden=true;
    disposed=false;startAnnotationStream().catch(error=>status(error.message));poll();
   } catch(error){status(error.message+' · Đang tự thử kết nối lại…');session=null;if(!disposed)timer=setTimeout(()=>startHost(true),5000);}finally{$('remoteStart').disabled=false;}
  }
@@ -216,6 +216,12 @@
      catch(error){status('Không đổi được màu nền. '+error.message);}
     });
     document.addEventListener('click',event=>{if(!$('remoteBackgroundOptions').contains(event.target)&&!$('remoteBackground').contains(event.target)){$('remoteBackgroundOptions').hidden=true;$('remoteBackground').setAttribute('aria-expanded','false');}});
+    document.addEventListener('keydown',event=>{
+     if(event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||!connected||!session)return;
+     if(event.target.closest('input,textarea,select,button,[contenteditable="true"]'))return;
+     const delta=['ArrowRight','ArrowDown','PageDown',' '].includes(event.key)?1:['ArrowLeft','ArrowUp','PageUp'].includes(event.key)?-1:0;
+     if(delta){event.preventDefault();sendSlide(session.state.slide+delta);}
+    });
     setupTools();
     $('remotePreview').addEventListener('load',()=>{if(session){preview()?.go(session.state.slide);preview()?.background(session.background||'#ffffff');preview()?.annotation(currentAnnotation());}});
     poll();
@@ -226,7 +232,7 @@
   $('remoteClose').onclick=()=>$('remoteDialog').close();
   $('databaseUrl').value=localStorage.getItem('csonetDatabase')||DEFAULT_DATABASE;
   $('remoteStart').onclick=()=>startHost();
-  $('remoteCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('remoteLink').value);status('Đã sao chép liên kết. Gửi và mở bằng Safari trên iPhone.');}catch{$('remoteLink').select();status('Hãy sao chép liên kết trong ô phía trên.');}};
+  $('remoteCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('remoteLink').value);status('Đã sao chép liên kết. Mở trên trình duyệt điện thoại hoặc máy tính.');}catch{$('remoteLink').select();status('Hãy sao chép liên kết trong ô phía trên.');}};
   $('remoteStop').onclick=async()=>{
    disposed=true;annotationStream?.close();clearTimeout(timer);await writeQueue.catch(()=>{});
    try{const active=await request();if(active?.sessionId===hostSessionId)await request('','DELETE');status('Đã ngắt kết nối. Mở lại trang slide để tự kết nối.');}catch(error){status(error.message);}

@@ -79,3 +79,10 @@ main{min-height:100vh;display:flex;flex-direction:column}
 
 /* Giữ đủ 14 dòng Hoare trong cùng khung mô phỏng. */
 .hoare-partition #code .code-line{font-size:16px;line-height:1.35;padding-top:3px;padding-bottom:3px}
+
+/* Heap simulation: keep the tree beside the pseudocode. */
+.heap-simulation #chart{display:none}
+.heap-simulation #heap-view{margin-top:10px;padding:8px 0;border:0}
+.heap-simulation .heap-scroll{padding:0}
+.heap-simulation #heap-tree{max-height:280px}
+.heap-simulation .heap-output{margin-top:10px}

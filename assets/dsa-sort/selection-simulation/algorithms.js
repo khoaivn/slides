@@ -2,13 +2,13 @@ const algorithms={
 bubble:{name:'Bubble Sort',time:'O(n²)',space:'O(1)',stable:'Có',about:'So sánh hai phần tử liền kề và đổi chỗ nếu chúng sai thứ tự. Sau mỗi lượt, phần tử lớn nhất còn lại sẽ “nổi” về cuối mảng. Dừng sớm khi một lượt không có đổi chỗ.',code:['for end = n − 1 xuống 1','  swapped = false','  for j = 0 đến end − 1','    if A[j] > A[j + 1]','      swap(A[j], A[j + 1])','      swapped = true','  if !swapped: break']},
 selection:{name:'Selection Sort',time:'O(n²)',space:'O(1)',stable:'Không',about:'Tìm phần tử nhỏ nhất trong phần chưa sắp xếp, rồi đưa nó về vị trí đầu của phần đó. Ranh giới giữa phần đã sắp xếp và chưa sắp xếp tiến dần sang phải.',code:['for i = 0 đến n − 2','  min = i','  for j = i + 1 đến n − 1','    if A[j] < A[min]: min = j','  swap(A[i], A[min])']},
 insertion:{name:'Insertion Sort',time:'O(n²)',space:'O(1)',stable:'Có',about:'Giống như xếp những lá bài trên tay: lấy phần tử tiếp theo và chèn vào đúng vị trí trong phần đã sắp xếp. Các phần tử lớn hơn được dịch sang phải. Hiệu quả với mảng nhỏ hoặc gần có thứ tự.',code:['for i = 1 đến n − 1','  key = A[i]; j = i − 1','  while j ≥ 0 and A[j] > key','    A[j + 1] = A[j]; j = j − 1','  A[j + 1] = key']},
-merge:{name:'Merge Sort',time:'O(n log n)',space:'O(n)',stable:'Có',about:'Chia mảng thành hai nửa cho đến khi mỗi phần chỉ có một phần tử. Sau đó trộn các phần đã có thứ tự bằng cách chọn phần tử nhỏ hơn ở đầu hai phần. Bộ đệm tạm được dùng khi trộn.',code:['mergeSort(left, right)','  if left ≥ right: return','  mid = (left + right) / 2','  mergeSort(left, mid)','  mergeSort(mid + 1, right)','  so sánh đầu hai nửa → bộ đệm','  ghi bộ đệm về A[left..right]']},
+merge:{name:'Merge Sort',time:'O(n log n)',space:'O(n)',stable:'Có',about:'Chia mảng thành hai nửa cho đến khi mỗi phần chỉ có một phần tử. Sau đó trộn các phần đã có thứ tự bằng cách chọn phần tử nhỏ hơn ở đầu hai phần. Bộ đệm tạm được dùng khi trộn.',code:['MergeSort(A, l, r)','  if (l < r)','    mid = (l + r) / 2','    MergeSort(A, l, mid)','    MergeSort(A, mid + 1, r)','    Merge(A, l, mid, r)']},
 quick:{name:'Quick Sort',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Chọn phần tử cuối làm pivot (mốc), đưa các giá trị nhỏ hơn hoặc bằng pivot sang trái, rồi sắp xếp đệ quy hai phía. *Bộ nhớ trung bình; trường hợp xấu nhất có thời gian O(n²) và bộ nhớ O(n).',code:['quickSort(left, right)','  pivot = A[right]; i = left','  for j = left đến right − 1','    if A[j] ≤ pivot','      swap(A[i], A[j]); i++','  swap(A[i], A[right])','  quickSort hai phía của pivot']},
-heap:{name:'Heap Sort',time:'O(n log n)',space:'O(1)',stable:'Không',about:'Xây dựng max-heap, trong đó mỗi cha lớn hơn hoặc bằng các con. Đưa phần tử lớn nhất ở gốc về cuối, thu nhỏ heap và khôi phục tính chất heap. Lặp lại cho đến khi mảng có thứ tự.',code:['xây dựng max-heap','for end = n − 1 xuống 1','  swap(A[0], A[end])','  heapify(0, end)','    chọn con lớn nhất','    so sánh cha với con','    swap và tiếp tục xuống dưới']}
+heap:{name:'Heap Sort',time:'O(n log n)',space:'O(log n)',stable:'Không',about:'Xây dựng max-heap, trong đó mỗi cha lớn hơn hoặc bằng các con. Đưa phần tử lớn nhất ở gốc về cuối, thu nhỏ heap và khôi phục tính chất heap. Lặp lại cho đến khi mảng có thứ tự.',code:['xây dựng max-heap','for end = n − 1 xuống 1','  swap(A[0], A[end])','  heapify(0, end)','    chọn con lớn nhất','    so sánh cha với con','    swap và tiếp tục xuống dưới']}
 };
 algorithms.bubbleBasic={name:'Bubble Sort (không dừng sớm)',time:'O(n²)',space:'O(1)',stable:'Có',about:'So sánh và đổi chỗ các phần tử liền kề. Luôn thực hiện đủ n − 1 lượt, kể cả khi mảng đã có thứ tự; không dùng biến kiểm tra đổi chỗ.',code:['for end = n − 1 xuống 1','  for j = 0 đến end − 1','    if A[j] > A[j + 1]','      swap(A[j], A[j + 1])']};
 algorithms.quickHoare={name:'Quick Sort (Hoare)',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Chọn giá trị giữa đoạn làm pivot. Hai con trỏ đi từ hai đầu, dừng ở các giá trị sai phía và đổi chỗ. Khi hai con trỏ gặp hoặc vượt nhau, chia tại j và đệ quy [left..j], [j+1..right]. Điểm chia không nhất thiết là vị trí cuối cùng của pivot. *Trung bình; xấu nhất O(n²) thời gian và O(n) bộ nhớ.',code:['quickSort(left, right)','  if left ≥ right: return','  pivot = A[(left + right) / 2]','  i = left − 1; j = right + 1','  while true','    do i++ while A[i] < pivot','    do j-- while A[j] > pivot','    if i ≥ j: break','    swap(A[i], A[j])','  quickSort(left, j)','  quickSort(j + 1, right)']};
-algorithms.quickDivide={name:'Quick Sort',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Chia đoạn thành hai phần: các giá trị nhỏ ở bên trái, các giá trị lớn ở bên phải. Tiếp tục chia từng phần cho đến khi mỗi đoạn có tối đa một phần tử. Giá trị bằng pivot có thể nằm ở cả hai phía.',code:['quickSort(A, l, r)','  if (l < r)','    pi = partition(A, l, r)','    quickSort(A, l, pi)','    quickSort(A, pi + 1, r)']};
+algorithms.quickDivide={name:'Quick Sort',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Chọn trung vị để chia đoạn thành phần nhỏ và phần lớn có số lượng bằng nhau hoặc chênh lệch một phần tử. Tiếp tục chia từng phần đến khi còn tối đa một phần tử. Các giá trị bằng nhau có thể nằm ở cả hai phía.',code:['quickSort(A, l, r)','  if (l < r)','    pi = partition(A, l, r)','    quickSort(A, l, pi)','    quickSort(A, pi + 1, r)']};
 algorithms.lomutoPartition={name:'Lomuto Partition',time:'O(n)',space:'O(1)',stable:'Không',about:'Chọn phần tử cuối làm pivot. Sau phân hoạch, các phần tử bên trái nhỏ hơn pivot, các phần tử bên phải lớn hơn hoặc bằng pivot.',code:['lomutoPartition(A, l, r)','  pivot = A[r]','  i = l - 1','  for (j = l; j < r; j++)','    if (A[j] < pivot)','      i++','      swap(A[i], A[j])','  swap(A[i + 1], A[r])','  return i + 1']};
 algorithms.quickLomuto={name:'Quick Sort (Lomuto)',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Dùng Lomuto để đưa pivot về đúng vị trí, rồi sắp xếp hai đoạn không chứa pivot.',code:['quickSort(A, l, r)','  if (l < r)','    pi = lomutoPartition(A, l, r)','    quickSort(A, l, pi - 1)','    quickSort(A, pi + 1, r)']};
 algorithms.hoarePartition={name:'Hoare Partition',time:'O(n)',space:'O(1)',stable:'Không',about:'Chọn phần tử đầu làm mốc. Hai con trỏ đi từ hai đầu, đổi chỗ các phần tử sai phía và trả về ranh giới khi gặp nhau.',code:['hoarePartition(A, l, r)','  pivot = A[l]','  i = l - 1','  u = r + 1','  while (true)','    do','      i++','    while (A[i] < pivot)','    do','      u--','    while (A[u] > pivot)','    if (i >= u)','      return u','    swap(A[i], A[u])']};
@@ -116,16 +116,34 @@ if(type==='quickDivide'){
   emit(`quickSort(A, ${left}, ${right})`,0,range(left,right+1),[],done);
   emit(left<right?`Đoạn [${left}…${right}] cần chia tiếp.`:`Đoạn [${left}…${right}] có tối đa một phần tử, dừng.`,1,range(left,right+1),[],done);
   if(left>=right){if(left===right)done.push(left);return}
-  const pivot=a[Math.floor((left+right)/2)];
-  let i=left-1,j=right+1;
-  while(true){
-   do{i++;comparisons++}while(a[i]<pivot);
-   do{j--;comparisons++}while(a[j]>pivot);
-   if(i>=j)break;
-   swap(i,j);
+  // Partition by rank while preserving the input order within each half.
+  const pi=Math.floor((left+right)/2);
+  const values=a.slice(left,right+1);
+  const leftSize=pi-left+1;
+  // Find the boundary value without sorting the displayed segment.
+  let boundary;
+  for(const value of values){
+   let less=0,equal=0;
+   for(const other of values){
+    comparisons++;
+    if(other<value)less++;
+    else if(other===value)equal++;
+   }
+   if(less<leftSize&&less+equal>=leftSize){boundary=value;break}
   }
-  const pi=j;
-  emit(`Chia theo mốc ${pivot}: phần nhỏ [${left}…${pi}], phần lớn [${pi+1}…${right}]. Giá trị bằng mốc có thể ở cả hai phần.`,2,range(left,pi+1),range(pi+1,right+1),done);
+  const lessCount=values.filter(value=>value<boundary).length;
+  let equalSlots=leftSize-lessCount;
+  const lower=[],upper=[];
+  for(const value of values){
+   if(value<boundary||(value===boundary&&equalSlots-->0))lower.push(value);
+   else upper.push(value);
+  }
+  const partitioned=lower.concat(upper);
+  for(let offset=0;offset<partitioned.length;offset++){
+   if(a[left+offset]!==partitioned[offset])writes++;
+   a[left+offset]=partitioned[offset];
+  }
+  emit(`Chia đều theo số lượng: phần nhỏ [${left}…${pi}] có ${pi-left+1} phần tử, phần lớn [${pi+1}…${right}] có ${right-pi} phần tử. Giá trị bằng nhau có thể ở cả hai phần.`,2,range(left,pi+1),range(pi+1,right+1),done);
   emit(`Tiếp tục chia phần trái [${left}…${pi}].`,3,range(left,pi+1),[],done);
   sort(left,pi);
   emit(`Tiếp tục chia phần phải [${pi+1}…${right}].`,4,range(pi+1,right+1),[],done);
@@ -136,7 +154,31 @@ if(type==='quickDivide'){
 if(type==='quickHoare'){const done=[];const sort=(l,r)=>{if(l>r)return;if(l===r){done.push(l);emit(`Đoạn một phần tử tại ${l} đã có thứ tự.`,1,[],[],done);return}const mid=Math.floor((l+r)/2),pivot=a[mid];let pivotIndex=mid,i=l-1,j=r+1;emit(`Đoạn [${l}…${r}]: chọn pivot = ${pivot} tại ${mid}.`,2,[],[pivotIndex],done);emit(`Khởi tạo i = ${i}, j = ${j}.`,3,[],[pivotIndex],done);while(true){do{i++;comparisons++;emit(`i = ${i}: so sánh ${a[i]} < pivot ${pivot}.`,5,[i],[pivotIndex],done)}while(a[i]<pivot);do{j--;comparisons++;emit(`j = ${j}: so sánh ${a[j]} > pivot ${pivot}.`,6,[j],[pivotIndex],done)}while(a[j]>pivot);emit(`Kiểm tra i = ${i}, j = ${j}: ${i>=j?'dừng phân hoạch':'tiếp tục đổi chỗ'}.`,7,[i,j],[pivotIndex],done);if(i>=j)break;swap(i,j);if(pivotIndex===i)pivotIndex=j;else if(pivotIndex===j)pivotIndex=i;emit(`Đổi chỗ A[${i}] và A[${j}]; pivot vẫn là ${pivot}.`,8,[i,j],[pivotIndex],done)}emit(`Chia tại j = ${j}: [${l}…${j}] và [${j+1}…${r}]. Điểm chia chưa phải vị trí cố định của pivot.`,9,[j,j+1],[pivotIndex],done);sort(l,j);emit(`Sắp xếp đoạn phải [${j+1}…${r}].`,10,range(j+1,r+1),[],done);sort(j+1,r)};sort(0,n-1)}
 if(type==='selection'){for(let i=0;i<Math.min(n,options.selectionEnd===undefined?n-1:options.selectionEnd+1);i++){let min=i;emit(`Tìm giá trị nhỏ nhất từ vị trí ${i}.`,1,[],[min],range(0,i));for(let j=i+1;j<n;j++){comparisons++;emit(`So sánh ${a[j]} với giá trị nhỏ nhất hiện tại ${a[min]}.`,3,[j],[min],range(0,i));if(a[j]<a[min]){min=j;emit(`Giá trị nhỏ nhất mới là ${a[min]}.`,3,[],[min],range(0,i))}}swap(i,min);emit(`Đưa ${a[i]} về vị trí ${i}.`,4,[],[i,min],range(0,i+1))}}
 if(type==='insertion'){for(let i=1;i<n;i++){let key=a[i],j=i-1;heldKey={value:key,index:i};emit(`Giữ key = ${key}, tìm vị trí chèn.`,1,[i],[],range(0,i));while(j>=0){comparisons++;emit(`So sánh ${a[j]} với key = ${key}.`,2,[j],[j+1]);if(a[j]<=key)break;a[j+1]=a[j];writes++;heldKey={value:key,index:j};emit(`Dịch ${a[j]} sang phải; key = ${key} đang được giữ riêng.`,3,[],[j,j+1]);j--}a[j+1]=key;writes++;heldKey=null;emit(`Chèn ${key} tại vị trí ${j+1}.`,4,[],[j+1],range(0,i+1))}}
-if(type==='merge'){const sort=(l,r)=>{if(l>=r)return;let m=Math.floor((l+r)/2);emit(`Chia đoạn [${l}…${r}] thành hai nửa.`,2,range(l,r+1));sort(l,m);sort(m+1,r);let left=a.slice(l,m+1),right=a.slice(m+1,r+1),i=0,j=0,buffer=[];while(i<left.length&&j<right.length){comparisons++;emit(`Trộn: so sánh ${left[i]} và ${right[j]} vào bộ đệm.`,5,[l+i,m+1+j]);buffer.push(left[i]<=right[j]?left[i++]:right[j++])}buffer.push(...left.slice(i),...right.slice(j));for(let k=0;k<buffer.length;k++){a[l+k]=buffer[k];writes++;emit(`Ghi ${buffer[k]} từ bộ đệm vào vị trí ${l+k}.`,6,[],[l+k])}emit(`Đoạn [${l}…${r}] đã được trộn có thứ tự.`,6,range(l,r+1))};sort(0,n-1)}
+if(type==='merge'){
+ const sort=(l,r)=>{
+  emit(`MergeSort(A, ${l}, ${r})`,0,range(l,r+1));
+  emit(l<r?`l < r: tiếp tục chia đoạn [${l}…${r}].`:`l < r sai: đoạn có tối đa một phần tử, dừng.`,1,range(l,r+1));
+  if(l>=r)return;
+  const m=Math.floor((l+r)/2);
+  emit(`mid = ⌊(${l} + ${r}) / 2⌋ = ${m}.`,2,range(l,m+1),range(m+1,r+1));
+  emit(`Sắp xếp đoạn trái [${l}…${m}].`,3,range(l,m+1));
+  sort(l,m);
+  emit(`Sắp xếp đoạn phải [${m+1}…${r}].`,4,range(m+1,r+1));
+  sort(m+1,r);
+  const left=a.slice(l,m+1),right=a.slice(m+1,r+1),buffer=[];
+  let i=0,j=0;
+  while(i<left.length&&j<right.length){
+   comparisons++;
+   buffer.push(left[i]<=right[j]?left[i++]:right[j++]);
+  }
+  buffer.push(...left.slice(i),...right.slice(j));
+  for(let k=0;k<buffer.length;k++){
+   a[l+k]=buffer[k];writes++;
+  }
+  emit(`Merge(A, ${l}, ${m}, ${r}): đoạn [${l}…${r}] đã được trộn có thứ tự.`,5,range(l,r+1));
+ };
+ sort(0,n-1);
+}
 if(type==='quick'){const done=[];const sort=(l,r)=>{if(l>r)return;if(l===r){done.push(l);emit(`Phần tử tại ${l} đã đúng vị trí.`,0,[],[],done);return}let pivot=a[r],i=l;emit(`Chọn pivot = ${pivot} ở vị trí ${r}.`,1,[],[r],done);for(let j=l;j<r;j++){comparisons++;emit(`So sánh ${a[j]} với pivot = ${pivot}.`,3,[j],[r],done);if(a[j]<=pivot){swap(i,j);emit('Đưa phần tử sang phía trái pivot.',4,[i,j],[r],done);i++}}swap(i,r);done.push(i);emit(`Pivot ${pivot} đã ở vị trí cuối cùng ${i}.`,5,[],[i],done);sort(l,i-1);sort(i+1,r)};sort(0,n-1)}
 if(type==='heap'){let done=[];const heapify=(size,root)=>{let largest=root;for(const child of [2*root+1,2*root+2])if(child<size){comparisons++;emit(`So sánh con ${a[child]} với ${a[largest]}.`,5,[largest,child],[],done);if(a[child]>a[largest])largest=child}if(largest!==root){swap(root,largest);emit('Đổi chỗ để khôi phục max-heap.',6,[],[root,largest],done);heapify(size,largest)}};for(let i=Math.floor(n/2)-1;i>=0;i--)heapify(n,i);emit('Max-heap đã được xây dựng.',0);for(let end=n-1;end>0;end--){swap(0,end);done.push(end);emit(`Đưa giá trị lớn nhất ${a[end]} về cuối.`,2,[],[0],done);heapify(end,0)}}
 if(type==='lomutoPartition'||type==='hoarePartition'){

@@ -182,3 +182,6 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
 .code-line .syntax-operator{color:#be123c}
 .code-line .syntax-function{color:#047857;font-weight:700}
 .code-line.highlight{background:#e6f3ed;box-shadow:inset 3px 0 #087f81}
+
+/* Separate the smaller partition from the segment currently being examined. */
+.bar.smaller,.legend .smaller{background:#9333ea;color:#9333ea}

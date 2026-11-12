@@ -40,6 +40,86 @@ body[data-presentation="csonet"] .talk-overview{list-style:none;margin:48px 0 0;
 body[data-presentation="csonet"] .talk-overview li{position:relative;padding:23px 0 23px 30px;border-bottom:1px solid var(--line);font-size:30px;line-height:1.35;font-weight:400}
 body[data-presentation="csonet"] .talk-overview li::before{content:"";position:absolute;left:0;top:39px;width:8px;height:8px;border-radius:50%;background:var(--teal)}
 body[data-presentation="csonet"] #deck > .slide:first-of-type .slide-page-number{display:none}
+body[data-presentation="csonet"] .cover-logos{position:absolute;top:58px;left:66px;right:66px;height:112px;display:flex;align-items:center;justify-content:space-between;gap:60px}
+body[data-presentation="csonet"] .cover-logos img{display:block;object-fit:contain;flex:none;max-height:112px}
+body[data-presentation="csonet"] .problem-description{border-left:0;padding-left:0}
+body[data-presentation="csonet"] .problem-formulas{border-left:2px solid var(--teal);padding-left:34px}
+/* Give the problem statement more space and larger type. */
+body[data-presentation="csonet"] .slide[data-title="Problem definition"] .split{margin-top:58px;gap:54px}
+body[data-presentation="csonet"] .problem-description h3{font-size:27px;margin-bottom:16px}
+body[data-presentation="csonet"] .problem-description p{font-size:23px;line-height:1.5;margin-bottom:30px}
+body[data-presentation="csonet"] .problem-description p:last-child{margin-bottom:0}
+body[data-presentation="csonet"] .problem-formulas .hero-formula{font-size:39px;padding:20px 0 30px}
+body[data-presentation="csonet"] .problem-formulas .constraints p{font-size:32px;line-height:1.55;padding:22px 0}
+body[data-presentation="csonet"] .streaming-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:58px}
+body[data-presentation="csonet"] .streaming-description h3{font-size:26px;margin:0 0 14px}
+body[data-presentation="csonet"] .streaming-description p{font-size:23px;line-height:1.5;margin-bottom:32px}
+body[data-presentation="csonet"] .streaming-animation{border-left:2px solid var(--teal);padding-left:32px}
+body[data-presentation="csonet"] .streaming-track{display:flex;gap:14px;align-items:center;margin:22px 0 30px;font-size:26px}
+body[data-presentation="csonet"] .streaming-track b{font-weight:400;padding:10px 8px;border-bottom:3px solid var(--line)}
+body[data-presentation="csonet"] #streamCurrent{color:var(--teal);border-color:var(--teal);background:#edf6f4}
+body[data-presentation="csonet"] .streaming-decision{font-size:24px;color:var(--teal);min-height:42px;text-align:center;margin-bottom:24px}
+body[data-presentation="csonet"] .streaming-bins{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+body[data-presentation="csonet"] .streaming-bins>div{border-bottom:2px solid var(--teal);padding:12px 0;min-height:115px}
+body[data-presentation="csonet"] .streaming-bins strong{font-size:21px;color:var(--teal)}
+body[data-presentation="csonet"] .streaming-bins>div>div{font-size:23px;margin-top:18px;min-height:30px}
+body[data-presentation="csonet"] .streaming-bins .just-added{animation:stream-arrival .5s ease-out}
+body[data-presentation="csonet"] .streaming-skipped{font-size:19px;color:var(--muted);margin-top:22px;min-height:30px}
+body[data-presentation="csonet"] .streaming-caption{font-size:20px;margin-top:16px;min-height:58px;line-height:1.4}
+body[data-presentation="csonet"] #streamAnimationToggle{font-size:16px;color:var(--teal);margin-top:12px}
+@keyframes stream-arrival{from{transform:translateY(-18px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){body[data-presentation="csonet"] .streaming-bins .just-added{animation:none}}
+/* Conveyor motion for the incoming data stream. */
+body[data-presentation="csonet"] .streaming-track{gap:8px}
+body[data-presentation="csonet"] .streaming-flow-window{overflow:hidden;flex:1;min-width:0;padding:4px 0}
+body[data-presentation="csonet"] .streaming-flow-belt{display:flex;gap:12px;justify-content:space-between;will-change:transform}
+body[data-presentation="csonet"] .streaming-flow-belt b{flex:1;min-width:0;text-align:center}
+body[data-presentation="csonet"] .streaming-flow-belt.flowing{animation:stream-conveyor 1.8s linear both}
+@keyframes stream-conveyor{from{transform:translateX(-25%)}to{transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){body[data-presentation="csonet"] .streaming-flow-belt.flowing{animation:none}}
+body[data-presentation="csonet"] .streaming-bins{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+body[data-presentation="csonet"] .streaming-bins strong{font-size:20px}
+body[data-presentation="csonet"] .streaming-bins .streaming-unlabeled{grid-column:1 / -1;border-bottom-color:#c45a12;min-height:100px}
+body[data-presentation="csonet"] .streaming-bins .streaming-unlabeled strong,
+body[data-presentation="csonet"] .streaming-bins .streaming-unlabeled>div{color:#c45a12}
+body[data-presentation="csonet"] .streaming-bins>div>div{display:flex;flex-wrap:wrap;gap:4px 0;font-size:21px;line-height:1.4}
+body[data-presentation="csonet"] .streaming-flow-belt b,
+body[data-presentation="csonet"] .streaming-bins .just-added{white-space:nowrap}
+body[data-presentation="csonet"] .streaming-animation sub{font-size:.65em;line-height:0;position:relative;vertical-align:baseline;bottom:-.28em}
+body[data-presentation="csonet"] .ksub-layout{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:48px}
+body[data-presentation="csonet"] .ksub-layout h3{font-size:25px;margin:0 0 14px}
+body[data-presentation="csonet"] .ksub-layout p{font-size:22px;line-height:1.45;margin-bottom:26px}
+body[data-presentation="csonet"] .ksub-layout .formula{font-size:28px;color:var(--teal);margin:18px 0 20px}
+body[data-presentation="csonet"] .ksub-layout .ksub-gain{font-size:25px}
+body[data-presentation="csonet"] .ksub-layout .ksub-notation{font-size:19px;color:var(--muted)}
+body[data-presentation="csonet"] .ksub-properties{border-left:2px solid var(--teal);padding-left:30px}
+body[data-presentation="csonet"] .challenge-label{display:block;font-size:28px;line-height:1.25;font-weight:600;color:var(--teal);margin-bottom:20px}
+body[data-presentation="csonet"] .budget-example{margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
+body[data-presentation="csonet"] .budget-example p{font-size:21px;line-height:1.4;margin-bottom:14px}
+body[data-presentation="csonet"] .budget-example .budget-shortfall{color:var(--red);margin-bottom:0}
+body[data-presentation="csonet"] .budget-visual{margin-top:24px;padding-top:18px}
+body[data-presentation="csonet"] .budget-slots{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-top:22px}
+body[data-presentation="csonet"] .budget-slots>span{height:58px;display:flex;align-items:center;justify-content:center;font-size:27px;border:2px solid var(--teal);border-radius:5px}
+body[data-presentation="csonet"] .budget-slots .used{background:var(--teal);color:white}
+body[data-presentation="csonet"] .budget-slots .free{border-style:dashed;background:#fff;color:var(--muted)}
+body[data-presentation="csonet"] .budget-slot-labels{display:flex;justify-content:space-between;font-size:17px;margin-top:9px;color:var(--muted)}
+body[data-presentation="csonet"] .budget-need{display:flex;align-items:center;gap:12px;margin-top:25px;font-size:20px}
+body[data-presentation="csonet"] .budget-need>span.needed,
+body[data-presentation="csonet"] .budget-need>span.missing{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:24px}
+body[data-presentation="csonet"] .budget-need .needed{border:2px solid #c45a12;background:#fff3e8;color:#a4470c}
+body[data-presentation="csonet"] .budget-need .missing{border:2px dashed var(--red);background:#fff1f1;color:var(--red)}
+body[data-presentation="csonet"] .budget-deficit{font-weight:600;color:var(--red)}
+body[data-presentation="csonet"] .cover-logos .logo-csonet{background:transparent;padding:0;object-fit:contain}
+body[data-presentation="csonet"] .cover-logos .logo-orlab{object-fit:cover;object-position:center}
+body[data-presentation="csonet"] .logo-csonet-lockup{display:flex;align-items:center;gap:10px;flex:none}
+body[data-presentation="csonet"] .logo-csonet-lockup>span{font-family:Arial,Helvetica,sans-serif;font-size:29px;line-height:1;font-weight:700;color:#142b3b;white-space:nowrap;letter-spacing:-.6px}
+/* Center the cover logos at half their previous dimensions. */
+body[data-presentation="csonet"] .cover-logos{top:25px;justify-content:center;gap:30px}
+body[data-presentation="csonet"] .logo-csonet-lockup{gap:5px}
+body[data-presentation="csonet"] .cover-logos .logo-csonet{width:40px;height:40px}
+body[data-presentation="csonet"] .logo-csonet-lockup>span{font-size:21.75px;letter-spacing:-.3px}
+body[data-presentation="csonet"] .cover-logos .logo-orlab{width:130px;height:55px}
+body[data-presentation="csonet"] .cover-logos .logo-phenikaa{width:160px;height:32.5px}
 </style>
 </head>
 <body data-presentation="csonet">
@@ -47,6 +127,11 @@ body[data-presentation="csonet"] #deck > .slide:first-of-type .slide-page-number
 <header class="toolbar"><a class="brand" href="#1" aria-label="First slide">CSONET <span>Research presentation</span></a><div class="tools"><a class="library-link" href="index.html" title="Chọn bài thuyết trình" aria-label="Chọn bài thuyết trình"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/></path></svg></a><button id="remoteBtn" type="button" title="Điều khiển từ xa" aria-label="Điều khiển từ xa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/></rect><path d="M10 18h4"/></path></svg></button><button id="laserBtn" title="Laser pointer (L)" aria-pressed="false" aria-label="Laser pointer (L)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></path></svg></button><button id="penBtn" title="Pen (P)" aria-pressed="false" aria-label="Pen (P)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 16-1 5 5-1L20 8l-4-4L4 16Zm10-10 4 4M4 16l4 4"/></path></svg></button><button id="clearInkBtn" title="Clear drawing on this slide (C)" aria-label="Clear drawing on this slide (C)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 14 9-10a2 2 0 0 1 3 0l6 6a2 2 0 0 1 0 3l-7 8H9l-6-6a1 1 0 0 1 0-1Zm4-4 10 9M14 21h8"/></path></svg></button><button id="overviewBtn" title="Slide overview (O)" aria-label="Slide overview (O)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/></rect><rect x="14" y="3" width="7" height="7" rx="1"/></rect><rect x="3" y="14" width="7" height="7" rx="1"/></rect><rect x="14" y="14" width="7" height="7" rx="1"/></rect></svg></button><button id="notesBtn" title="Speaker notes (N)" aria-pressed="false" aria-label="Speaker notes (N)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h16v14l-5 4H4V3Zm11 18v-5h5M8 7h8M8 11h8M8 15h3"/></path></svg></button><button id="fullBtn" title="Fullscreen (F)" aria-label="Fullscreen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></path></svg></button></div></header>
 <main id="deck" aria-label="Presentation">
 <section class="slide cover" data-title="Research question" data-time="0:30">
+<div class="cover-logos" aria-label="CSONET, ORLab, Phenikaa University">
+<div class="logo-csonet-lockup" aria-label="CSoNet 2026"><img class="logo-csonet" src="assets/csonet-logos/csonet.png" alt="" width="80" height="80"><span>CSoNet 2026</span></div>
+<img class="logo-orlab" src="assets/csonet-logos/orlab-user.png" alt="ORLab — Solution for AI" width="260" height="110">
+<img class="logo-phenikaa" src="assets/csonet-logos/phenikaa-user.png" alt="Phenikaa University" width="320" height="65">
+</div>
 <div class="cover-content">
 <h1>Streaming Algorithms for<br>Monotone <span class="math" data-tex="k">k</span>-Submodular Maximization<br><em>under Fairness Constraints</em></h1>
 <p class="authors">Dung T. Pham · Tan D. Tran · Canh V. Pham</p>
@@ -60,35 +145,54 @@ body[data-presentation="csonet"] #deck > .slide:first-of-type .slide-page-number
 <aside class="speaker-notes">My presentation consists of four parts: the problem definition, the proposed algorithms, the experimental results, and the conclusion.</aside>
 </section>
 
-<section class="slide" data-title="Problem formulation" data-time="1:30">
-<div class="eyebrow">Full problem</div><h2>Fair streaming maximization</h2>
-<div class="split"><div><div class="formula hero-formula"><span class="math" data-tex="\max_{S_1,\ldots,S_k\subseteq V} f(S_1,\ldots,S_k)">maximize <i>f</i>(S₁, …, S<sub>k</sub>)</span></div><div class="constraints"><p><span class="math" data-tex="\ell_i\le |S_i|\le u_i">ℓ<sub>i</sub> ≤ |S<sub>i</sub>| ≤ u<sub>i</sub></span> <span>lower / upper quota for each label group i</span></p><p><span class="math" data-tex="\sum_i |S_i|\le B">∑<sub>i</sub> |S<sub>i</sub>| ≤ B</span> <span>total selection budget</span></p><p><span class="math" data-tex="S_i\cap S_j=\emptyset">S<sub>i</sub> ∩ S<sub>j</sub> = ∅</span> <span>for distinct labels i and j</span></p></div></div><div class="explanation"><h3>Decision variables</h3><p><span class="math" data-tex="S_i">Sᵢ</span>: elements assigned label <span class="math" data-tex="i">i</span>, for <span class="math" data-tex="i=1,\ldots,k">i = 1, …, k</span>.</p><h3>Objective value</h3><p>Find a feasible assignment with maximum value <span class="math" data-tex="f(S_1,\ldots,S_k)">f(S₁, …, Sₖ)</span>.</p><p>The function is monotone and <span class="math" data-tex="k">k</span>-submodular: adding a labeled element cannot reduce the value, and marginal gains satisfy diminishing returns.</p></div></div>
-<p class="footnote">Assumptions: <span class="math" data-tex="n\ge B\ge1,\quad 0\le\ell_i\le u_i,\quad\text{and }\sum_i\ell_i\le B\le\sum_i u_i">n ≥ B ≥ 1, 0 ≤ ℓᵢ ≤ uᵢ, and ∑ᵢ ℓᵢ ≤ B ≤ ∑ᵢ uᵢ</span>. Theory assumes exact value-oracle access.</p>
-<aside class="speaker-notes">We want to maximize f. Each label has a minimum and a maximum number of elements. We can select at most B elements. Each element can have only one label. Adding an element cannot reduce the value. Its gain becomes smaller as the solution grows. The theory assumes exact function values.</aside>
+<section class="slide" data-title="Problem definition" data-time="1:30">
+<h2>Problem definition</h2>
+<div class="split"><div class="explanation problem-description"><h3>Input stream</h3><p>A stream of <span class="math" data-tex="n">n</span> elements, with <span class="math" data-tex="k">k</span> possible labels.</p><h3>Selection and labeling</h3><p>Assign each element to one label or leave it unlabeled. Let <span class="math" data-tex="S_i">Sᵢ</span> be the set of elements assigned to label <span class="math" data-tex="i">i</span>.</p><h3>Objective</h3><p>Find sets <span class="math" data-tex="S_1,\ldots,S_k">S₁, …, Sₖ</span> that maximize <span class="math" data-tex="f(S_1,\ldots,S_k)">f(S₁, …, Sₖ)</span>, where <span class="math" data-tex="f">f</span> is monotone and <span class="math" data-tex="k">k</span>-submodular.</p></div><div class="problem-formulas"><div class="formula hero-formula"><span class="math" data-tex="\max_{S_1,\ldots,S_k\subseteq V} f(S_1,\ldots,S_k)">maximize f(S₁, …, Sₖ)</span></div><div class="constraints"><p><span class="math" data-tex="\ell_i\le |S_i|\le u_i\quad\forall i">ℓᵢ ≤ |Sᵢ| ≤ uᵢ for all i</span></p><p><span class="math" data-tex="\sum_{i=1}^{k}|S_i|\le B">∑ᵢ |Sᵢ| ≤ B</span></p><p><span class="math" data-tex="S_i\cap S_j=\emptyset\quad(i\ne j)">Sᵢ ∩ Sⱼ = ∅ for i ≠ j</span></p></div></div></div>
+<aside class="speaker-notes">Our problem is as follows. Given a data stream of \(n\) elements, each element can be assigned to one of \(k\) labels or left unlabeled. Select and label at most \(B\) elements to maximize a monotone \(k\)-submodular objective, while ensuring that the number of elements assigned to each label is within its lower and upper bounds.</aside>
 </section>
 <section class="slide" data-title="Streaming assignment" data-time="1:00">
-<div class="eyebrow">Problem setup</div><h2>Streaming n elements with k labels</h2>
-<p class="lead">A stream of n elements arrives one at a time. Select elements and assign each one of k labels.</p>
-<div class="allocation"><div class="stream"><span>Stream: V = {e₁, …, eₙ}</span><div class="tokens"><b><span class="math" data-tex="e_1">e₁</span></b><b><span class="math" data-tex="e_2">e₂</span></b><b><span class="math" data-tex="e_3">e₃</span></b><b><span class="math" data-tex="\ldots">…</span></b><b><span class="math" data-tex="e_n">eₙ</span></b></div><p>Fixed arbitrary order<br>Limited storage<br>No full input in memory</p></div><div class="allocation-rule">Select<br>+<br>assign a label</div><div class="labels"><div><strong>Label 1</strong><span><span class="math" data-tex="S_1">S₁</span></span></div><div><strong>Label 2</strong><span><span class="math" data-tex="S_2">S₂</span></span></div><div class="label-ellipsis" aria-label="Other labels"><span>....................</span></div><div class="last-label"><strong>Label k</strong><span><span class="math" data-tex="S_k">Sₖ</span></span></div></div></div>
+<h2>The streaming problem</h2>
+<div class="streaming-layout">
+<div class="streaming-description"><h3>Elements arrive one at a time</h3><p>Read a stream of <span class="math" data-tex="n">n</span> elements using limited memory.</p><h3>Select and assign a label</h3><p>For each element, choose one of <span class="math" data-tex="k">k</span> labels or leave it unlabeled.</p></div>
+<div class="streaming-animation" aria-label="Animation of elements arriving, being selected and labeled, or left unlabeled">
+<p class="small-label">Incoming stream</p><div class="streaming-track"><span class="streaming-source">⋯</span><div class="streaming-flow-window"><div class="streaming-flow-belt" id="streamFlowBelt"><b>e₄</b><b>e₃</b><b>e₂</b><b id="streamCurrent">e₁</b></div></div><span>→</span></div>
+<div class="streaming-decision" id="streamDecision">Read the next element</div>
+<div class="streaming-bins"><div><strong>Label 1</strong><div id="streamBin1"></div></div><div><strong>Label 2</strong><div id="streamBin2"></div></div><div><strong>Label k</strong><div id="streamBinK"></div></div><div class="streaming-unlabeled"><strong>Unlabeled</strong><div id="streamSkipped"></div></div></div>
+
+</div></div>
 <aside class="speaker-notes">Elements arrive one by one. We have limited memory. We choose which elements to keep and give each one a label. The algorithm chooses the labels. They are not fixed input groups.</aside>
 </section>
+<section class="slide" data-title="Monotone k-submodular functions" data-time="1:00">
+<h2>Monotone <span class="math" data-tex="k">k</span>-submodular functions</h2>
+<div class="ksub-layout">
+<div><h3>A function on labeled sets</h3><p><span class="math" data-tex="\mathbf{S}=(S_1,\ldots,S_k)">S = (S₁, …, Sₖ)</span> consists of pairwise disjoint sets. Each element has one label or is unlabeled.</p><h3>Marginal gain</h3><p>The extra value from assigning an unused element <span class="math" data-tex="e">e</span> to label <span class="math" data-tex="i">i</span>:</p><div class="formula ksub-gain"><span class="math" data-tex="\Delta_{e,i}f(\mathbf{S})=f(\mathbf{S}+e_i)-f(\mathbf{S})">Δₑ,ᵢf(S) = f(S + eᵢ) − f(S)</span></div></div>
+<div class="ksub-properties"><h3>Diminishing returns</h3><p>Adding the same element with the same label gives no more gain in a larger compatible assignment.</p><div class="formula"><span class="math" data-tex="\Delta_{e,i}f(\mathbf{S})\ge\Delta_{e,i}f(\mathbf{T})">Δₑ,ᵢf(S) ≥ Δₑ,ᵢf(T)</span></div><p class="ksub-notation">For <span class="math" data-tex="S_j\subseteq T_j\;\forall j">Sⱼ ⊆ Tⱼ for all j</span>, with <span class="math" data-tex="e\notin\bigcup_j T_j">e ∉ ⋃ⱼ Tⱼ</span>.</p><h3>Monotonicity</h3><div class="formula"><span class="math" data-tex="\Delta_{e,i}f(\mathbf{S})\ge0">Δₑ,ᵢf(S) ≥ 0</span></div><p>Adding a labeled element never reduces the value.</p></div>
+</div>
+<aside class="speaker-notes">The function gives a value to the labeled sets. The marginal gain is the extra value from adding one element to one label. For a monotone k-submodular function, this gain cannot be negative. It also has diminishing returns: adding the same element to the same label gives no more gain when the assignment is larger. The larger assignment must keep all existing labels.</aside>
+</section>
+
 <section class="slide" data-title="Technical challenges" data-time="1:30">
-<div class="eyebrow">Challenges</div><h2>Lower quotas and conflicting labels</h2>
-<div class="split challenges"><div><span class="index">A</span><h3>Budget must leave room for deficits</h3><p>Early selections can consume the slots that other labels still need.</p><p class="example-text">A partial assignment must remain completable.</p></div><div><span class="index"><span class="math" data-tex="B">B</span></span><h3>The same element can have two labels</h3><div class="conflict"><p>Algorithm: <b><span class="math" data-tex="(e,1)">(e, 1)</span></b></p><p>Optimum: <b><span class="math" data-tex="(e,2)">(e, 2)</span></b></p></div><p>The pair-set union is not a valid <span class="math" data-tex="k">k</span>-set.</p></div></div>
-<div class="takeaway">The analysis must compare assignments without creating label conflicts.</div>
-<aside class="speaker-notes">There are two challenges. First, we must leave enough space to meet all minimum quotas. Second, our algorithm and the best solution may give different labels to the same element. We cannot simply put these two solutions together.</aside>
+<h2>Challenges</h2>
+<div class="split challenges"><div><span class="challenge-label">Budget</span><h3>Reserve enough budget to meet lower quotas</h3><p>Selecting too many elements for some labels may leave too little budget to meet the lower quotas of other labels.</p><div class="budget-example budget-visual" role="img" aria-label="The budget has 6 slots. Label 1 uses 5 slots, leaving only 1 free slot. Label 2 needs 2 slots, so 1 slot is missing.">
+<p><strong>Example:</strong> <span class="math" data-tex="B=6,\quad\ell_1=\ell_2=2">B = 6, ℓ₁ = ℓ₂ = 2</span></p>
+<div class="budget-slots"><span class="used">1</span><span class="used">1</span><span class="used">1</span><span class="used">1</span><span class="used">1</span><span class="free">?</span></div>
+<div class="budget-slot-labels"><span>5 slots for label 1</span><span>1 slot left</span></div>
+<div class="budget-need"><strong>Label 2 needs</strong><span class="needed">2</span><span class="missing">2</span><span class="budget-deficit">1 slot short</span></div>
+</div></div><div><span class="challenge-label">Label conflicts</span><h3>Comparing the algorithm with the optimum</h3><div class="conflict"><p>Algorithm: <b><span class="math" data-tex="(e,1)">(e, 1)</span></b></p><p>Optimum: <b><span class="math" data-tex="(e,2)">(e, 2)</span></b></p></div><p>The two solutions may assign different labels to the same element. Combining them directly may violate the one-label-per-element rule.</p></div></div>
+
+<aside class="speaker-notes">There are two challenges. First, choosing too many elements for some labels may leave too little budget for the minimum quotas of other labels. For example, let the budget be six and let each of two labels need at least two elements. If we select five elements for label one and none for label two, only one slot remains. That is not enough for label two. Second, in the analysis, we compare our solution with an optimal solution. They may give different labels to the same element. We cannot simply combine them, because each element can have only one label.</aside>
 </section>
 <section class="slide" data-title="Fair extendability" data-time="1:30">
 <div class="eyebrow">Key idea</div><h2>Fair extendability</h2><p class="lead">A partial assignment only needs to admit a fair completion.</p>
 <div class="formula key-formula"><span class="math" data-tex="|S_i|\le u_i\ \forall i\qquad\text{and}\qquad\sum_i\max\{|S_i|,\ell_i\}\le B">|S<sub>i</sub>| ≤ u<sub>i</sub> ∀i <span>and</span> ∑<sub>i</sub> max{|S<sub>i</sub>|, ℓ<sub>i</sub>} ≤ B</span></div>
 <div class="quota-demo"><div><p class="small-label">Illustrative example · <span class="math" data-tex="k=3\;\cdot\;B=9\;\cdot\;\ell=(2,2,2)\;\cdot\;u=(6,6,6)">k = 3 · B = 9 · ℓ = (2, 2, 2) · u = (6, 6, 6)</span></p><div id="quotaCounts" class="quota-counts"></div><p id="quotaCalculation" class="quota-calculation"></p></div><div><button id="quotaToggle" class="action">Show a blocked state</button><p id="quotaStatus" role="status"></p></div></div>
-<div class="takeaway">Element–label pairs + quota matroid characterize extendability for valid <span class="math" data-tex="k">k</span>-sets.</div>
+
 <aside class="speaker-notes">Our main idea is to keep a solution that we can still complete. For each label, we reserve enough space for its minimum quota. The total must fit within B, and no label can exceed its maximum quota. In this example, eight slots fit within nine, but ten slots do not.</aside>
 </section>
 <section class="slide" data-title="Shared buffer" data-time="1:00">
 <div class="eyebrow">Completion</div><h2>A shared buffer completes the assignment</h2>
 <div class="buffer-layout"><div class="big-stat"><span class="math" data-tex="\min\{n,2B\}">min{n, 2B}</span><span>first stream elements retained</span></div><ol class="steps"><li><strong>Keep the current assignment</strong><span>Preserve every selected element–label pair.</span></li><li><strong>Fill remaining quota deficits</strong><span>Use distinct unused elements from the buffer.</span></li><li><strong>Fill the remaining budget</strong><span>Respect every upper quota and reach size <span class="math" data-tex="B">B</span>.</span></li></ol></div>
-<div class="takeaway">No extra pass · All quotas satisfied · Objective value never decreases</div>
+
 <aside class="speaker-notes">We keep the first n elements or the first two B elements, whichever is fewer. We use this buffer to complete the solution. First, we meet the minimum quotas. Then, we fill the budget without breaking the maximum quotas. Adding these elements cannot reduce the value.</aside>
 </section>
 <section class="slide" data-title="OPFSA" data-time="1:30">
@@ -111,15 +215,15 @@ body[data-presentation="csonet"] #deck > .slide:first-of-type .slide-page-number
 <section class="slide" data-title="Experimental setup" data-time="0:45">
 <div class="eyebrow">Evaluation</div><h2>Influence maximization on two networks</h2>
 <div class="split"><div><h3 class="network-name">Email-Eu-core</h3><p>Directed input arcs</p><h3 class="network-name second">ca-GrQc</h3><p>Each undirected edge becomes two arcs</p><p class="footnote">Weighted-Cascade model<br><span class="math" data-tex="p(u,v)=1/\operatorname{indegree}(v)">p(u, v) = 1/indegree(v)</span></p></div><div class="setup"><p><span>Labels</span><strong><span class="math" data-tex="k=3">k = 3</span></strong></p><p><span>Quotas per label</span><strong><span class="math" data-tex="3\le |S_i|\le10">3 ≤ |Sᵢ| ≤ 10</span></strong></p><p><span>Budgets</span><strong>9, 12, …, 30</strong></p><p><span>Accuracy</span><strong><span class="math" data-tex="\varepsilon=0.1">ε = 0.1</span></strong></p><p><span>Monte Carlo worlds</span><strong>100 decision / 1,000 evaluation</strong></p><p><span>Runs</span><strong>One per configuration, seed 42</strong></p></div></div>
-<div class="takeaway">Baselines: Fair-Greedy and Fair-Threshold · All 64 runs pass quota and budget checks</div>
-<aside class="speaker-notes">We test on two networks: Email-Eu-core and ca-GrQc. We use the Weighted-Cascade model. There are three labels, with three to ten elements per label. The budget ranges from nine to thirty. All methods use the same seed and stream order. We use one hundred simulations for decisions and one thousand separate simulations for evaluation. We run each setting once.</aside>
+
+<aside class="speaker-notes">We run experiments on two datasets using the parameter settings shown on this slide.</aside>
 </section>
 <section class="slide" data-title="Experimental results" data-time="2:00">
 <div class="eyebrow">Results</div><h2>MPFSA stays close to the offline baselines</h2>
 <div class="chart-heading"><p>Objective value at <strong><span class="math" data-tex="B=30">B = 30</span></strong></p><div class="dataset-switch" role="group" aria-label="Dataset"><button class="selected" data-dataset="email" aria-pressed="true">Email-Eu-core</button><button data-dataset="grqc" aria-pressed="false">ca-GrQc</button></div></div>
 <div id="resultsChart" class="bar-chart" aria-label="Objective values"></div>
 <div class="result-summary"><p><strong>OPFSA</strong> supports one pass, with lower values and the highest recorded query and time costs.</p><p><strong>Fair-Threshold</strong> has the fewest queries and the shortest runtime in these runs.</p></div>
-<p class="footnote">Memory measurements use algorithm-phase Python tracemalloc, rather than full-process peak RSS. These experiments use estimated oracle values.</p>
+
 <aside class="speaker-notes">This chart uses a budget of thirty. MPFSA gives values close to the offline methods on both networks. OPFSA gives lower values. Fair-Threshold is the fastest and uses the fewest function calls in these runs. OPFSA uses the most time, memory, and function calls. One pass does not always mean faster. We only run each setting once, so we cannot say one method is always better.</aside>
 </section>
 <section class="slide closing" data-title="Take-home messages" data-time="0:45">
@@ -146,6 +250,33 @@ document.querySelectorAll('#deck > .slide').forEach((slide,index)=>{
  number.setAttribute('aria-label','Slide '+(index+1));
  slide.append(number);
 });
+</script>
+<script>
+(()=>{
+ const slide=document.querySelector('.streaming-layout').closest('.slide');
+ const ids=['streamBin1','streamBin2','streamBinK'];
+ function elementText(node,value,prefix=''){
+  node.replaceChildren(document.createTextNode(prefix+'e'));
+  const index=document.createElement('sub');index.textContent=String(value);node.append(index);
+ }
+ const events=Array.from({length:20},(_,index)=>({number:index+1,e:'e'+(index+1),label:[0,null,1,2,0,1,null,2][index%8]}));
+ let step=0,timer=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function reset(){ids.forEach(id=>document.getElementById(id).replaceChildren());document.getElementById('streamSkipped').replaceChildren();step=0;}
+ function advance(){
+  if(step===events.length){reset();}
+  const event=events[step++];
+  const belt=document.getElementById('streamFlowBelt');
+  const tokens=belt.querySelectorAll('b');
+  tokens.forEach((token,index)=>{const value=step+3-index;if(value<=20)elementText(token,value);else token.replaceChildren();});
+  belt.classList.remove('flowing');void belt.offsetWidth;if(!paused)belt.classList.add('flowing');
+  const label=event.label===2?'k':String(event.label+1);
+  document.getElementById('streamDecision').textContent=event.label===null?'Leave '+event.e+' unlabeled':'Assign '+event.e+' to label '+label;
+  if(event.label===null){const token=document.createElement('span');token.className='just-added';token.style.display='inline-block';const bin=document.getElementById('streamSkipped');elementText(token,event.number,bin.childNodes.length?', ':'');bin.append(token);}
+  else{const bin=document.getElementById(ids[event.label]);const token=document.createElement('span');token.className='just-added';token.style.display='inline-block';elementText(token,event.number,bin.childNodes.length?', ':'');bin.append(token);}
+ }
+ function sync(){clearInterval(timer);timer=null;document.getElementById('streamFlowBelt').style.animationPlayState=paused?'paused':'running';if(slide.classList.contains('active')&&!paused&&!document.hidden)timer=setInterval(advance,1800);}
+ document.addEventListener('slidechange',sync);document.addEventListener('visibilitychange',sync);advance();sync();
+})();
 </script>
 </body>
 </html>

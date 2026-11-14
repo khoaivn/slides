@@ -251,13 +251,13 @@ body[data-presentation="csonet"] .mpfsa-slide .algorithm-detail .footnote{font-s
 <div id="resultsChart" class="bar-chart" aria-label="Objective values"></div>
 <div class="result-summary"><p><strong>OPFSA</strong> supports one pass, with lower values and the highest recorded query and time costs.</p><p><strong>Fair-Threshold</strong> has the fewest queries and the shortest runtime in these runs.</p></div>
 
-<aside class="speaker-notes">The experimental results show that MPFSA achieves values close to the two offline methods on both networks, while OPFSA gives lower values. In these runs, Fair-Threshold is the fastest and makes the fewest function calls. OPFSA takes the most time and makes the most calls. So, one pass does not necessarily mean faster execution. However, we ran each configuration only once, so we cannot conclude that any method is consistently better.</aside>
+<aside class="speaker-notes">The results show MPFSA close to both offline methods on both networks, with lower values for OPFSA. Fair-Threshold is fastest and makes the fewest calls in these runs. One pass need not be faster. Each configuration was run once, so these comparisons remain exploratory.</aside>
 </section>
 <section class="slide closing" data-title="Take-home messages" data-time="0:45">
 <div class="eyebrow">Conclusion</div><h2>Exact quotas in streaming assignments</h2>
 <ol class="conclusions"><li><span>01</span><p><strong>Fair extendability</strong> keeps every partial assignment completable.</p></li><li><span>02</span><p><strong>OPFSA</strong> gives a deterministic one-pass guarantee.</p></li><li><span>03</span><p><strong>MPFSA</strong> gives a stronger expected guarantee with <span class="math" data-tex="O(B+k)">O(B + k)</span> memory.</p></li></ol>
 <div class="closing-bottom"><p>Open questions: improve the one-pass factor<br>and reduce the multi-pass requirement.</p><div><strong>Thank you</strong><a href="https://github.com/tantdhvan/OP-MPFSA" target="_blank" rel="noopener noreferrer">Code &amp; experiment artifact ↗</a></div></div>
-<aside class="speaker-notes">To conclude, our main idea is to keep solutions that can still be completed fairly. OPFSA is deterministic and needs only one pass. MPFSA needs multiple passes but offers a better approximation guarantee in expectation. Under the problem assumptions, both select exactly B elements and meet every quota. Next, we want to improve the one-pass approximation factor and reduce the number of passes for MPFSA. Thank you for listening.</aside>
+<aside class="speaker-notes">To conclude, we preserve fair extendability. OPFSA is deterministic with one pass; MPFSA uses multiple passes with a better expected approximation guarantee. Under our assumptions, both select B elements and meet all quotas. Next are better one-pass guarantees and fewer passes. Thank you for listening.</aside>
 </section>
 </main>
 <aside id="notesPanel" hidden aria-label="Speaker notes"><div class="notes-header"><strong>Speaker notes</strong><span id="slideTime"></span><button id="closeNotes" aria-label="Close notes">×</button></div><p id="noteText"></p></aside>

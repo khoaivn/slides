@@ -167,6 +167,12 @@ body[data-presentation="csonet"] .ksub-properties>*{visibility:hidden}
 body[data-presentation="csonet"] .ksub-properties>.property-revealed{visibility:visible}
 body[data-presentation="csonet"] .challenges>div{visibility:hidden}
 body[data-presentation="csonet"] .challenges>.challenge-revealed{visibility:visible}
+body[data-presentation="csonet"] .results-pair{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:20px}
+body[data-presentation="csonet"] .dataset-result h3{font-size:24px;color:var(--teal);margin:0}
+body[data-presentation="csonet"] .results-pair .bar-chart{margin-top:16px}
+body[data-presentation="csonet"] .results-pair .bar-row{grid-template-columns:128px 1fr 68px;gap:10px;font-size:17px;margin-bottom:20px}
+body[data-presentation="csonet"] .results-pair .bar-value{font-size:17px}
+body[data-presentation="csonet"] .results-pair .bar-track{height:32px}
 </style>
 </head>
 <body data-presentation="csonet">
@@ -253,8 +259,8 @@ body[data-presentation="csonet"] .challenges>.challenge-revealed{visibility:visi
 </section>
 <section class="slide" data-title="Experimental results" data-time="2:00">
 <div class="eyebrow">Results</div><h2>MPFSA stays close to the offline baselines</h2>
-<div class="chart-heading"><p>Objective value at <strong><span class="math" data-tex="B=30">B = 30</span></strong></p><div class="dataset-switch" role="group" aria-label="Dataset"><button class="selected" data-dataset="email" aria-pressed="true">Email-Eu-core</button><button data-dataset="grqc" aria-pressed="false">ca-GrQc</button></div></div>
-<div id="resultsChart" class="bar-chart" aria-label="Objective values"></div>
+<div class="chart-heading"><p>Objective value at <strong><span class="math" data-tex="B=30">B = 30</span></strong></p></div>
+<div class="results-pair"><div class="dataset-result"><h3>Email-Eu-core</h3><div class="bar-chart" role="img" aria-label="Email-Eu-core: objective values at B = 30; common scale 0 to 650"><div class="bar-row"><span>Fair-Greedy</span><div class="bar-track"><div class="bar" style="width:82.13231%"></div></div><span class="bar-value">533.860</span></div><div class="bar-row"><span>Fair-Threshold</span><div class="bar-track"><div class="bar" style="width:81.86569%"></div></div><span class="bar-value">532.127</span></div><div class="bar-row"><span>OPFSA</span><div class="bar-track"><div class="bar" style="width:73.60185%"></div></div><span class="bar-value">478.412</span></div><div class="bar-row"><span>MPFSA</span><div class="bar-track"><div class="bar" style="width:82.19169%"></div></div><span class="bar-value">534.246</span></div></div></div><div class="dataset-result"><h3>ca-GrQc</h3><div class="bar-chart" role="img" aria-label="ca-GrQc: objective values at B = 30; common scale 0 to 650"><div class="bar-row"><span>Fair-Greedy</span><div class="bar-track"><div class="bar" style="width:90.04200%"></div></div><span class="bar-value">585.273</span></div><div class="bar-row"><span>Fair-Threshold</span><div class="bar-track"><div class="bar" style="width:90.15138%"></div></div><span class="bar-value">585.984</span></div><div class="bar-row"><span>OPFSA</span><div class="bar-track"><div class="bar" style="width:81.70477%"></div></div><span class="bar-value">531.081</span></div><div class="bar-row"><span>MPFSA</span><div class="bar-track"><div class="bar" style="width:89.00477%"></div></div><span class="bar-value">578.531</span></div></div></div></div>
 <div class="result-summary"><p><strong>OPFSA</strong> supports one pass, with lower values and the highest recorded query and time costs.</p><p><strong>Fair-Threshold</strong> has the fewest queries and the shortest runtime in these runs.</p></div>
 
 <aside class="speaker-notes">The results show MPFSA close to both offline methods on both networks, with lower values for OPFSA. Fair-Threshold is fastest and makes the fewest calls in these runs. One pass need not be faster. Each configuration was run once, so these comparisons remain exploratory.</aside>

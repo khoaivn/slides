@@ -36,7 +36,7 @@
    const item=document.createElement('button');item.type='button';item.setAttribute('role','option');item.dataset.slide=index;item.textContent=option.textContent;
    item.onclick=()=>{closeSlidePicker();sendSlide(index);};$('remoteSlideOptions').append(item);});
   loadedPresentation=id;previewSlide=-1;
-  $('remotePreview').src=PRESENTATIONS[id].path+'?preview=1';
+  $('remotePreview').src=PRESENTATIONS[id].path+'?preview=1&v=20261116-step-sync';
  }
  function preview(){return $('remotePreview')?.contentWindow?.deckRemote;}
  function currentAnnotation(){const index=session?.state?.slide??0;return {slide:index,ink:JSON.stringify(phoneInk.get(index)||[]),laser:!!laser,x:laser?.x||0,y:laser?.y||0,at:Date.now()};}
@@ -86,7 +86,7 @@
   function finish(event){
    if(!gesture||gesture.id!==event.pointerId)return;
    const previous=gesture;gesture=null;stroke=null;
-   if(tool==='swipe'&&event.type==='pointerup'){const dx=rotated()?event.clientY-previous.y:event.clientX-previous.x,dy=rotated()?previous.x-event.clientX:event.clientY-previous.y;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.3)sendSlide(previous.slide+(dx<0?1:-1));}
+   if(tool==='swipe'&&event.type==='pointerup'){const dx=rotated()?event.clientY-previous.y:event.clientX-previous.x,dy=rotated()?previous.x-event.clientX:event.clientY-previous.y;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.3)sendNavigation(dx<0?1:-1);}
    else{laser=null;queueAnnotation();}
   }
   for(const event of ['pointerup','pointercancel','lostpointercapture'])surface.addEventListener(event,finish);
@@ -107,27 +107,38 @@
   if(!response.ok){const denied=response.status===401||response.status===403;const action=method==='GET'?'đọc phòng':'ghi phòng';const error=Error(denied?`Firebase từ chối ${action} (HTTP ${response.status}). Kiểm tra tài khoản Google và Publish đúng firebase.rules.json mới nhất.`:`Lỗi kết nối (${response.status}).`);error.permissionDenied=denied;throw error;}
   return response.json();
  }
+ function sendNavigation(delta){if(session)sendSlide(Math.max(0,Math.min(session.total-1,session.state.slide+delta)),delta);}
  function closeSlidePicker(){if(!controller)return;$('remoteSlideOptions').hidden=true;$('remoteSlidePicker').setAttribute('aria-expanded','false');}
  function buttons(disabled) { document.querySelectorAll('[data-remote-nav]').forEach(button=>button.disabled=disabled); }
+ // Keep the step with the acknowledgement inside the existing validated string field.
+ // Older clients that send a plain command ID remain readable.
+ function readAck(ack){
+  try{const value=JSON.parse(ack);if(Array.isArray(value)&&typeof value[0]==='string'&&Number.isInteger(value[1])&&value[1]>=0&&value[1]<=1000)return {id:value[0],step:value[1]};}catch{}
+  return {id:ack,step:0};
+ }
  function showState(state) {
   if(!state || !Number.isInteger(state.slide))return;
   $('remoteCounter').textContent=`${state.slide+1} / ${session.total}`;
   if(controller){
-   $('remotePrevious').disabled=busy||state.slide===0;
-   $('remoteNext').disabled=busy||state.slide===session.total-1;
+   $('remotePrevious').disabled=busy||(state.slide===0&&readAck(state.ack).step===0);
+   $('remoteNext').disabled=busy||(state.slide===session.total-1&&readAck(state.ack).step>0);
    preview()?.background(session.background||'#ffffff');
    document.querySelectorAll('[data-background]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.background===(session.background||'#ffffff'))));
    $('remoteSlide').value=String(state.slide);
    $('remoteSlidePicker').textContent=($('remoteSlide').selectedOptions[0]?.textContent||'Chọn slide')+' ▾';
    $('remoteSlideOptions').querySelectorAll('[data-slide]').forEach(item=>item.setAttribute('aria-selected',String(Number(item.dataset.slide)===state.slide)));
-   if(previewSlide!==state.slide){gesture=null;stroke=null;laser=null;previewSlide=state.slide;preview()?.go(state.slide);preview()?.annotation(currentAnnotation());}
+   const changedSlide=previewSlide!==state.slide;
+   if(changedSlide){gesture=null;stroke=null;laser=null;previewSlide=state.slide;}
+   preview()?.sync(state.slide,readAck(state.ack).step);
+   if(changedSlide)preview()?.annotation(currentAnnotation());
+   if(preview())$('remoteNext').disabled=busy||!preview().canNext();
    const slide=window.remoteSlides?.[state.slide];
    $('remoteTitle').textContent=slide?.dataset.title||'';
    $('remoteNotes').textContent=slide?.querySelector('.speaker-notes')?.textContent||'';
   }
  }
  function publishState(ack=applied) {
-  const state={slide:window.deckRemote.current(),ack,heartbeat:{'.sv':'timestamp'}};
+  const state={slide:window.deckRemote.current(),ack:JSON.stringify([ack,window.deckRemote.step()]),heartbeat:{'.sv':'timestamp'}};
   writeQueue=writeQueue.catch(()=>{}).then(()=>request('/state','PUT',state));
   return writeQueue;
  }
@@ -148,7 +159,7 @@
    if(!controller)window.deckRemote.background(value.background||'#ffffff');
    if(controller) {
     await loadPresentation(value.presentation||'csonet');
-    if(busy && value.state?.ack===applied)busy=false;
+    if(busy && readAck(value.state?.ack).id===applied)busy=false;
     // Observe heartbeat progress without comparing clocks on different devices.
     const heartbeat=value.state?.heartbeat;
     if(Number.isFinite(heartbeat)&&heartbeat!==lastHeartbeat){
@@ -163,7 +174,10 @@
     if(value.command && value.command.id!==applied) {
      applied=value.command.id;
      const target=value.command.slide;
-     if(!value.command.action&&Number.isInteger(target)&&target>=0&&target<value.total)window.deckRemote.go(target);
+     if(!value.command.action&&Number.isInteger(target)&&target>=0&&target<value.total){
+      const direction=value.command.id[0];
+      window.deckRemote.go(direction==='+'?window.deckRemote.current()+1:direction==='-'?window.deckRemote.current()-1:target,direction==='+'||direction==='-');
+     }
     }
     await publishState();
     status('Phòng đang mở · iPhone có thể kết nối');
@@ -181,7 +195,7 @@
    localStorage.setItem('csonetDatabase',database);
    room=FIXED_ROOM;hostSessionId=crypto.randomUUID();applied='';
    const slides=window.deckRemote.total;
-   session={presentation:document.body.dataset.presentation||'csonet',sessionId:hostSessionId,total:slides,expiresAt:Date.now()+4*60*60*1000,state:{slide:window.deckRemote.current(),ack:'',heartbeat:{'.sv':'timestamp'}}};
+   session={presentation:document.body.dataset.presentation||'csonet',sessionId:hostSessionId,total:slides,expiresAt:Date.now()+4*60*60*1000,state:{slide:window.deckRemote.current(),ack:JSON.stringify(['',window.deckRemote.step()]),heartbeat:{'.sv':'timestamp'}}};
    if(previous?.background)session.background=previous.background;
    if(previous?.annotation)session.annotation=previous.annotation;
    await request('','PUT',session);
@@ -190,9 +204,9 @@
    disposed=false;startAnnotationStream().catch(error=>status(error.message));poll();
   } catch(error){status(error.message+' · Đang tự thử kết nối lại…');session=null;if(!disposed)timer=setTimeout(()=>startHost(true),5000);}finally{$('remoteStart').disabled=false;}
  }
- async function sendSlide(slide) {
+ async function sendSlide(slide,direction=0) {
   if(busy || !session || slide<0 || slide>=session.total)return;
-  busy=true;buttons(true);applied=crypto.randomUUID();status('Đang gửi…');
+  busy=true;buttons(true);applied=(direction>0?'+':direction<0?'-':'')+crypto.randomUUID();status('Đang gửi…');
   try{await request('/command','PUT',{id:applied,slide});}
   catch(error){busy=false;status(error.message);showState(session.state);}
  }
@@ -201,8 +215,8 @@
    try{
     const params=new URLSearchParams(location.hash.slice(1));database=validateDatabase(params.get('db')||DEFAULT_DATABASE);room=params.get('room')||FIXED_ROOM;fixedController=!params.has('room');
     if(!/^[a-f0-9]{32}$/.test(room))throw Error('Liên kết không hợp lệ. Hãy mở liên kết từ máy tính.');
-    $('remotePrevious').onclick=()=>sendSlide(session.state.slide-1);
-    $('remoteNext').onclick=()=>sendSlide(session.state.slide+1);
+    $('remotePrevious').onclick=()=>sendNavigation(-1);
+    $('remoteNext').onclick=()=>sendNavigation(1);
     $('remoteSlide').onchange=event=>sendSlide(Number(event.target.value));
     $('remoteSlidePicker').onclick=()=>{const popup=$('remoteSlideOptions');popup.hidden=!popup.hidden;$('remoteSlidePicker').setAttribute('aria-expanded',String(!popup.hidden));if(!popup.hidden)popup.querySelector('[aria-selected="true"]')?.focus();};
     document.addEventListener('click',event=>{if(!$('remoteSlideOptions').contains(event.target)&&!$('remoteSlidePicker').contains(event.target))closeSlidePicker();});
@@ -220,10 +234,10 @@
      if(event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||!connected||!session)return;
      if(event.target.closest('input,textarea,select,button,[contenteditable="true"]'))return;
      const delta=['ArrowRight','ArrowDown','PageDown',' '].includes(event.key)?1:['ArrowLeft','ArrowUp','PageUp'].includes(event.key)?-1:0;
-     if(delta){event.preventDefault();sendSlide(session.state.slide+delta);}
+     if(delta){event.preventDefault();sendNavigation(delta);}
     });
     setupTools();
-    $('remotePreview').addEventListener('load',()=>{if(session){preview()?.go(session.state.slide);preview()?.background(session.background||'#ffffff');preview()?.annotation(currentAnnotation());}});
+    $('remotePreview').addEventListener('load',()=>{if(session){preview()?.sync(session.state.slide,readAck(session.state.ack).step);preview()?.background(session.background||'#ffffff');preview()?.annotation(currentAnnotation());}});
     poll();
    }catch(error){status(error.message);}
   })();
@@ -238,7 +252,7 @@
    try{const active=await request();if(active?.sessionId===hostSessionId)await request('','DELETE');status('Đã ngắt kết nối. Mở lại trang slide để tự kết nối.');}catch(error){status(error.message);}
    session=null;room='';$('remoteSetup').hidden=false;$('remoteConnection').hidden=true;
   };
-  document.addEventListener('slidechange',()=>{if(session&&!disposed)publishState().catch(error=>status(error.message));});
+  for(const event of ['slidechange','presentationstepchange'])document.addEventListener(event,()=>{if(session&&!disposed)publishState().catch(error=>status(error.message));});
   // Opening the presentation is sufficient; preview iframes return above.
   startHost(true);
  }

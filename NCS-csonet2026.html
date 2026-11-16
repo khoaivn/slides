@@ -332,7 +332,7 @@ body[data-presentation="csonet"] .results-pair .bar-track{height:32px}
   return false;
  };
  closing.addEventListener('click',event=>{
-  if(!event.target.closest('a,button')&&!document.getElementById('penBtn')?.matches('[aria-pressed="true"]'))reveal();
+  if(!event.target.closest('a,button')&&!document.getElementById('penBtn')?.matches('[aria-pressed="true"]'))window.deckRemote.go(finalIndex+1);
  });
  document.addEventListener('slidechange',()=>{
   if(!challengesSlide.classList.contains('active'))showChallenges(0);
@@ -343,7 +343,7 @@ body[data-presentation="csonet"] .results-pair .bar-track{height:32px}
  });
 })();
 </script>
-<script src="script.js?v=20261110-speed-keys"></script><script src="remote.js?v=20261112-desktop"></script>
+<script src="script.js?v=20261116-step-sync"></script><script src="remote.js?v=20261116-step-sync"></script>
 <script>
 document.querySelectorAll('#deck > .slide').forEach((slide,index)=>{
  const number=document.createElement('span');

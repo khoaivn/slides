@@ -71,7 +71,7 @@
           ".validate": "newData.isString() && newData.val().length <= 64"
         },
         "presentation": {
-          ".validate": "newData.isString() && (newData.val() === 'csonet' || newData.val() === 'chuyen-de-2' || newData.val() === 'ltc-introduction' || newData.val() === 'dsa-sort')"
+          ".validate": "newData.isString() && (newData.val() === 'csonet' || newData.val() === 'chuyen-de-2' || newData.val() === 'ltc-introduction' || newData.val() === 'dsa-sort' || newData.val() === 'ncs-soict')"
         },
         "background": {
           ".validate": "newData.isString() && newData.val().matches(/^#[0-9a-fA-F]{6}$/)"

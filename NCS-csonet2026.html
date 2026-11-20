@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="styles.css?v=20261029-beamer24">
 <link rel="stylesheet" href="remote.css?v=20261112-desktop-notes2">
 <link rel="stylesheet" href="assets/katex/katex.min.css?v=0.19.1-fontfix">
+<link rel="stylesheet" href="research-typography.css">
 <script defer src="assets/katex/katex.min.js?v=0.19.1"></script>
 <script defer src="math.js?v=20261029-beamer22"></script>
 <style>
@@ -16,25 +17,6 @@ body[data-presentation="csonet"] .cover-content h1{margin-top:0}
 body[data-presentation="csonet"] .labels .label-ellipsis{justify-content:center;padding:4px 0;border-bottom:0;color:var(--muted);line-height:1}
 body[data-presentation="csonet"] .labels .label-ellipsis>span{font:inherit;letter-spacing:.56em;margin-right:-.56em}
 body[data-presentation="csonet"] .labels .last-label{color:var(--gold)}
-/* Prose uses the Vietnamese Computer Modern Sans outlines bundled locally.
-   KaTeX retains its Computer Modern math families and extension metrics. */
-@font-face{font-family:"Vn Computer Modern Sans Serif";src:url("assets/fonts/vncm/VnCMSansWeb-Regular.woff2") format("woff2");font-style:normal;font-weight:100 500;font-display:swap}
-@font-face{font-family:"Vn Computer Modern Sans Serif";src:url("assets/fonts/vncm/VnCMSansWeb-Bold.woff2") format("woff2");font-style:normal;font-weight:600 900;font-display:swap}
-@font-face{font-family:"Vn Computer Modern Sans Serif";src:url("assets/fonts/vncm/VnCMSansWeb-Italic.woff2") format("woff2");font-style:italic;font-weight:100 900;font-display:swap}
-body[data-presentation="csonet"],
-body[data-presentation="csonet"] :is(button,input,.slide,h1,h2,h3,p,li,th,td,.formula,.constraints p,.constraints p>span:not(.math),.explanation .formula,.labels>div>span,.tokens b,.index,.key-formula>span:not(.math),.quota-calculation,.big-stat,.big-stat>span:not(.math),.rho strong,.network-name,.conclusions li>span,.closing-bottom strong,.conflict b){font-family:"Vn Computer Modern Sans Serif",sans-serif}
-/* Do not override .katex descendants: Math Italic (CMMI), Main Roman
-   (CMR), symbols (CMSY), and Size1–Size4 extensions (CMEX) are selected
-   by the bundled KaTeX stylesheet, with matching glyph metrics. */
-/* Preserve TeX spacing and normal math weight in headings and bold prose. */
-body[data-presentation="csonet"] .math{letter-spacing:normal;text-transform:none;font-synthesis:none}
-body[data-presentation="csonet"] .math .katex{font-weight:400;font-style:normal;letter-spacing:normal}
-/* Reference style: sans-serif numerals and italic sans-serif variables.
-   Keep KaTeX positioning, extensible symbols, and script-size calculations. */
-body[data-presentation="csonet"] .math .katex{font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif}
-body[data-presentation="csonet"] .math .katex :is(.mathnormal,.mathit){font-family:KaTeX_SansSerif,KaTeX_Math,sans-serif;font-style:italic}
-body[data-presentation="csonet"] .math .katex :is(.mathrm,.mainrm,.textrm,.textsf){font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif;font-style:normal}
-body[data-presentation="csonet"] .math .katex .mathbf{font-family:KaTeX_SansSerif,KaTeX_Main,sans-serif;font-weight:700}
 body[data-presentation="csonet"] .slide-page-number{position:absolute;right:24px;bottom:14px;font-size:16px;line-height:1;color:var(--muted);font-weight:400;letter-spacing:normal;pointer-events:none}
 body[data-presentation="csonet"] .talk-overview{list-style:none;margin:48px 0 0;padding:0;max-width:900px}
 body[data-presentation="csonet"] .talk-overview li{position:relative;padding:23px 0 23px 30px;border-bottom:1px solid var(--line);font-size:30px;line-height:1.35;font-weight:400}

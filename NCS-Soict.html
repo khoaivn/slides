@@ -35,9 +35,14 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
 .soict-table th,.soict-table td{padding:16px 16px 16px 0;border-bottom:1px solid var(--line)}
 .soict-table thead th{color:var(--ink);border-bottom:2px solid var(--ink)}
 .soict-table tbody th{font-weight:400}
-.soict-normal{margin:24px 0 0}
-.soict-normal svg{display:block;width:760px;height:300px;margin:0 auto}
-.soict-normal figcaption{text-align:center;font-size:24px}
+.soict-normal-layout{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:36px;align-items:center;margin-top:24px}
+.soict-normal{margin:0}
+.soict-normal svg{display:block;width:100%;height:auto}
+.soict-normal figcaption{text-align:center;font-size:22px}
+.soict-normal-definitions{margin:0;padding-left:24px;border-left:2px solid var(--teal);font-size:23px;line-height:1.35}
+.soict-normal-definitions dt{font-weight:700}
+.soict-normal-definitions dd{margin:4px 0 16px}
+.soict-normal-definitions dd:last-child{margin-bottom:0}
 </style>
 </head>
 <body data-presentation="ncs-soict">
@@ -66,7 +71,8 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
 </section>
 <section class="slide" data-title="The normal distribution" data-time="0:45">
 <div class="eyebrow">Model</div><h2>The normal distribution</h2>
-<p>For <span data-tex="X\sim\mathcal{N}(\mu,\sigma^2)">X ∼ 𝒩(μ, σ²)</span>, μ is the mean, σ is the standard deviation, and σ² is the variance.</p>
+<p><span data-tex="X\sim\mathcal{N}(\mu,\sigma^2)">X ∼ 𝒩(μ, σ²)</span></p>
+<div class="soict-normal-layout">
 <figure class="soict-normal">
 <svg viewBox="0 0 760 300" role="img" aria-label="Normal density centered at μ. The shaded region extends one standard deviation on either side of the mean.">
 <defs>
@@ -101,8 +107,17 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
 </svg>
 <figcaption>About 68% of the probability lies within one standard deviation of the mean.</figcaption>
 </figure>
+<dl class="soict-normal-definitions">
+<dt>Mean <span data-tex="\mu=\mathbb{E}[X]">μ = E[X]</span></dt>
+<dd>The long-run average of X and the center of the bell curve.</dd>
+<dt>Variance <span data-tex="\sigma^2=\mathbb{E}[(X-\mu)^2]">σ² = E[(X − μ)²]</span></dt>
+<dd>The expected squared distance from the mean.</dd>
+<dt>Standard deviation <span data-tex="\sigma=\sqrt{\operatorname{Var}(X)}">σ = √Var(X)</span></dt>
+<dd>The square root of the variance, in the same units as X.</dd>
+</dl>
+</div>
 <span class="slide-page-number" aria-label="Slide 3">3</span>
-<aside class="speaker-notes">The density curve is symmetric around the mean μ. A larger standard deviation σ makes it wider, and the variance is σ squared. The shaded area between μ − σ and μ + σ contains about 68% of the total probability.</aside>
+<aside class="speaker-notes">The mean μ is the long-run average and the center of the bell curve. To get the variance, square the distance of X from μ and take its expectation. The standard deviation is the square root of the variance, so it measures spread in the same units as X. The shaded interval contains about 68% of the probability.</aside>
 </section>
 <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00">
 <div class="eyebrow">Model</div><h2>The Gaussian chance constraint</h2>

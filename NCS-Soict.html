@@ -66,11 +66,11 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
 </section>
 <section class="slide" data-title="The normal distribution" data-time="0:45">
 <div class="eyebrow">Model</div><h2>The normal distribution</h2>
-<p>For <span data-tex="W\sim\mathcal{N}(\mu,\sigma^2)">W ∼ 𝒩(μ, σ²)</span>, the mean μ sets the center and the standard deviation σ sets the spread.</p>
+<p>For <span data-tex="X\sim\mathcal{N}(\mu,\sigma^2)">X ∼ 𝒩(μ, σ²)</span>, μ is the mean, σ is the standard deviation, and σ² is the variance.</p>
 <figure class="soict-normal">
-<svg viewBox="0 0 760 300" role="img" aria-label="Normal density centered at μ. The shaded area to the right of the budget B is the probability of exceeding the budget.">
+<svg viewBox="0 0 760 300" role="img" aria-label="Normal density centered at μ. The shaded region extends one standard deviation on either side of the mean.">
 <defs>
-<clipPath id="normal-tail"><rect x="508" y="20" width="212" height="210"/></clipPath>
+<clipPath id="normal-center"><rect x="295" y="20" width="170" height="210"/></clipPath>
 <path id="normal-density" d="M 40 230
   C 54.2 229.9 68.3 229.8 82.5 229.6
   C 96.7 229.3 110.8 228.9 125.0 227.9
@@ -90,19 +90,19 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
   C 691.7 229.8 705.8 229.9 720.0 229.9
 "/>
 </defs>
-<use href="#normal-density" fill="var(--teal)" opacity=".2" clip-path="url(#normal-tail)"/>
-<path d="M 40 230 H 720 M 380 37 V 230 M 508 168 V 230" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+<use href="#normal-density" fill="var(--teal)" opacity=".2" clip-path="url(#normal-center)"/>
+<path d="M 40 230 H 720 M 380 37 V 230 M 295 113 V 230 M 465 113 V 230" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
 <use href="#normal-density" fill="none" stroke="var(--teal)" stroke-width="4"/>
 <g fill="var(--ink)" font-size="23" text-anchor="middle">
-<text x="380" y="264">μ</text><text x="508" y="264">B</text>
+<text x="295" y="264">μ − σ</text><text x="380" y="264">μ</text><text x="465" y="264">μ + σ</text>
 </g>
 <text x="41" y="31" fill="var(--muted)" font-size="20">Density</text>
-<text x="720" y="264" text-anchor="end" fill="var(--muted)" font-size="20">Resource consumption</text>
+<text x="720" y="264" text-anchor="end" fill="var(--muted)" font-size="20">x</text>
 </svg>
-<figcaption>The shaded right tail is <span data-tex="\Pr(W&gt;B)">Pr(W &gt; B)</span>. The chance constraint caps this probability at α.</figcaption>
+<figcaption>About 68% of the probability lies within one standard deviation of the mean.</figcaption>
 </figure>
 <span class="slide-page-number" aria-label="Slide 3">3</span>
-<aside class="speaker-notes">The bell curve is symmetric around the mean. A larger standard deviation makes it wider. The area to the right of B gives the probability of exceeding the budget. The next slide applies this idea to the total consumption of the selected items.</aside>
+<aside class="speaker-notes">The density curve is symmetric around the mean μ. A larger standard deviation σ makes it wider, and the variance is σ squared. The shaded area between μ − σ and μ + σ contains about 68% of the total probability.</aside>
 </section>
 <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00">
 <div class="eyebrow">Model</div><h2>The Gaussian chance constraint</h2>

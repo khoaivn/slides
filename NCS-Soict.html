@@ -35,6 +35,9 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
 .soict-table th,.soict-table td{padding:16px 16px 16px 0;border-bottom:1px solid var(--line)}
 .soict-table thead th{color:var(--ink);border-bottom:2px solid var(--ink)}
 .soict-table tbody th{font-weight:400}
+.soict-normal{margin:24px 0 0}
+.soict-normal svg{display:block;width:760px;height:300px;margin:0 auto}
+.soict-normal figcaption{text-align:center;font-size:24px}
 </style>
 </head>
 <body data-presentation="ncs-soict">
@@ -61,58 +64,98 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
 <span class="slide-page-number" aria-label="Slide 2">2</span>
 <aside class="speaker-notes">The value oracle is exact in the theorem. The objective is normalized and nonnegative. A Max-Cut example: adding a vertex can turn crossing edges into internal edges. Source: §§1, 3, 5.</aside>
 </section>
+<section class="slide" data-title="The normal distribution" data-time="0:45">
+<div class="eyebrow">Model</div><h2>The normal distribution</h2>
+<p>For <span data-tex="W\sim\mathcal{N}(\mu,\sigma^2)">W ∼ 𝒩(μ, σ²)</span>, the mean μ sets the center and the standard deviation σ sets the spread.</p>
+<figure class="soict-normal">
+<svg viewBox="0 0 760 300" role="img" aria-label="Normal density centered at μ. The shaded area to the right of the budget B is the probability of exceeding the budget.">
+<defs>
+<clipPath id="normal-tail"><rect x="508" y="20" width="212" height="210"/></clipPath>
+<path id="normal-density" d="M 40 230
+  C 54.2 229.9 68.3 229.8 82.5 229.6
+  C 96.7 229.3 110.8 228.9 125.0 227.9
+  C 139.2 226.8 153.3 225.1 167.5 221.5
+  C 181.7 218.0 195.8 212.6 210.0 203.9
+  C 224.2 195.2 238.3 183.0 252.5 167.3
+  C 266.7 151.7 280.8 132.4 295.0 112.9
+  C 309.2 93.4 323.3 73.9 337.5 59.7
+  C 351.7 45.5 365.8 37.0 380.0 37.0
+  C 394.2 37.0 408.3 45.5 422.5 59.7
+  C 436.7 73.9 450.8 93.4 465.0 112.9
+  C 479.2 132.4 493.3 151.7 507.5 167.3
+  C 521.7 183.0 535.8 195.2 550.0 203.9
+  C 564.2 212.6 578.3 218.0 592.5 221.5
+  C 606.7 225.1 620.8 226.8 635.0 227.9
+  C 649.2 228.9 663.3 229.3 677.5 229.6
+  C 691.7 229.8 705.8 229.9 720.0 229.9
+"/>
+</defs>
+<use href="#normal-density" fill="var(--teal)" opacity=".2" clip-path="url(#normal-tail)"/>
+<path d="M 40 230 H 720 M 380 37 V 230 M 508 168 V 230" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+<use href="#normal-density" fill="none" stroke="var(--teal)" stroke-width="4"/>
+<g fill="var(--ink)" font-size="23" text-anchor="middle">
+<text x="380" y="264">μ</text><text x="508" y="264">B</text>
+</g>
+<text x="41" y="31" fill="var(--muted)" font-size="20">Density</text>
+<text x="720" y="264" text-anchor="end" fill="var(--muted)" font-size="20">Resource consumption</text>
+</svg>
+<figcaption>The shaded right tail is <span data-tex="\Pr(W&gt;B)">Pr(W &gt; B)</span>. The chance constraint caps this probability at α.</figcaption>
+</figure>
+<span class="slide-page-number" aria-label="Slide 3">3</span>
+<aside class="speaker-notes">The bell curve is symmetric around the mean. A larger standard deviation makes it wider. The area to the right of B gives the probability of exceeding the budget. The next slide applies this idea to the total consumption of the selected items.</aside>
+</section>
 <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00">
 <div class="eyebrow">Model</div><h2>The Gaussian chance constraint</h2>
 <p>Independent Gaussian resources have <span data-tex="\mu_e\ge0">\mu_e\ge0</span> and <span data-tex="\sigma_e^2&gt;0">\sigma_e^2&gt;0</span>. Their means and variances add.</p><p class="soict-equation"><span data-tex="g(S)=\mu(S)+z_\alpha\sqrt{v(S)}\le B">g(S)=\mu(S)+z_\alpha\sqrt{v(S)}\le B</span></p><div class="soict-columns"><div><h3>Risk level</h3><p><span data-tex="z_\alpha=\Phi^{-1}(1-\alpha)">z_\alpha=\Phi^{-1}(1-\alpha)</span> for <span data-tex="0&lt;\alpha&lt;1/2">0&lt;\alpha&lt;1/2</span>.</p></div><div><h3>Aggregate variance</h3><p><span data-tex="v(S)=\sum_{e\in S}\sigma_e^2">v(S)=\sum_{e\in S}\sigma_e^2</span>. The square-root term makes the score nonadditive.</p></div></div>
-<span class="slide-page-number" aria-label="Slide 3">3</span>
+<span class="slide-page-number" aria-label="Slide 4">4</span>
 <aside class="speaker-notes">Use Gaussian closure to explain the exact equivalence. The empty set is feasible. Nonnegative means and variances also imply downward closure. Source: §3.</aside>
 </section>
 <section class="slide" data-title="A family of additive knapsacks" data-time="1:20">
 <div class="eyebrow">Reformulation</div><h2>A family of additive knapsacks</h2>
 <p class="soict-intro">Every tangent-feasible set meets the chance constraint. Each nonempty chance-feasible set belongs to the knapsack at <span data-tex="\theta=\sqrt{v(S)}">\theta=\sqrt{v(S)}</span>.</p>
 <p class="soict-equation"><span data-tex="\sqrt{x}=\min_{\theta&gt;0}\left(\frac{x}{2\theta}+\frac{\theta}{2}\right)">\sqrt{x}=\min_{\theta&gt;0}\left(\frac{x}{2\theta}+\frac{\theta}{2}\right)</span></p><div class="soict-columns"><div><h3>Cost of item e</h3><p class="soict-equation"><span data-tex="c_\theta(e)=\mu_e+\frac{z_\alpha\sigma_e^2}{2\theta}">c_\theta(e)=\mu_e+\frac{z_\alpha\sigma_e^2}{2\theta}</span></p></div><div><h3>Capacity</h3><p class="soict-equation"><span data-tex="C_\theta=B-\frac{z_\alpha\theta}{2}">C_\theta=B-\frac{z_\alpha\theta}{2}</span></p></div></div>
-<span class="slide-page-number" aria-label="Slide 4">4</span>
+<span class="slide-page-number" aria-label="Slide 5">5</span>
 <aside class="speaker-notes">The minimum is attained at the aggregate standard deviation for positive x. Nonnegative means bound the matching tangent by B/zα. The empty set belongs to every tangent knapsack. Source: Lemma 1.</aside>
 </section>
 <section class="slide" data-title="A geometric grid preserves half the value" data-time="1:20">
 <div class="eyebrow">Discretization</div><h2>A geometric grid preserves half the value</h2>
 <p class="soict-intro">By submodularity, one piece has value at least <span data-tex="\mathrm{OPT}/2">\mathrm{OPT}/2</span>.</p>
 <p class="soict-equation"><span data-tex="\theta_j=\frac{B}{z_\alpha}\left(\frac32\right)^{-j},\qquad j=0,1,2,\ldots">\theta_j=\frac{B}{z_\alpha}\left(\frac32\right)^{-j},\qquad j=0,1,2,\ldots</span></p><div class="soict-columns"><div><h3>At the grid point below the optimum’s standard deviation</h3><p>The optimal set has total additive cost at most <span data-tex="9C_{\theta_j}/8">9C_{\theta_j}/8</span>.</p></div><div><h3>Two feasible pieces</h3><p>Split it into two tangent-feasible sets, or separate one chance-feasible singleton from the tangent-feasible remainder.</p></div></div>
-<span class="slide-page-number" aria-label="Slide 5">5</span>
+<span class="slide-page-number" aria-label="Slide 6">6</span>
 <aside class="speaker-notes">Pick j with θ_j ≤ √v(O) &lt; 3θ_j/2. Explain the two-piece repair and why the singleton safeguard is checked against the original constraint. Source: Lemma 2.</aside>
 </section>
 <section class="slide" data-title="Two candidate sets per active state" data-time="1:30">
 <div class="eyebrow">FOCUS</div><h2>Two candidate sets per active state</h2>
 <p>For a tangent and an objective guess <span data-tex="u">u</span>, normalize capacity to 1.</p><ol class="soict-steps"><li><strong>Large item.</strong> Keep an eligible singleton and terminate the state if its cost is at least ½ and its value density is at least <span data-tex="u/4">u/4</span>.</li><li><strong>Candidate sets.</strong> Test the first set, then the second if needed. Add the item only if it fits and its marginal density is at least <span data-tex="u/4">u/4</span>.</li><li><strong>Postprocessing.</strong> Run deterministic ½-approximate unconstrained submodular maximization on the first set. Compare that subset, both candidates, and the feasible singleton incumbent.</li></ol>
-<span class="slide-page-number" aria-label="Slide 6">6</span>
+<span class="slide-page-number" aria-label="Slide 7">7</span>
 <aside class="speaker-notes">The two sets are disjoint because the second is tested only after the first fails. The postprocessed subset stays feasible by downward closure. For u no greater than the tangent optimum, the fixed state returns value at least u/8. Source: Algorithm 1 and Lemma 3.</aside>
 </section>
 <section class="slide" data-title="Objective guesses activate during the stream" data-time="1:10">
 <div class="eyebrow">FOCUS</div><h2>Objective guesses activate during the stream</h2>
 <p class="soict-intro">The target guess stays active and follows the same updates as a state started at the beginning, until termination.</p>
 <p>For each tangent, track the largest eligible singleton value <span data-tex="M_j">M_j</span> and density <span data-tex="D_j">D_j</span>.</p><p class="soict-equation"><span data-tex="u=(1+\delta)^k,\quad k\in\mathbb Z,\quad \frac{M_j}{1+\delta}\le u\le 4D_j,\qquad \delta=16\varepsilon">u=(1+\delta)^k,\quad k\in\mathbb Z,\quad \frac{M_j}{1+\delta}\le u\le 4D_j,\qquad \delta=16\varepsilon</span></p><div class="soict-columns"><div><h3>Before the crossing</h3><p>Earlier items cannot pass the target state’s density test.</p></div><div><h3>At the crossing</h3><p>Update the statistics and create the state before testing the arriving item.</p></div></div>
-<span class="slide-page-number" aria-label="Slide 7">7</span>
+<span class="slide-page-number" aria-label="Slide 8">8</span>
 <aside class="speaker-notes">The target is the largest grid guess no greater than OPTθ. It is above OPTθ/(1+δ), so the lower pruning threshold never removes it. A terminal singleton updates the incumbent. Source: Lemma 4.</aside>
 </section>
 <section class="slide" data-title="Deterministic approximation in one pass" data-time="1:30">
 <div class="eyebrow">Theorem</div><h2>Deterministic approximation in one pass</h2>
 <p class="soict-intro"><span data-tex="K">K</span> is the maximum feasible cardinality. The bounds suppress logarithmic factors in the instance widths.</p>
 <p class="soict-equation"><span data-tex="f(S_{\mathrm{alg}})\ge\frac{\mathrm{OPT}}{16(1+16\varepsilon)}\ge\left(\frac1{16}-\varepsilon\right)\mathrm{OPT}">f(S_{\mathrm{alg}})\ge\frac{\mathrm{OPT}}{16(1+16\varepsilon)}\ge\left(\frac1{16}-\varepsilon\right)\mathrm{OPT}</span></p><p>Exact chance feasibility for every stream order and <span data-tex="0&lt;\varepsilon&lt;1/16">0&lt;\varepsilon&lt;1/16</span>.</p><div class="soict-columns"><div><h3>Value-oracle queries</h3><p class="soict-equation"><span data-tex="\widetilde{O}\!\left(\frac{n+K^2}{\varepsilon}\right)">\widetilde{O}\!\left(\frac{n+K^2}{\varepsilon}\right)</span></p></div><div><h3>Memory</h3><p class="soict-equation"><span data-tex="\widetilde{O}\!\left(\frac K\varepsilon+K^2\right)">\widetilde{O}\!\left(\frac K\varepsilon+K^2\right)</span></p></div></div>
-<span class="slide-page-number" aria-label="Slide 8">8</span>
+<span class="slide-page-number" aria-label="Slide 9">9</span>
 <aside class="speaker-notes">Compose the half-value comparator, the 1/(1+16ε) guess factor and the fixed-state 1/8 factor. The theorem assumes exact value-oracle and real-RAM access. The suppressed factors are (1+log Λ)(1+log Γ). Source: Theorem 1.</aside>
 </section>
 <section class="slide" data-title="The experiment compares two selection settings" data-time="0:55">
 <div class="eyebrow">Evaluation</div><h2>The experiment compares two selection settings</h2>
 <p class="soict-intro">Ten runs per budget at <span data-tex="\alpha=0.05">\alpha=0.05</span>. The baseline is the offline heuristic Offline-Greedy-CC.</p>
 <div class="soict-columns"><div><h3>Email-Eu-core</h3><p>Influence maximization with the independent-cascade model. The objective is monotone and the oracle estimates spread.</p></div><div><h3>ca-HepTh</h3><p>Unit-weight Max-Cut on 9,877 vertices and 25,973 edges. The objective is non-monotone and the oracle is exact.</p></div></div>
-<span class="slide-page-number" aria-label="Slide 9">9</span>
+<span class="slide-page-number" aria-label="Slide 10">10</span>
 <aside class="speaker-notes">Email-Eu-core uses 100 Monte Carlo realizations per oracle query and 1,000 independent realizations for final evaluation. Max-Cut varies ten stream orders on one fixed Gaussian resource instance. Source: §5.</aside>
 </section>
 <section class="slide" data-title="Influence maximization uses fewer oracle queries" data-time="0:55">
 <div class="eyebrow">Email-Eu-core</div><h2>Influence maximization uses fewer oracle queries</h2>
 <p class="soict-intro">Each query estimates spread from 100 cascade realizations.</p>
 <div class="soict-result"><div><strong>477.8</strong><p>FOCUS mean spread at B = 10<br>up from 291.7 at B = 2</p></div><div><strong>39.4k</strong><p>FOCUS queries at B = 10<br>vs. 103.3k for Offline-Greedy-CC</p></div></div>
-<span class="slide-page-number" aria-label="Slide 10">10</span>
+<span class="slide-page-number" aria-label="Slide 11">11</span>
 <aside class="speaker-notes">Reported query counts are approximate. These are query counts, not timing measurements. The plots in Figure 1 show means and two-sided 95% Student-t intervals. Source: §5, Fig. 1.</aside>
 </section>
 <section class="slide" data-title="Max-Cut trades retained memory for fewer queries" data-time="1:00">
@@ -125,14 +168,14 @@ body[data-presentation="ncs-soict"] .slide-page-number{position:absolute;right:2
 <tr><th scope="row">Objective relative to baseline</th><td>84.2–94.2%</td><td>100%</td></tr>
 <tr><th scope="row">Normalized chance cost</th><td>0.740–0.952</td><td>≤ 1 by design</td></tr></tbody>
 </table>
-<span class="slide-page-number" aria-label="Slide 11">11</span>
+<span class="slide-page-number" aria-label="Slide 12">12</span>
 <aside class="speaker-notes">The comparison is with an offline heuristic and the observed objective ratios are empirical. All plotted chance-cost means and intervals for both experiments remained below one. Source: §5, Fig. 2.</aside>
 </section>
 <section class="slide" data-title="Gaussian feasibility in a single pass" data-time="0:45">
 <div class="eyebrow">Takeaways</div><h2>Gaussian feasibility in a single pass</h2>
 <ol class="soict-steps"><li>The exact tangent representation turns the Gaussian budget into additive knapsacks.</li><li>The geometric grid and online guesses yield a deterministic one-pass approximation.</li><li>The memory bound depends on instance widths. Zero-variance items and finite-precision guarantees remain open for this analysis.</li></ol>
 <p><strong>Questions?</strong></p>
-<span class="slide-page-number" aria-label="Slide 12">12</span>
+<span class="slide-page-number" aria-label="Slide 13">13</span>
 <aside class="speaker-notes">Recap the link from exact feasibility to the approximation. Experiments illustrate the query-memory trade-off. The model assumes strictly positive variances and exact real arithmetic. Source: §6.</aside>
 </section>
 </main>

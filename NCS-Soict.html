@@ -29,7 +29,7 @@
     .soict-sections {
       position: relative;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       height: var(--section-bar-height);
       background: white;
       color: #175455;
@@ -320,7 +320,7 @@
         </svg></button></div>
   </header>
   <main id="deck" aria-label="SOICT 2026 presentation">
-    <section class="slide cover" data-title="FOCUS" data-time="0:35">
+    <section class="slide cover" data-title="FOCUS" data-time="0:35" data-section="introduction">
 
       <div class="cover-logos">
         <span class="cover-event">SOICT 2026</span>
@@ -338,7 +338,7 @@
       <aside class="speaker-notes">Introduce FOCUS and state the two goals: select a valuable set in a single pass and
         satisfy a probability bound on total resource consumption. Source: manuscript p. 1.</aside>
     </section>
-    <section class="slide" data-title="Outline" data-time="0:15">
+    <section class="slide" data-title="Outline" data-time="0:15" data-section="introduction">
       <h2>Outline</h2>
       <ol class="soict-steps">
         <li>Problem</li>
@@ -672,6 +672,7 @@
   </footer>
   <nav class="soict-sections" aria-label="Presentation sections">
     <div id="progressFill" aria-hidden="true"></div>
+    <a href="#1" data-section="introduction">Introduction</a>
     <a href="#3" data-section="problem">Problem</a>
     <a href="#6" data-section="algorithm">Algorithm</a>
     <a href="#11" data-section="experiment">Experiment</a>

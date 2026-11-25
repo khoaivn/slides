@@ -65,3 +65,7 @@ body.preview #deck{height:100dvh}
 .math{white-space:nowrap}.math .katex{font-size:1em}.key-formula .math .katex{font-size:.94em}.guarantees .math .katex{font-size:.92em}
 
 .katex,.katex *{box-sizing:content-box}
+
+.talk-overview{list-style:none;margin:48px 0 0;padding:0;max-width:900px}
+.talk-overview li{position:relative;padding:23px 0 23px 30px;border-bottom:1px solid var(--line);font-size:30px;line-height:1.35;font-weight:400}
+.talk-overview li::before{content:"";position:absolute;left:0;top:39px;width:8px;height:8px;border-radius:50%;background:var(--teal)}

@@ -14,6 +14,63 @@
   <script defer src="assets/katex/katex.min.js"></script>
   <script defer src="math.js?v=20261125-mathml"></script>
   <style>
+    body[data-presentation="ncs-soict"] {
+      --section-bar-height: 36px;
+    }
+
+    body[data-presentation="ncs-soict"]:not(.preview) #deck {
+      height: calc(100dvh - var(--section-bar-height) - 4px);
+    }
+
+    body[data-presentation="ncs-soict"] .toolbar {
+      bottom: calc(var(--section-bar-height) + 16px);
+    }
+
+    .soict-sections {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      height: var(--section-bar-height);
+      background: #e5f1f0;
+      color: #175455;
+      font-size: clamp(12px, 2vw, 16px);
+    }
+
+    .soict-sections a {
+      display: grid;
+      place-items: center;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .soict-sections a:hover {
+      text-decoration: underline;
+    }
+
+    .soict-sections a:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: -3px;
+    }
+
+    .soict-sections a[aria-current] {
+      background: #086e70;
+      color: white;
+      font-weight: 700;
+    }
+
+    body.preview .soict-sections {
+      display: none;
+    }
+
+    @media print {
+      body[data-presentation="ncs-soict"]:not(.preview) #deck {
+        height: auto;
+      }
+
+      .soict-sections {
+        display: none;
+      }
+    }
+
     body[data-presentation="ncs-soict"] .slide-page-number {
       position: absolute;
       right: 24px;
@@ -284,8 +341,7 @@
       <aside class="speaker-notes">Start with the problem and the Gaussian budget, then present the algorithm, the
         experiment, and the conclusion.</aside>
     </section>
-    <section class="slide" data-title="Selection under an uncertain budget" data-time="1:00">
-      <div class="eyebrow">Problem</div>
+    <section class="slide" data-title="Selection under an uncertain budget" data-time="1:00" data-section="problem">
       <h2>Selection under an uncertain budget</h2>
       <div class="soict-columns">
         <div>
@@ -307,8 +363,7 @@
         nonnegative. A Max-Cut example: adding a vertex can turn crossing edges into internal edges. Source: §§1, 3, 5.
       </aside>
     </section>
-    <section class="slide" data-title="The normal distribution" data-time="0:45">
-      <div class="eyebrow">Problem · Model</div>
+    <section class="slide" data-title="The normal distribution" data-time="0:45" data-section="problem">
       <h2>The normal distribution</h2>
       <p><span data-tex="W_e\sim\mathcal{N}(\mu,\sigma^2)">Wₑ ∼ 𝒩(μ, σ²)</span></p>
       <div class="soict-normal-layout">
@@ -365,8 +420,7 @@
         the variance, so it measures spread in the same units as X. The shaded interval contains about 68% of the
         probability.</aside>
     </section>
-    <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00">
-      <div class="eyebrow">Problem · Model</div>
+    <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00" data-section="problem">
       <h2>The Gaussian chance constraint</h2>
       <p>Independent Gaussian resources have <span data-tex="\mu_e\ge0">\mu_e\ge0</span> and <span
           data-tex="\sigma_e^2&gt;0">\sigma_e^2&gt;0</span>. Their means and variances add.</p>
@@ -388,8 +442,7 @@
       <aside class="speaker-notes">Use Gaussian closure to explain the exact equivalence. The empty set is feasible.
         Nonnegative means and variances also imply downward closure. Source: §3.</aside>
     </section>
-    <section class="slide" data-title="A family of additive knapsacks" data-time="1:20">
-      <div class="eyebrow">Algorithm · Reformulation</div>
+    <section class="slide" data-title="A family of additive knapsacks" data-time="1:20" data-section="algorithm">
       <h2>A family of additive knapsacks</h2>
       <p class="soict-intro">Every tangent-feasible set meets the chance constraint. Each nonempty chance-feasible set
         belongs to the knapsack at <span data-tex="\theta=\sqrt{v(S)}">\theta=\sqrt{v(S)}</span>.</p>
@@ -414,8 +467,7 @@
         Nonnegative means bound the matching tangent by B/zα. The empty set belongs to every tangent knapsack. Source:
         Lemma 1.</aside>
     </section>
-    <section class="slide" data-title="A geometric grid preserves half the value" data-time="1:20">
-      <div class="eyebrow">Algorithm · Discretization</div>
+    <section class="slide" data-title="A geometric grid preserves half the value" data-time="1:20" data-section="algorithm">
       <h2>A geometric grid preserves half the value</h2>
       <p class="soict-intro">By submodularity, one piece has value at least <span
           data-tex="\mathrm{OPT}/2">\mathrm{OPT}/2</span>.</p>
@@ -438,8 +490,7 @@
       <aside class="speaker-notes">Pick j with θ_j ≤ √v(O) &lt; 3θ_j/2. Explain the two-piece repair and why the
         singleton safeguard is checked against the original constraint. Source: Lemma 2.</aside>
     </section>
-    <section class="slide" data-title="Two candidate sets per active state" data-time="1:30">
-      <div class="eyebrow">Algorithm · FOCUS</div>
+    <section class="slide" data-title="Two candidate sets per active state" data-time="1:30" data-section="algorithm">
       <h2>Two candidate sets per active state</h2>
       <p>For a tangent and an objective guess <span data-tex="u">u</span>, normalize capacity to 1.</p>
       <ol class="soict-steps">
@@ -455,8 +506,7 @@
         The postprocessed subset stays feasible by downward closure. For u no greater than the tangent optimum, the
         fixed state returns value at least u/8. Source: Algorithm 1 and Lemma 3.</aside>
     </section>
-    <section class="slide" data-title="Objective guesses activate during the stream" data-time="1:10">
-      <div class="eyebrow">Algorithm · FOCUS</div>
+    <section class="slide" data-title="Objective guesses activate during the stream" data-time="1:10" data-section="algorithm">
       <h2>Objective guesses activate during the stream</h2>
       <p class="soict-intro">The target guess stays active and follows the same updates as a state started at the
         beginning, until termination.</p>
@@ -480,8 +530,7 @@
         the lower pruning threshold never removes it. A terminal singleton updates the incumbent. Source: Lemma 4.
       </aside>
     </section>
-    <section class="slide" data-title="Deterministic approximation in one pass" data-time="1:30">
-      <div class="eyebrow">Algorithm · Theorem</div>
+    <section class="slide" data-title="Deterministic approximation in one pass" data-time="1:30" data-section="algorithm">
       <h2>Deterministic approximation in one pass</h2>
       <p class="soict-intro"><span data-tex="K">K</span> is the maximum feasible cardinality. The bounds suppress
         logarithmic factors in the instance widths.</p>
@@ -509,8 +558,7 @@
         factor. The theorem assumes exact value-oracle and real-RAM access. The suppressed factors are (1+log Λ)(1+log
         Γ). Source: Theorem 1.</aside>
     </section>
-    <section class="slide" data-title="The experiment compares two selection settings" data-time="0:55">
-      <div class="eyebrow">Experiment</div>
+    <section class="slide" data-title="The experiment compares two selection settings" data-time="0:55" data-section="experiment">
       <h2>The experiment compares two selection settings</h2>
       <p class="soict-intro">Ten runs per budget at <span data-tex="\alpha=0.05">\alpha=0.05</span>. The baseline is the
         offline heuristic Offline-Greedy-CC.</p>
@@ -531,10 +579,9 @@
         independent realizations for final evaluation. Max-Cut varies ten stream orders on one fixed Gaussian resource
         instance. Source: §5.</aside>
     </section>
-    <section class="slide" data-title="Influence maximization uses fewer oracle queries" data-time="0:55">
-      <div class="eyebrow">Experiment · Email-Eu-core</div>
+    <section class="slide" data-title="Influence maximization uses fewer oracle queries" data-time="0:55" data-section="experiment">
       <h2>Influence maximization uses fewer oracle queries</h2>
-      <p class="soict-intro">Each query estimates spread from 100 cascade realizations.</p>
+      <p class="soict-intro">For Email-Eu-core, each query estimates spread from 100 cascade realizations.</p>
       <div class="soict-result">
         <div><strong>477.8</strong>
           <p>FOCUS mean spread at B = 10<br>up from 291.7 at B = 2</p>
@@ -548,12 +595,11 @@
         measurements. The plots in Figure 1 show means and two-sided 95% Student-t intervals. Source: §5, Fig. 1.
       </aside>
     </section>
-    <section class="slide" data-title="Max-Cut trades retained memory for fewer queries" data-time="1:00">
-      <div class="eyebrow">Experiment · ca-HepTh</div>
+    <section class="slide" data-title="Max-Cut trades retained memory for fewer queries" data-time="1:00" data-section="experiment">
       <h2>Max-Cut trades retained memory for fewer queries</h2>
       <p class="soict-intro">FOCUS uses more retained memory in the reported implementation.</p>
       <table class="soict-table">
-        <caption>Reported ranges across budgets 50–250</caption>
+        <caption>ca-HepTh results across budgets 50–250</caption>
         <thead>
           <tr>
             <th scope="col">Measure</th>
@@ -584,8 +630,7 @@
         empirical. All plotted chance-cost means and intervals for both experiments remained below one. Source: §5, Fig.
         2.</aside>
     </section>
-    <section class="slide" data-title="Gaussian feasibility in a single pass" data-time="0:45">
-      <div class="eyebrow">Conclusion</div>
+    <section class="slide" data-title="Gaussian feasibility in a single pass" data-time="0:45" data-section="conclusion">
       <h2>Gaussian feasibility in a single pass</h2>
       <ol class="soict-steps">
         <li>The exact tangent representation turns the Gaussian budget into additive knapsacks.</li>
@@ -616,6 +661,12 @@
         id="nextBtn" aria-label="Next slide">→</button></div><span class="keyboard-hint">← → navigate <span>·</span> N
       notes <span>·</span> F fullscreen</span>
   </footer>
+  <nav class="soict-sections" aria-label="Presentation sections">
+    <a href="#3" data-section="problem">Problem</a>
+    <a href="#6" data-section="algorithm">Algorithm</a>
+    <a href="#11" data-section="experiment">Experiment</a>
+    <a href="#14" data-section="conclusion">Conclusion</a>
+  </nav>
   <div class="progress" aria-hidden="true">
     <div id="progressFill"></div>
   </div>
@@ -633,6 +684,19 @@
       <p id="remoteStatus" role="status"></p>
     </div>
   </dialog>
+  <script>
+    const sectionLinks = document.querySelectorAll('.soict-sections a');
+    document.addEventListener('slidechange', () => {
+      const section = document.querySelector('#deck .slide.active')?.dataset.section;
+      for (const link of sectionLinks) {
+        if (link.dataset.section === section) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      }
+    });
+  </script>
   <script src="script.js?v=20261116-step-sync"></script>
   <script src="remote.js?v=20261119-soict"></script>
 </body>

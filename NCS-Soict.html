@@ -19,7 +19,7 @@
     }
 
     body[data-presentation="ncs-soict"]:not(.preview) #deck {
-      height: calc(100dvh - var(--section-bar-height) - 4px);
+      height: calc(100dvh - var(--section-bar-height));
     }
 
     body[data-presentation="ncs-soict"] .toolbar {
@@ -27,6 +27,7 @@
     }
 
     .soict-sections {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       height: var(--section-bar-height);
@@ -35,7 +36,15 @@
       font-size: clamp(12px, 2vw, 16px);
     }
 
+    .soict-sections #progressFill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: #b8dcd9;
+      pointer-events: none;
+    }
+
     .soict-sections a {
+      position: relative;
       display: grid;
       place-items: center;
       color: inherit;
@@ -52,7 +61,7 @@
     }
 
     .soict-sections a[aria-current] {
-      background: #086e70;
+      background: rgb(5 95 97 / 88%);
       color: white;
       font-weight: 700;
     }
@@ -662,14 +671,12 @@
       notes <span>·</span> F fullscreen</span>
   </footer>
   <nav class="soict-sections" aria-label="Presentation sections">
+    <div id="progressFill" aria-hidden="true"></div>
     <a href="#3" data-section="problem">Problem</a>
     <a href="#6" data-section="algorithm">Algorithm</a>
     <a href="#11" data-section="experiment">Experiment</a>
     <a href="#14" data-section="conclusion">Conclusion</a>
   </nav>
-  <div class="progress" aria-hidden="true">
-    <div id="progressFill"></div>
-  </div>
   <canvas id="annotationCanvas" aria-label="Slide annotations"></canvas>
   <div id="laserPointer" hidden aria-hidden="true"></div>
   <dialog id="remoteDialog" class="remote-login-dialog"><button id="remoteClose" aria-label="Đóng">×</button>

@@ -174,14 +174,32 @@
       margin-bottom: 4px;
     }
 
-    .soict-problem-formula {
-      display: grid;
-      align-items: center;
+    .soict-problem-layout .soict-equation {
       text-align: center;
+      padding: 8px 0;
+      font-size: 26px;
     }
 
-    .soict-problem-layout .soict-problem-formula .soict-equation {
-      margin: 0;
+    .soict-problem-layout .soict-stream-example {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .soict-stream-example .tokens {
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .soict-stream-example .tokens b {
+      border-bottom-color: var(--line);
+    }
+
+    .soict-stream-example .tokens .selected-item {
+      border-bottom-color: var(--teal);
+      background: #def0ee;
     }
 
     .soict-steps {
@@ -370,14 +388,10 @@
     <section class="slide" lang="vi" data-title="Bài toán" data-time="1:00" data-section="problem">
       <h2>Bài toán</h2>
       <div class="soict-columns soict-problem-layout">
-        <div class="soict-problem-formula">
-          <p class="soict-equation">Hãy tìm một tập <span data-tex="S">S</span> để<br>
-            <span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span></p>
-        </div>
         <div>
           <p>Các phần tử của tập nền <span data-tex="V">V</span> xuất hiện lần lượt trong một luồng theo thứ tự ngẫu nhiên, mỗi phần tử đúng một lần.</p>
-        <h3>Chi phí ngẫu nhiên</h3>
-        <p>Các chi phí <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span> độc lập.</p>
+          <h3>Chi phí ngẫu nhiên</h3>
+          <p>Các chi phí <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span> độc lập.</p>
           <h3>Hàm lợi ích</h3>
           <p>Cho hàm dưới môđun (submodular) <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span>,
             có thể không đơn điệu và được chuẩn hóa với <span data-tex="f(\varnothing)=0">f(∅) = 0</span>.</p>
@@ -385,6 +399,21 @@
           <p>Với ngân sách <span data-tex="B&gt;0">B &gt; 0</span>, xác suất tổng chi phí vượt ngân sách
             không được quá <span data-tex="\alpha">α</span>, với
             <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
+          <p class="soict-equation">Hãy tìm một tập <span data-tex="S">S</span> để &ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span></p>
+        </div>
+        <div class="soict-stream-example">
+          <h3>Từ luồng phần tử đến tập được chọn</h3>
+          <div class="tokens">
+            <b><span data-tex="e_3">e₃</span></b><span aria-hidden="true">→</span>
+            <b class="selected-item"><span data-tex="e_1">e₁</span></b><span aria-hidden="true">→</span>
+            <b><span data-tex="e_5">e₅</span></b><span aria-hidden="true">→</span>
+            <b class="selected-item"><span data-tex="e_2">e₂</span></b><span aria-hidden="true">→</span>
+            <b><span data-tex="e_4">e₄</span></b><span aria-hidden="true">→ …</span>
+          </div>
+          <p>Ví dụ, hai ô màu xanh tạo thành tập <span data-tex="S=\{e_1,e_2\}">S = {e₁, e₂}</span>.</p>
+          <p>Sau một lượt đọc luồng, mục tiêu là tìm tập có lợi ích
+            <span data-tex="f(S)">f(S)</span> lớn nhất trong số các tập có xác suất vượt ngân sách
+            <span data-tex="B">B</span> không quá <span data-tex="\alpha">α</span>.</p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 3">3</span>

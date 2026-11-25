@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/latin-modern/lmsans10-regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/latin-modern/lmsans10-bold.otf") format("opentype");
+  font-weight: 600 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/latin-modern/lmsans10-oblique.otf") format("opentype");
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Latin Modern Sans";
+  src: url("assets/fonts/latin-modern/lmsans10-boldoblique.otf") format("opentype");
+  font-style: italic;
+  font-weight: 600 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Latin Modern Math";
+  src: url("assets/fonts/latin-modern/latinmodern-math.otf") format("opentype");
+  font-display: swap;
+}
+
+body[data-presentation="ncs-soict"],
+body[data-presentation="ncs-soict"] :is(
+  button, input, .slide, h1, h2, h3, p, li, th, td, .cover-event
+) {
+  font-family: "Latin Modern Sans", sans-serif;
+}
+
+body[data-presentation="ncs-soict"] .math {
+  letter-spacing: normal;
+  text-transform: none;
+  font-synthesis: none;
+}
+
+body[data-presentation="ncs-soict"] :is(
+  .math math, .soict-normal svg g text, .soict-normal svg text[text-anchor="end"]
+) {
+  font-family: "Latin Modern Math", math;
+  font-weight: 400;
+  font-style: normal;
+}

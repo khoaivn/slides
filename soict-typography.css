@@ -40,7 +40,7 @@ body[data-presentation="ncs-soict"] :is(
   font-family: "Latin Modern Sans", sans-serif;
 }
 
-body[data-presentation="ncs-soict"] .slide :is(h1, h2) {
+body[data-presentation="ncs-soict"] .slide :is(h1, h2, h3) {
   font-weight: 700;
 }
 

@@ -40,6 +40,10 @@ body[data-presentation="ncs-soict"] :is(
   font-family: "Latin Modern Sans", sans-serif;
 }
 
+body[data-presentation="ncs-soict"] .slide :is(h1, h2) {
+  font-weight: 400;
+}
+
 body[data-presentation="ncs-soict"] .math {
   letter-spacing: normal;
   text-transform: none;

@@ -1,8 +1,8 @@
-:root{--bg:#fff;--ink:#142b3b;--muted:#586c78;--green:#087f81;--line:#d9dfdf}body{font-family:Helvetica,Arial,sans-serif}main{max-width:none;padding:0 2px}.algorithm-menu,.explain,footer,.shortcuts{display:none}.data-row{margin-top:0!important;margin-bottom:6px!important;padding:12px!important;gap:9px!important}.layout{grid-template-columns:minmax(0,1fr) 456px;gap:8px}.lab{padding:16px;border-radius:4px}.panel{border-radius:4px;padding:16px}.lab-head{float:right}.stats{margin-top:0;gap:32px}.stats b{font:24px Helvetica,Arial,sans-serif}.stats span{font-size:10px}#chart{height:245px;margin:24px 0 20px}.bar b{font:16px Helvetica,Arial,sans-serif}.bar small{font-size:11px}.legend{font-size:12px}.transport button{font-family:Helvetica,Arial,sans-serif;font-size:13px}.code-line{font-size:19.2px;line-height:1.5;padding:7px 4px;white-space:pre-wrap}.code-line span{margin-right:9px}.tiny{display:none}.code-head .eyebrow{font-size:12px}textarea{font-family:Helvetica,Arial,sans-serif}#timeline{margin-top:8px}.data-inputs{gap:8px!important}.presets{display:none!important}.array-field label{font-size:11px}.speed{width:95px}#error:empty{display:none}button{font-family:Helvetica,Arial,sans-serif}body{overflow:auto}
+:root{--bg:#fff;--ink:#142b3b;--muted:#586c78;--green:#087f81;--line:#d9dfdf}body{font-family:"Latin Modern Sans",sans-serif}main{max-width:none;padding:0 2px}.algorithm-menu,.explain,footer,.shortcuts{display:none}.data-row{margin-top:0!important;margin-bottom:6px!important;padding:12px!important;gap:9px!important}.layout{grid-template-columns:minmax(0,1fr) 456px;gap:8px}.lab{padding:16px;border-radius:4px}.panel{border-radius:4px;padding:16px}.lab-head{float:right}.stats{margin-top:0;gap:32px}.stats b{font:24px "Latin Modern Sans",sans-serif}.stats span{font-size:10px}#chart{height:245px;margin:24px 0 20px}.bar b{font:16px "Latin Modern Sans",sans-serif}.bar small{font-size:11px}.legend{font-size:12px}.transport button{font-family:"Latin Modern Sans",sans-serif;font-size:13px}.code-line{font-size:19.2px;line-height:1.5;padding:7px 4px;white-space:pre-wrap}.code-line span{margin-right:9px}.tiny{display:none}.code-head .eyebrow{font-size:12px}textarea{font-family:"Latin Modern Sans",sans-serif}#timeline{margin-top:8px}.data-inputs{gap:8px!important}.presets{display:none!important}.array-field label{font-size:11px}.speed{width:95px}#error:empty{display:none}button{font-family:"Latin Modern Sans",sans-serif}body{overflow:auto}
 
 .data-row>.simulation-controls,.data-row>.data-inputs{flex:1 1 calc(50% - 4.5px);min-width:0}.data-inputs{display:grid;grid-template-columns:minmax(0,1fr) auto}.data-inputs .array-field>textarea{grid-column:1 / -1}.data-row #apply{padding:7px 10px}.simulation-controls{border-bottom:0;padding-bottom:0}.data-inputs .array-field>label{white-space:nowrap}
 
-.pseudocode-toggle{border:0;border-radius:0;background:transparent;padding:0;color:var(--green);font:700 12px Helvetica,Arial,sans-serif;letter-spacing:1.6px;cursor:pointer;text-align:left}.pseudocode-toggle:hover{background:transparent;text-decoration:underline;text-underline-offset:4px}.code-head:has(.pseudocode-toggle[aria-expanded="false"]){margin-bottom:0}
+.pseudocode-toggle{border:0;border-radius:0;background:transparent;padding:0;color:var(--green);font:700 12px "Latin Modern Sans",sans-serif;letter-spacing:1.6px;cursor:pointer;text-align:left}.pseudocode-toggle:hover{background:transparent;text-decoration:underline;text-underline-offset:4px}.code-head:has(.pseudocode-toggle[aria-expanded="false"]){margin-bottom:0}
 
 /* Icon áp dụng nằm cùng hàng với dãy số. */
 .data-inputs{grid-template-columns:minmax(0,1fr) auto auto}
@@ -19,7 +19,7 @@
 .data-inputs .array-field>label{grid-column:1 / -1;grid-row:2;white-space:normal}
 .data-inputs .array-field>textarea,.data-row .data-inputs #apply,.data-inputs #search-controls{grid-row:3}
 .data-inputs .presets{grid-row:4}
-#array-count{width:70px;min-height:36px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:#fafbf8;color:var(--ink);font:14px Helvetica,Arial,sans-serif}
+#array-count{width:70px;min-height:36px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:#fafbf8;color:var(--ink);font:14px "Latin Modern Sans",sans-serif}
 #random-array{padding:8px 12px;color:var(--green);border-color:var(--green)}
 
 /* Nhãn giới hạn nằm cùng hàng với số lượng và Random. */
@@ -44,13 +44,13 @@
 /* Đồng bộ font cho chữ tiếng Việt và mã giả. */
 body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
 .stats b,.bar b,.heap-value,.heap-index,.heap-empty,.heap-chip,
-.intro-note>span,.complexity b{font-family:Helvetica,Arial,sans-serif}
+.intro-note>span,.complexity b{font-family:"Latin Modern Sans",sans-serif}
 
-/* Font monospace cho mã giả, giữ nguyên cỡ chữ và bố cục. */
+/* Giữ nguyên cỡ chữ và bố cục của mã giả. */
 #chart .bar b{font-size:32px;line-height:1;top:auto;bottom:calc(100% + 6px);color:inherit}
 #chart{margin-top:44px}
 
-#code,.code-line,.code-line span{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;font-variant-ligatures:none}
+#code,.code-line,.code-line span{font-family:Georgia,serif;font-variant-ligatures:none}
 
 /* Tô màu cú pháp; giữ khoảng cách ký tự của mã giả. */
 .code-line span{margin-right:0}

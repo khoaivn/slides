@@ -33,27 +33,48 @@
   font-display: swap;
 }
 
-body[data-presentation="ncs-soict"],
-body[data-presentation="ncs-soict"] :is(
-  button, input, .slide, h1, h2, h3, p, li, th, td, .cover-event
+body[data-presentation],
+body[data-presentation] :is(
+  button, input, .slide, h1, h2, h3, p, li, th, td, .cover-event, .logo-csonet-lockup > span,
+  .formula, .constraints p, .constraints p > span:not(.math), .labels > div > span,
+  .tokens b, .index, .key-formula > span:not(.math), .quota-calculation,
+  .big-stat, .big-stat > span:not(.math), .rho strong, .network-name,
+  .conclusions li > span, .closing-bottom strong, .conflict b
 ) {
   font-family: "Latin Modern Sans", sans-serif;
 }
 
-body[data-presentation="ncs-soict"] .slide :is(h1, h2, h3) {
+body[data-presentation] .slide :is(h1, h2, h3) {
   font-weight: 700;
 }
 
-body[data-presentation="ncs-soict"] .math {
+body[data-presentation] .math {
   letter-spacing: normal;
   text-transform: none;
   font-synthesis: none;
 }
 
-body[data-presentation="ncs-soict"] :is(
+body[data-presentation] :is(
   .math math, .soict-normal svg g text, .soict-normal svg text[text-anchor="end"]
 ) {
   font-family: "Latin Modern Math", math;
   font-weight: 400;
   font-style: normal;
+}
+
+body[data-presentation] #deck .pseudocode,
+body[data-presentation] #deck .pseudocode :is(h1, h2, h3, p, li) {
+  font-family: Georgia, serif;
+}
+
+.pseudocode .katex {
+  font-family: KaTeX_Main, serif;
+}
+
+.pseudocode .katex :is(.mathnormal, .mathit) {
+  font-family: KaTeX_Math, serif;
+}
+
+.pseudocode .katex .text {
+  font-family: Georgia, serif;
 }

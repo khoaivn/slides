@@ -31,7 +31,7 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       height: var(--section-bar-height);
-      background: #e5f1f0;
+      background: white;
       color: #175455;
       font-size: clamp(12px, 2vw, 16px);
     }
@@ -61,9 +61,9 @@
     }
 
     .soict-sections a[aria-current] {
-      background: rgb(5 95 97 / 88%);
-      color: white;
       font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     body.preview .soict-sections {

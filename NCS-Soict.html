@@ -355,19 +355,11 @@
     <section class="slide" lang="vi" data-title="Phát biểu bài toán" data-time="1:00" data-section="problem">
       <h2>Tối đa hóa hàm dưới môđun không đơn điệu<br>dưới ràng buộc xác suất Gaussian</h2>
       <p>Các phần tử của tập nền <span data-tex="V">V</span> xuất hiện lần lượt trong một luồng theo thứ tự ngẫu nhiên, mỗi phần tử đúng một lần.</p>
-      <div class="soict-columns">
-        <div>
-          <h3>Chi phí ngẫu nhiên</h3>
-          <p>Các chi phí <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span> độc lập.
-            Khi phần tử đến, thuật toán biết kỳ vọng <span data-tex="\mu_e">μₑ</span> và phương sai
-            <span data-tex="\sigma_e^2">σₑ²</span>.</p>
-        </div>
-        <div>
-          <h3>Ngân sách và rủi ro</h3>
-          <p>Với ngân sách <span data-tex="B&gt;0">B &gt; 0</span>, xác suất tổng chi phí vượt ngân sách
-            không được quá <span data-tex="\alpha">α</span>, với
-            <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
-        </div>
+      <div class="soict-intro" style="margin-top: 24px">
+        <h3>Chi phí ngẫu nhiên</h3>
+        <p>Các chi phí <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span> độc lập.
+          Khi phần tử đến, thuật toán biết kỳ vọng <span data-tex="\mu_e">μₑ</span> và phương sai
+          <span data-tex="\sigma_e^2">σₑ²</span>.</p>
       </div>
       <h3>Hàm lợi ích</h3>
       <p>Cho hàm dưới môđun (submodular) <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span>,
@@ -375,9 +367,19 @@
       <p><span data-tex="f(A\cup\{e\})-f(A)\ge f(D\cup\{e\})-f(D),\qquad A\subseteq D\subseteq V,\ e\notin D">
         f(A ∪ {e}) − f(A) ≥ f(D ∪ {e}) − f(D), A ⊆ D ⊆ V, e ∉ D</span></p>
       <p>Thêm một phần tử có thể làm giảm lợi ích.</p>
-      <p class="soict-equation"><span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span>
-        &emsp;với điều kiện&emsp;
-        <span data-tex="\Pr\!\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">Pr[∑ Wₑ ≤ B] ≥ 1 − α</span></p>
+      <div class="soict-columns">
+        <div>
+          <h3>Ngân sách và rủi ro</h3>
+          <p>Với ngân sách <span data-tex="B&gt;0">B &gt; 0</span>, xác suất tổng chi phí vượt ngân sách
+            không được quá <span data-tex="\alpha">α</span>, với
+            <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
+        </div>
+        <div>
+          <p class="soict-equation"><span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span>
+            &emsp;với điều kiện<br>
+            <span data-tex="\Pr\!\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">Pr[∑ Wₑ ≤ B] ≥ 1 − α</span></p>
+        </div>
+      </div>
       <span class="slide-page-number" aria-label="Slide 3">3</span>
       <aside class="speaker-notes">Tính dưới môđun nghĩa là lợi ích biên của một phần tử giảm khi tập đã chọn lớn hơn.
         Mục tiêu là tìm tập có lợi ích lớn nhất trong số các tập thỏa giới hạn rủi ro.</aside>

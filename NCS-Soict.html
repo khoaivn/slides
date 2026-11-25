@@ -202,6 +202,39 @@
       background: #def0ee;
     }
 
+    .soict-stream-example .stream-selection {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--teal);
+    }
+
+    .stream-selection .selected-item {
+      padding: 4px 12px;
+      background: #def0ee;
+      border-bottom: 3px solid var(--teal);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .slide.active .soict-stream-example :is(.tokens b, .stream-selection .selected-item) {
+        animation: soict-stream-arrival 480ms ease-out both;
+        animation-delay: var(--arrival, 0ms);
+      }
+    }
+
+    @keyframes soict-stream-arrival {
+      from {
+        opacity: 0;
+        transform: translateX(-18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
     .soict-steps {
       max-width: 1070px;
       padding-left: 30px;
@@ -405,15 +438,19 @@
           <h3>Từ luồng phần tử đến tập được chọn</h3>
           <div class="tokens">
             <b><span data-tex="e_3">e₃</span></b><span aria-hidden="true">→</span>
-            <b class="selected-item"><span data-tex="e_1">e₁</span></b><span aria-hidden="true">→</span>
-            <b><span data-tex="e_5">e₅</span></b><span aria-hidden="true">→</span>
-            <b class="selected-item"><span data-tex="e_2">e₂</span></b><span aria-hidden="true">→</span>
-            <b><span data-tex="e_4">e₄</span></b><span aria-hidden="true">→ …</span>
+            <b class="selected-item" style="--arrival: 650ms"><span data-tex="e_1">e₁</span></b><span aria-hidden="true">→</span>
+            <b style="--arrival: 1300ms"><span data-tex="e_5">e₅</span></b><span aria-hidden="true">→</span>
+            <b class="selected-item" style="--arrival: 1950ms"><span data-tex="e_2">e₂</span></b><span aria-hidden="true">→</span>
+            <b style="--arrival: 2600ms"><span data-tex="e_4">e₄</span></b><span aria-hidden="true">→ …</span>
           </div>
-          <p>Ví dụ, hai ô màu xanh tạo thành tập <span data-tex="S=\{e_1,e_2\}">S = {e₁, e₂}</span>.</p>
-          <p>Sau một lượt đọc luồng, mục tiêu là tìm tập có lợi ích
-            <span data-tex="f(S)">f(S)</span> lớn nhất trong số các tập có xác suất vượt ngân sách
-            <span data-tex="B">B</span> không quá <span data-tex="\alpha">α</span>.</p>
+          <p class="stream-selection">Tập <span data-tex="S">S</span> gồm
+            <span class="selected-item" style="--arrival: 1100ms" data-tex="e_1">e₁</span>
+            <span class="selected-item" style="--arrival: 2400ms" data-tex="e_2">e₂</span>
+          </p>
+          <p>Ví dụ, nếu <span data-tex="W_1,W_2\sim\mathcal{N}(2,1)">W₁, W₂ ∼ 𝒩(2, 1)</span> độc lập,
+            <span data-tex="B=7">B = 7</span> và <span data-tex="\alpha=5\%">α = 5%</span>,
+            tập này khả thi vì <span data-tex="\Pr[W_1+W_2&gt;7]\approx 1{,}7\%">Pr[W₁ + W₂ &gt; 7] ≈ 1,7%</span>.</p>
+          <p>Mục tiêu là chọn tập khả thi có <span data-tex="f(S)">f(S)</span> lớn nhất.</p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 3">3</span>

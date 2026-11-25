@@ -356,23 +356,39 @@
       <h2>Selection under an uncertain budget</h2>
       <div class="soict-columns">
         <div>
-          <h3>One pass over the items</h3>
-          <p>Items arrive in arbitrary order. Each arrival reveals the item’s mean and variance of resource consumption.
-          </p>
+          <h3>Input stream</h3>
+          <p>Each item <span data-tex="e\in V">e ∈ V</span> arrives once, in arbitrary order. Its mean
+            <span data-tex="\mu_e\ge 0">μₑ ≥ 0</span> and variance
+            <span data-tex="\sigma_e^2&gt;0">σₑ² &gt; 0</span> are revealed on arrival.</p>
         </div>
         <div>
-          <h3>A non-monotone objective</h3>
-          <p>Items have diminishing marginal returns. Adding an item can lower the value of the selected set, as in
-            Max-Cut.</p>
+          <h3>Random resource use</h3>
+          <p>Item <span data-tex="e">e</span> consumes
+            <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span>.
+            The item consumptions are mutually independent.</p>
+        </div>
+      </div>
+      <div class="soict-columns">
+        <div>
+          <h3>Value of a selection</h3>
+          <p>An exact value oracle gives <span data-tex="f(S)">f(S)</span> for a set
+            <span data-tex="S\subseteq V">S ⊆ V</span>. The function is nonnegative, normalized
+            (<span data-tex="f(\varnothing)=0">f(∅) = 0</span>), submodular, and possibly non-monotone.</p>
+        </div>
+        <div>
+          <h3>Budget and risk</h3>
+          <p>Given budget <span data-tex="B">B</span> and risk limit
+            <span data-tex="0&lt;\alpha&lt;1/2">0 &lt; α &lt; 1/2</span>, the probability that the
+            selected items exceed the budget must be at most <span data-tex="\alpha">α</span>.</p>
         </div>
       </div>
       <p class="soict-equation"><span
           data-tex="\max_{S\subseteq V} f(S)\qquad\text{subject to}\qquad\Pr\!\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">\max_{S\subseteq
           V} f(S)\qquad\text{subject to}\qquad\Pr\!\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha</span></p>
       <span class="slide-page-number" aria-label="Slide 3">3</span>
-      <aside class="speaker-notes">The value oracle is exact in the theorem. The objective is normalized and
-        nonnegative. A Max-Cut example: adding a vertex can turn crossing edges into internal edges. Source: §§1, 3, 5.
-      </aside>
+      <aside class="speaker-notes">After one pass, return a feasible set with as high a value as possible.
+        Submodularity means diminishing marginal returns. In Max-Cut, adding a vertex can lower the value by turning
+        crossing edges into internal edges. Source: §§1, 3, 5.</aside>
     </section>
     <section class="slide" data-title="The normal distribution" data-time="0:45" data-section="problem">
       <h2>The normal distribution</h2>

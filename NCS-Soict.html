@@ -169,6 +169,21 @@
       margin: 12px 0 0
     }
 
+    .soict-problem-layout h3 {
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    .soict-problem-formula {
+      display: grid;
+      align-items: center;
+      text-align: center;
+    }
+
+    .soict-problem-layout .soict-problem-formula .soict-equation {
+      margin: 0;
+    }
+
     .soict-steps {
       max-width: 1070px;
       padding-left: 30px;
@@ -354,26 +369,24 @@
     </section>
     <section class="slide" lang="vi" data-title="Phát biểu bài toán" data-time="1:00" data-section="problem">
       <h2>Tối đa hóa hàm dưới môđun không đơn điệu<br>dưới ràng buộc xác suất Gaussian</h2>
-      <p>Các phần tử của tập nền <span data-tex="V">V</span> xuất hiện lần lượt trong một luồng theo thứ tự ngẫu nhiên, mỗi phần tử đúng một lần.</p>
-      <div class="soict-intro" style="margin-top: 24px">
+      <div class="soict-columns soict-problem-layout">
+        <div>
+          <p>Các phần tử của tập nền <span data-tex="V">V</span> xuất hiện lần lượt trong một luồng theo thứ tự ngẫu nhiên, mỗi phần tử đúng một lần.</p>
         <h3>Chi phí ngẫu nhiên</h3>
         <p>Các chi phí <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span> độc lập.
           Khi phần tử đến, thuật toán biết kỳ vọng <span data-tex="\mu_e">μₑ</span> và phương sai
           <span data-tex="\sigma_e^2">σₑ²</span>.</p>
-      </div>
-      <h3>Hàm lợi ích</h3>
-      <p>Cho hàm dưới môđun (submodular) <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span>,
-        có thể không đơn điệu và được chuẩn hóa với <span data-tex="f(\varnothing)=0">f(∅) = 0</span>.</p>
-      <div class="soict-columns">
-        <div>
+          <h3>Hàm lợi ích</h3>
+          <p>Cho hàm dưới môđun (submodular) <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span>,
+            có thể không đơn điệu và được chuẩn hóa với <span data-tex="f(\varnothing)=0">f(∅) = 0</span>.</p>
           <h3>Ngân sách và rủi ro</h3>
           <p>Với ngân sách <span data-tex="B&gt;0">B &gt; 0</span>, xác suất tổng chi phí vượt ngân sách
             không được quá <span data-tex="\alpha">α</span>, với
             <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
         </div>
-        <div>
+        <div class="soict-problem-formula">
           <p class="soict-equation"><span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span>
-            &emsp;với điều kiện<br>
+            <br>với điều kiện<br>
             <span data-tex="\Pr\!\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">Pr[∑ Wₑ ≤ B] ≥ 1 − α</span></p>
         </div>
       </div>

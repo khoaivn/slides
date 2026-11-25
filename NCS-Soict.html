@@ -272,6 +272,18 @@
       <aside class="speaker-notes">Introduce FOCUS and state the two goals: select a valuable set in a single pass and
         satisfy a probability bound on total resource consumption. Source: manuscript p. 1.</aside>
     </section>
+    <section class="slide" data-title="Outline" data-time="0:15">
+      <h2>Outline</h2>
+      <ol class="soict-steps">
+        <li>Problem</li>
+        <li>Algorithm</li>
+        <li>Experiment</li>
+        <li>Conclusion</li>
+      </ol>
+      <span class="slide-page-number" aria-label="Slide 2">2</span>
+      <aside class="speaker-notes">Start with the problem and the Gaussian budget, then present the algorithm, the
+        experiment, and the conclusion.</aside>
+    </section>
     <section class="slide" data-title="Selection under an uncertain budget" data-time="1:00">
       <div class="eyebrow">Problem</div>
       <h2>Selection under an uncertain budget</h2>
@@ -290,13 +302,13 @@
       <p class="soict-equation"><span
           data-tex="\max_{S\subseteq V} f(S)\qquad\text{subject to}\qquad\Pr\!\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">\max_{S\subseteq
           V} f(S)\qquad\text{subject to}\qquad\Pr\!\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha</span></p>
-      <span class="slide-page-number" aria-label="Slide 2">2</span>
+      <span class="slide-page-number" aria-label="Slide 3">3</span>
       <aside class="speaker-notes">The value oracle is exact in the theorem. The objective is normalized and
         nonnegative. A Max-Cut example: adding a vertex can turn crossing edges into internal edges. Source: §§1, 3, 5.
       </aside>
     </section>
     <section class="slide" data-title="The normal distribution" data-time="0:45">
-      <div class="eyebrow">Model</div>
+      <div class="eyebrow">Problem · Model</div>
       <h2>The normal distribution</h2>
       <p><span data-tex="W_e\sim\mathcal{N}(\mu,\sigma^2)">Wₑ ∼ 𝒩(μ, σ²)</span></p>
       <div class="soict-normal-layout">
@@ -347,14 +359,14 @@
           <dd>The square root of the variance, in the same units as X.</dd>
         </dl>
       </div>
-      <span class="slide-page-number" aria-label="Slide 3">3</span>
+      <span class="slide-page-number" aria-label="Slide 4">4</span>
       <aside class="speaker-notes">The mean μ is the long-run average and the center of the bell curve. To get the
         variance, square the distance of X from μ and take its expectation. The standard deviation is the square root of
         the variance, so it measures spread in the same units as X. The shaded interval contains about 68% of the
         probability.</aside>
     </section>
     <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00">
-      <div class="eyebrow">Model</div>
+      <div class="eyebrow">Problem · Model</div>
       <h2>The Gaussian chance constraint</h2>
       <p>Independent Gaussian resources have <span data-tex="\mu_e\ge0">\mu_e\ge0</span> and <span
           data-tex="\sigma_e^2&gt;0">\sigma_e^2&gt;0</span>. Their means and variances add.</p>
@@ -372,12 +384,12 @@
             makes the score nonadditive.</p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 4">4</span>
+      <span class="slide-page-number" aria-label="Slide 5">5</span>
       <aside class="speaker-notes">Use Gaussian closure to explain the exact equivalence. The empty set is feasible.
         Nonnegative means and variances also imply downward closure. Source: §3.</aside>
     </section>
     <section class="slide" data-title="A family of additive knapsacks" data-time="1:20">
-      <div class="eyebrow">Reformulation</div>
+      <div class="eyebrow">Algorithm · Reformulation</div>
       <h2>A family of additive knapsacks</h2>
       <p class="soict-intro">Every tangent-feasible set meets the chance constraint. Each nonempty chance-feasible set
         belongs to the knapsack at <span data-tex="\theta=\sqrt{v(S)}">\theta=\sqrt{v(S)}</span>.</p>
@@ -397,13 +409,13 @@
               data-tex="C_\theta=B-\frac{z_\alpha\theta}{2}">C_\theta=B-\frac{z_\alpha\theta}{2}</span></p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 5">5</span>
+      <span class="slide-page-number" aria-label="Slide 6">6</span>
       <aside class="speaker-notes">The minimum is attained at the aggregate standard deviation for positive x.
         Nonnegative means bound the matching tangent by B/zα. The empty set belongs to every tangent knapsack. Source:
         Lemma 1.</aside>
     </section>
     <section class="slide" data-title="A geometric grid preserves half the value" data-time="1:20">
-      <div class="eyebrow">Discretization</div>
+      <div class="eyebrow">Algorithm · Discretization</div>
       <h2>A geometric grid preserves half the value</h2>
       <p class="soict-intro">By submodularity, one piece has value at least <span
           data-tex="\mathrm{OPT}/2">\mathrm{OPT}/2</span>.</p>
@@ -422,12 +434,12 @@
             tangent-feasible remainder.</p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 6">6</span>
+      <span class="slide-page-number" aria-label="Slide 7">7</span>
       <aside class="speaker-notes">Pick j with θ_j ≤ √v(O) &lt; 3θ_j/2. Explain the two-piece repair and why the
         singleton safeguard is checked against the original constraint. Source: Lemma 2.</aside>
     </section>
     <section class="slide" data-title="Two candidate sets per active state" data-time="1:30">
-      <div class="eyebrow">FOCUS</div>
+      <div class="eyebrow">Algorithm · FOCUS</div>
       <h2>Two candidate sets per active state</h2>
       <p>For a tangent and an objective guess <span data-tex="u">u</span>, normalize capacity to 1.</p>
       <ol class="soict-steps">
@@ -438,13 +450,13 @@
         <li><strong>Postprocessing.</strong> Run deterministic ½-approximate unconstrained submodular maximization on
           the first set. Compare that subset, both candidates, and the feasible singleton incumbent.</li>
       </ol>
-      <span class="slide-page-number" aria-label="Slide 7">7</span>
+      <span class="slide-page-number" aria-label="Slide 8">8</span>
       <aside class="speaker-notes">The two sets are disjoint because the second is tested only after the first fails.
         The postprocessed subset stays feasible by downward closure. For u no greater than the tangent optimum, the
         fixed state returns value at least u/8. Source: Algorithm 1 and Lemma 3.</aside>
     </section>
     <section class="slide" data-title="Objective guesses activate during the stream" data-time="1:10">
-      <div class="eyebrow">FOCUS</div>
+      <div class="eyebrow">Algorithm · FOCUS</div>
       <h2>Objective guesses activate during the stream</h2>
       <p class="soict-intro">The target guess stays active and follows the same updates as a state started at the
         beginning, until termination.</p>
@@ -463,13 +475,13 @@
           <p>Update the statistics and create the state before testing the arriving item.</p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 8">8</span>
+      <span class="slide-page-number" aria-label="Slide 9">9</span>
       <aside class="speaker-notes">The target is the largest grid guess no greater than OPTθ. It is above OPTθ/(1+δ), so
         the lower pruning threshold never removes it. A terminal singleton updates the incumbent. Source: Lemma 4.
       </aside>
     </section>
     <section class="slide" data-title="Deterministic approximation in one pass" data-time="1:30">
-      <div class="eyebrow">Theorem</div>
+      <div class="eyebrow">Algorithm · Theorem</div>
       <h2>Deterministic approximation in one pass</h2>
       <p class="soict-intro"><span data-tex="K">K</span> is the maximum feasible cardinality. The bounds suppress
         logarithmic factors in the instance widths.</p>
@@ -492,13 +504,13 @@
               K\varepsilon+K^2\right)</span></p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 9">9</span>
+      <span class="slide-page-number" aria-label="Slide 10">10</span>
       <aside class="speaker-notes">Compose the half-value comparator, the 1/(1+16ε) guess factor and the fixed-state 1/8
         factor. The theorem assumes exact value-oracle and real-RAM access. The suppressed factors are (1+log Λ)(1+log
         Γ). Source: Theorem 1.</aside>
     </section>
     <section class="slide" data-title="The experiment compares two selection settings" data-time="0:55">
-      <div class="eyebrow">Evaluation</div>
+      <div class="eyebrow">Experiment</div>
       <h2>The experiment compares two selection settings</h2>
       <p class="soict-intro">Ten runs per budget at <span data-tex="\alpha=0.05">\alpha=0.05</span>. The baseline is the
         offline heuristic Offline-Greedy-CC.</p>
@@ -514,13 +526,13 @@
             exact.</p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 10">10</span>
+      <span class="slide-page-number" aria-label="Slide 11">11</span>
       <aside class="speaker-notes">Email-Eu-core uses 100 Monte Carlo realizations per oracle query and 1,000
         independent realizations for final evaluation. Max-Cut varies ten stream orders on one fixed Gaussian resource
         instance. Source: §5.</aside>
     </section>
     <section class="slide" data-title="Influence maximization uses fewer oracle queries" data-time="0:55">
-      <div class="eyebrow">Email-Eu-core</div>
+      <div class="eyebrow">Experiment · Email-Eu-core</div>
       <h2>Influence maximization uses fewer oracle queries</h2>
       <p class="soict-intro">Each query estimates spread from 100 cascade realizations.</p>
       <div class="soict-result">
@@ -531,13 +543,13 @@
           <p>FOCUS queries at B = 10<br>vs. 103.3k for Offline-Greedy-CC</p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 11">11</span>
+      <span class="slide-page-number" aria-label="Slide 12">12</span>
       <aside class="speaker-notes">Reported query counts are approximate. These are query counts, not timing
         measurements. The plots in Figure 1 show means and two-sided 95% Student-t intervals. Source: §5, Fig. 1.
       </aside>
     </section>
     <section class="slide" data-title="Max-Cut trades retained memory for fewer queries" data-time="1:00">
-      <div class="eyebrow">ca-HepTh</div>
+      <div class="eyebrow">Experiment · ca-HepTh</div>
       <h2>Max-Cut trades retained memory for fewer queries</h2>
       <p class="soict-intro">FOCUS uses more retained memory in the reported implementation.</p>
       <table class="soict-table">
@@ -567,13 +579,13 @@
           </tr>
         </tbody>
       </table>
-      <span class="slide-page-number" aria-label="Slide 12">12</span>
+      <span class="slide-page-number" aria-label="Slide 13">13</span>
       <aside class="speaker-notes">The comparison is with an offline heuristic and the observed objective ratios are
         empirical. All plotted chance-cost means and intervals for both experiments remained below one. Source: §5, Fig.
         2.</aside>
     </section>
     <section class="slide" data-title="Gaussian feasibility in a single pass" data-time="0:45">
-      <div class="eyebrow">Takeaways</div>
+      <div class="eyebrow">Conclusion</div>
       <h2>Gaussian feasibility in a single pass</h2>
       <ol class="soict-steps">
         <li>The exact tangent representation turns the Gaussian budget into additive knapsacks.</li>
@@ -582,7 +594,7 @@
           for this analysis.</li>
       </ol>
       <p><strong>Questions?</strong></p>
-      <span class="slide-page-number" aria-label="Slide 13">13</span>
+      <span class="slide-page-number" aria-label="Slide 14">14</span>
       <aside class="speaker-notes">Recap the link from exact feasibility to the approximation. Experiments illustrate
         the query-memory trade-off. The model assumes strictly positive variances and exact real arithmetic. Source: §6.
       </aside>

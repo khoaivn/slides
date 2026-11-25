@@ -14,8 +14,8 @@ h2 a{text-decoration:none}h2 a:hover{text-decoration:underline}.time{font-size:1
 <header>
 <a class="back" href="NCS-Soict.html">Mở bài thuyết trình</a>
 <h1>SOICT 2026 · Ghi chú thuyết trình</h1>
-<p>Lời thoại tiếng Việt và tiếng Anh cho 13 slide · 13 phút 45 giây</p>
-<nav aria-label="Chọn slide"><a href="#slide-1">1</a><a href="#slide-2">2</a><a href="#slide-3">3</a><a href="#slide-4">4</a><a href="#slide-5">5</a><a href="#slide-6">6</a><a href="#slide-7">7</a><a href="#slide-8">8</a><a href="#slide-9">9</a><a href="#slide-10">10</a><a href="#slide-11">11</a><a href="#slide-12">12</a><a href="#slide-13">13</a></nav>
+<p>Lời thoại tiếng Việt và tiếng Anh cho 14 slide · 14 phút</p>
+<nav aria-label="Chọn slide"><a href="#slide-1">1</a><a href="#slide-2">2</a><a href="#slide-3">3</a><a href="#slide-4">4</a><a href="#slide-5">5</a><a href="#slide-6">6</a><a href="#slide-7">7</a><a href="#slide-8">8</a><a href="#slide-9">9</a><a href="#slide-10">10</a><a href="#slide-11">11</a><a href="#slide-12">12</a><a href="#slide-13">13</a><a href="#slide-14">14</a></nav>
 </header>
 <section id="slide-1">
 <h2><a href="NCS-Soict.html#1" aria-label="Mở slide 1">Slide 1</a><span class="time">0:35</span></h2>
@@ -25,84 +25,91 @@ h2 a{text-decoration:none}h2 a:hover{text-decoration:underline}.time{font-size:1
 </div>
 </section>
 <section id="slide-2">
-<h2><a href="NCS-Soict.html#2" aria-label="Mở slide 2">Slide 2</a><span class="time">1:00</span></h2>
+<h2><a href="NCS-Soict.html#2" aria-label="Mở slide 2">Slide 2</a><span class="time">0:15</span></h2>
+<div class="languages">
+<article lang="vi"><h3>Bố cục bài trình bày</h3><span class="language">Tiếng Việt</span><p>Tôi sẽ bắt đầu với bài toán và ràng buộc ngân sách Gaussian, sau đó trình bày thuật toán, kết quả thực nghiệm và kết luận.</p></article>
+<article lang="en"><h3>Outline</h3><span class="language">English</span><p>I’ll start with the problem and the Gaussian budget, then present the algorithm, the experiment, and the conclusion.</p></article>
+</div>
+</section>
+<section id="slide-3">
+<h2><a href="NCS-Soict.html#3" aria-label="Mở slide 3">Slide 3</a><span class="time">1:00</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Chọn phần tử dưới ngân sách bất định</h3><span class="language">Tiếng Việt</span><p>Mỗi phần tử đến đúng một lần, theo thứ tự bất kỳ, và cho ta biết kỳ vọng cùng phương sai của lượng tài nguyên nó tiêu thụ. Ta muốn cực đại hóa giá trị của tập được chọn sao cho tổng mức tiêu thụ nằm trong ngân sách B với xác suất ít nhất là một trừ alpha. Tính dưới mô-đun cho ta lợi ích biên giảm dần. Hàm có thể không đơn điệu. Chẳng hạn, trong Max-Cut, thêm một đỉnh có thể biến cạnh đang cắt thành cạnh nội bộ.</p></article>
 <article lang="en"><h3>Selection under an uncertain budget</h3><span class="language">English</span><p>Each item arrives once, in an arbitrary order, and reveals the mean and variance of its resource consumption. We maximize the value of the selected set while requiring that total consumption stays within budget B with probability at least one minus alpha. Submodularity gives diminishing returns, and the objective can be non-monotone. In Max-Cut, for instance, adding a vertex can turn a crossing edge into an internal edge.</p></article>
 </div>
 </section>
-<section id="slide-3">
-<h2><a href="NCS-Soict.html#3" aria-label="Mở slide 3">Slide 3</a><span class="time">0:45</span></h2>
+<section id="slide-4">
+<h2><a href="NCS-Soict.html#4" aria-label="Mở slide 4">Slide 4</a><span class="time">0:45</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Phân phối chuẩn</h3><span class="language">Tiếng Việt</span><p>Kỳ vọng μ là giá trị trung bình dài hạn của X và là tâm của đường cong hình chuông. Phương sai σ² là kỳ vọng của bình phương độ lệch giữa X và μ. Độ lệch chuẩn σ là căn bậc hai của phương sai, nên có cùng đơn vị với X. Vùng tô màu từ μ − σ đến μ + σ chứa khoảng 68% xác suất.</p></article>
 <article lang="en"><h3>The normal distribution</h3><span class="language">English</span><p>The mean μ is the long-run average of X and the center of the bell curve. The variance σ² is the expected squared distance from μ. The standard deviation σ is the square root of the variance and has the same units as X. The shaded interval from μ − σ to μ + σ contains about 68% of the probability.</p></article>
 </div>
 </section>
-<section id="slide-4">
-<h2><a href="NCS-Soict.html#4" aria-label="Mở slide 4">Slide 4</a><span class="time">1:00</span></h2>
+<section id="slide-5">
+<h2><a href="NCS-Soict.html#5" aria-label="Mở slide 5">Slide 5</a><span class="time">1:00</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Ràng buộc xác suất Gaussian</h3><span class="language">Tiếng Việt</span><p>Giả sử các lượng tài nguyên có phân phối Gaussian độc lập, với kỳ vọng không âm và phương sai dương. Tổng vẫn là Gaussian. Kỳ vọng của tổng bằng tổng kỳ vọng và phương sai của tổng bằng tổng phương sai. Vì vậy, ta kiểm tra tính khả thi bằng cách cộng kỳ vọng với độ lệch chuẩn nhân phân vị Gaussian tương ứng, rồi so với ngân sách. Căn bậc hai của tổng phương sai làm cho biểu thức này không có dạng cộng theo từng phần tử.</p></article>
 <article lang="en"><h3>The Gaussian chance constraint</h3><span class="language">English</span><p>Assume independent Gaussian resources with nonnegative means and strictly positive variances. Their sum is Gaussian, with the means and variances added separately. We can therefore check feasibility exactly by adding the mean to the standard deviation times the appropriate Gaussian quantile, then comparing that score to the budget. The square root of the aggregate variance prevents us from writing this score as a sum of item costs.</p></article>
 </div>
 </section>
-<section id="slide-5">
-<h2><a href="NCS-Soict.html#5" aria-label="Mở slide 5">Slide 5</a><span class="time">1:20</span></h2>
+<section id="slide-6">
+<h2><a href="NCS-Soict.html#6" aria-label="Mở slide 6">Slide 6</a><span class="time">1:20</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Họ ràng buộc ba lô dạng cộng</h3><span class="language">Tiếng Việt</span><p>Ta biểu diễn căn bậc hai dưới dạng giá trị nhỏ nhất của một họ hàm theo tham số tiếp tuyến theta. Với theta cố định, mỗi phần tử có một chi phí riêng và tổng các chi phí được so với dung lượng trên slide. Mọi tập thỏa ràng buộc ba lô này đều thỏa ràng buộc xác suất ban đầu. Chiều ngược lại, mỗi tập khả thi khác rỗng có một tiếp tuyến khớp chính xác, tại theta bằng độ lệch chuẩn của tổng.</p></article>
 <article lang="en"><h3>A family of additive knapsacks</h3><span class="language">English</span><p>We write the square root as the minimum over a family of tangent bounds indexed by theta. Fixing theta gives each item an additive cost and gives the knapsack the capacity shown here. Every set that fits this knapsack satisfies the original chance constraint. Conversely, each nonempty chance-feasible set has an exact matching tangent at theta equal to its aggregate standard deviation.</p></article>
 </div>
 </section>
-<section id="slide-6">
-<h2><a href="NCS-Soict.html#6" aria-label="Mở slide 6">Slide 6</a><span class="time">1:20</span></h2>
+<section id="slide-7">
+<h2><a href="NCS-Soict.html#7" aria-label="Mở slide 7">Slide 7</a><span class="time">1:20</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Lưới hình học giữ ít nhất nửa giá trị</h3><span class="language">Tiếng Việt</span><p>Ta dùng lưới hình học với công bội ba phần hai và xét điểm lưới ngay dưới độ lệch chuẩn của nghiệm tối ưu. Tại đó, tổng chi phí của nghiệm tối ưu nhiều nhất bằng chín phần tám dung lượng. Ta chia nghiệm thành hai tập vừa ba lô, hoặc tách một phần tử quá lớn và giữ phần còn lại trong ba lô. Phần tử tách ra tự nó thỏa ràng buộc xác suất. Theo tính dưới mô-đun, ít nhất một trong hai phần đạt nửa giá trị tối ưu.</p></article>
 <article lang="en"><h3>A geometric grid preserves half the value</h3><span class="language">English</span><p>We use a geometric grid with ratio three halves and take the grid point just below the optimal set’s standard deviation. At that tangent, the optimal set costs at most nine eighths of capacity. We can split it into two sets that fit, or separate one oversized item and keep the remainder in the knapsack. That singleton is chance-feasible on its own. By submodularity, at least one piece is worth half the original optimum.</p></article>
 </div>
 </section>
-<section id="slide-7">
-<h2><a href="NCS-Soict.html#7" aria-label="Mở slide 7">Slide 7</a><span class="time">1:30</span></h2>
+<section id="slide-8">
+<h2><a href="NCS-Soict.html#8" aria-label="Mở slide 8">Slide 8</a><span class="time">1:30</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Hai tập ứng viên trong mỗi trạng thái</h3><span class="language">Tiếng Việt</span><p>Mỗi trạng thái ứng với một tiếp tuyến và một ước lượng giá trị u. Ta chuẩn hóa dung lượng về một. Nếu một phần tử khả thi chiếm ít nhất nửa dung lượng và đạt ngưỡng mật độ u chia bốn, trạng thái giữ nghiệm một phần tử rồi dừng. Với các phần tử còn lại, ta thử tập thứ nhất trước, rồi đến tập thứ hai nếu cần. Cuối luồng, ta tìm thêm một tập con có giá trị cao trong tập thứ nhất bằng thủ tục xấp xỉ một nửa. Thuật toán trả về ứng viên khả thi tốt nhất.</p></article>
 <article lang="en"><h3>Two candidate sets per active state</h3><span class="language">English</span><p>Each state pairs a tangent with a value guess u and normalizes capacity to one. If an eligible item takes at least half the capacity and meets the density threshold u over four, the state keeps the singleton and stops. Otherwise, we try the first candidate set, then the second if needed, checking capacity and marginal density. After the stream, a deterministic one-half approximation finds a high-value subset of the first candidate. We return the best feasible candidate found.</p></article>
 </div>
 </section>
-<section id="slide-8">
-<h2><a href="NCS-Soict.html#8" aria-label="Mở slide 8">Slide 8</a><span class="time">1:10</span></h2>
+<section id="slide-9">
+<h2><a href="NCS-Soict.html#9" aria-label="Mở slide 9">Slide 9</a><span class="time">1:10</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Kích hoạt ước lượng trong khi đọc luồng</h3><span class="language">Tiếng Việt</span><p>Với mỗi tiếp tuyến, ta theo dõi giá trị và mật độ lớn nhất của các phần tử đủ điều kiện đã gặp. Hai thống kê này xác định dải ước lượng đang hoạt động. Trước khi mật độ đạt ngưỡng của ước lượng mục tiêu, không phần tử nào có thể được trạng thái đó nhận. Khi phần tử đầu tiên làm mật độ chạm ngưỡng xuất hiện, ta tạo trạng thái trước khi xử lý chính phần tử ấy. Nhờ vậy, trạng thái mục tiêu xử lý luồng giống như khi được tạo từ đầu.</p></article>
 <article lang="en"><h3>Objective guesses activate during the stream</h3><span class="language">English</span><p>For each tangent, we track the largest singleton value and density among eligible items seen so far. Those statistics determine which guesses are active. Before the density first reaches the target guess’s threshold, the target state could not have accepted any item. On the item that crosses the threshold, we create the state before processing that item. This reproduces the target state’s updates as if it had been running from the start.</p></article>
 </div>
 </section>
-<section id="slide-9">
-<h2><a href="NCS-Soict.html#9" aria-label="Mở slide 9">Slide 9</a><span class="time">1:30</span></h2>
+<section id="slide-10">
+<h2><a href="NCS-Soict.html#10" aria-label="Mở slide 10">Slide 10</a><span class="time">1:30</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Bảo đảm xấp xỉ tất định trong một lượt</h3><span class="language">Tiếng Việt</span><p>Lưới tiếp tuyến giữ được ít nhất một nửa giá trị tối ưu, trừ trường hợp nghiệm một phần tử đã đạt mức đó. Ước lượng trực tuyến giữ hệ số một trên một cộng mười sáu epsilon, và trạng thái cố định giữ thêm hệ số một phần tám. Ghép lại, ta được ít nhất một phần mười sáu trừ epsilon lần OPT. Bảo đảm khả thi đúng với mọi thứ tự luồng. Các cận số truy vấn và bộ nhớ dùng mô hình chính xác, với K là số phần tử tối đa trong một tập khả thi và các hệ số log phụ thuộc vào dữ liệu.</p></article>
 <article lang="en"><h3>Deterministic approximation in one pass</h3><span class="language">English</span><p>The tangent grid gives a half-value comparator, with the singleton safeguard covering the remaining case. The online guess contributes a factor of one over one plus sixteen epsilon, and the fixed state contributes one eighth. Together, they give at least one sixteenth minus epsilon times OPT. Feasibility holds for every stream order. The query and memory bounds use the exact model, with K denoting the largest feasible cardinality and logarithmic factors depending on the instance.</p></article>
 </div>
 </section>
-<section id="slide-10">
-<h2><a href="NCS-Soict.html#10" aria-label="Mở slide 10">Slide 10</a><span class="time">0:55</span></h2>
+<section id="slide-11">
+<h2><a href="NCS-Soict.html#11" aria-label="Mở slide 11">Slide 11</a><span class="time">0:55</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Thiết lập thực nghiệm</h3><span class="language">Tiếng Việt</span><p>Chúng tôi xét hai ứng dụng. Trên Email-Eu-core, hàm mục tiêu đo độ lan truyền kỳ vọng theo mô hình thác độc lập và được ước lượng bằng Monte Carlo. Trên ca-HepTh, ta dùng Max-Cut với trọng số đơn vị và tính giá trị hàm chính xác. Mỗi mức ngân sách có mười lần chạy với alpha bằng 0,05. Mốc so sánh là Offline-Greedy-CC, một heuristic tham lam ngoại tuyến.</p></article>
 <article lang="en"><h3>The experiment compares two selection settings</h3><span class="language">English</span><p>We evaluate two applications. On Email-Eu-core, we estimate expected spread under the independent-cascade model using Monte Carlo simulation. On ca-HepTh, we evaluate unit-weight Max-Cut exactly. Each budget has ten runs at alpha equal to 0.05. Our comparator is Offline-Greedy-CC, an offline greedy heuristic.</p></article>
 </div>
 </section>
-<section id="slide-11">
-<h2><a href="NCS-Soict.html#11" aria-label="Mở slide 11">Slide 11</a><span class="time">0:55</span></h2>
+<section id="slide-12">
+<h2><a href="NCS-Soict.html#12" aria-label="Mở slide 12">Slide 12</a><span class="time">0:55</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Kết quả lan truyền trên Email-Eu-core</h3><span class="language">Tiếng Việt</span><p>Khi B tăng từ hai lên mười, độ lan truyền trung bình của FOCUS tăng từ 291,7 lên 477,8. Ở B bằng mười, FOCUS dùng khoảng 39,4 nghìn truy vấn so với 103,3 nghìn của phương pháp ngoại tuyến. Mỗi truy vấn ở đây là một lần ước lượng độ lan truyền từ một trăm mô phỏng thác. Vì vậy, các con số đang so sánh số lần gọi hàm ước lượng.</p></article>
 <article lang="en"><h3>Influence maximization uses fewer oracle queries</h3><span class="language">English</span><p>As B increases from two to ten, the mean spread of FOCUS rises from 291.7 to 477.8. At B equal to ten, FOCUS uses about 39.4 thousand queries, compared with 103.3 thousand for the offline heuristic. Here, one query is one spread estimate based on a hundred cascade simulations. The reported counts refer to calls to that estimator.</p></article>
 </div>
 </section>
-<section id="slide-12">
-<h2><a href="NCS-Soict.html#12" aria-label="Mở slide 12">Slide 12</a><span class="time">1:00</span></h2>
+<section id="slide-13">
+<h2><a href="NCS-Soict.html#13" aria-label="Mở slide 13">Slide 13</a><span class="time">1:00</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Kết quả Max-Cut trên ca-HepTh</h3><span class="language">Tiếng Việt</span><p>Qua các mức ngân sách đã thử, FOCUS đạt từ 84,2 đến 94,2 phần trăm giá trị của mốc ngoại tuyến. Tỷ số giữa điểm chi phí Gaussian và ngân sách nằm trong khoảng 0,740 đến 0,952. FOCUS dùng khoảng 126 đến 413 nghìn truy vấn, trong khi mốc ngoại tuyến dùng khoảng 6,4 đến 14,4 triệu. Đổi lại, triển khai FOCUS giữ nhiều dữ liệu hơn trong bộ nhớ.</p></article>
 <article lang="en"><h3>Max-Cut trades retained memory for fewer queries</h3><span class="language">English</span><p>Across the tested budgets, FOCUS achieves 84.2 to 94.2 percent of the offline heuristic’s objective value. Its Gaussian cost divided by the budget ranges from 0.740 to 0.952. FOCUS makes about 126 to 413 thousand queries, while the offline heuristic makes about 6.4 to 14.4 million. The FOCUS implementation retains more data in memory.</p></article>
 </div>
 </section>
-<section id="slide-13">
-<h2><a href="NCS-Soict.html#13" aria-label="Mở slide 13">Slide 13</a><span class="time">0:45</span></h2>
+<section id="slide-14">
+<h2><a href="NCS-Soict.html#14" aria-label="Mở slide 14">Slide 14</a><span class="time">0:45</span></h2>
 <div class="languages">
 <article lang="vi"><h3>Kết luận</h3><span class="language">Tiếng Việt</span><p>Tóm lại, biểu diễn tiếp tuyến giúp ta chuyển ràng buộc xác suất Gaussian thành một họ bài toán ba lô dạng cộng. Kết hợp lưới hình học với cách kích hoạt ước lượng trực tuyến, FOCUS cho nghiệm thỏa ràng buộc xác suất và có bảo đảm xấp xỉ sau một lượt đọc. Cận bộ nhớ còn phụ thuộc vào dữ liệu. Phương sai bằng không và độ chính xác hữu hạn là hai hướng cần nghiên cứu thêm. Cảm ơn quý vị đã lắng nghe.</p></article>
 <article lang="en"><h3>Gaussian feasibility in a single pass</h3><span class="language">English</span><p>To conclude, the tangent representation turns the Gaussian chance constraint into a family of additive knapsacks. Combining a geometric grid with online guess activation gives FOCUS a one-pass approximation guarantee and exact chance feasibility. The memory bound depends on instance widths. Zero-variance items and finite-precision guarantees remain directions for future work. Thank you. I’m happy to take questions.</p></article>

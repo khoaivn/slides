@@ -187,13 +187,27 @@
       justify-content: center;
     }
 
-    .soict-stream-example .tokens {
+    .soict-stream-track {
+      display: flex;
       align-items: center;
-      flex-wrap: wrap;
       gap: 8px;
+      margin: 22px 0;
+    }
+
+    .soict-stream-window {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .soict-stream-example .tokens {
+      gap: 12px;
+      margin: 0;
     }
 
     .soict-stream-example .tokens b {
+      flex: 1;
+      text-align: center;
       border-bottom-color: var(--line);
     }
 
@@ -217,22 +231,24 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .slide.active .soict-stream-example :is(.tokens b, .stream-selection .selected-item) {
+      .slide.active .soict-stream-example .tokens {
+        animation: soict-stream-conveyor 9s linear forwards;
+      }
+
+      .slide.active .stream-selection .selected-item {
         animation: soict-stream-arrival 480ms ease-out both;
-        animation-delay: var(--arrival, 0ms);
+        animation-delay: var(--arrival);
       }
     }
 
-    @keyframes soict-stream-arrival {
-      from {
-        opacity: 0;
-        transform: translateX(-18px);
-      }
+    @keyframes soict-stream-conveyor {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
 
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    @keyframes soict-stream-arrival {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .soict-steps {
@@ -436,16 +452,22 @@
         </div>
         <div class="soict-stream-example">
           <h3>Từ luồng phần tử đến tập được chọn</h3>
-          <div class="tokens">
-            <b><span data-tex="e_3">e₃</span></b><span aria-hidden="true">→</span>
-            <b class="selected-item" style="--arrival: 650ms"><span data-tex="e_1">e₁</span></b><span aria-hidden="true">→</span>
-            <b style="--arrival: 1300ms"><span data-tex="e_5">e₅</span></b><span aria-hidden="true">→</span>
-            <b class="selected-item" style="--arrival: 1950ms"><span data-tex="e_2">e₂</span></b><span aria-hidden="true">→</span>
-            <b style="--arrival: 2600ms"><span data-tex="e_4">e₄</span></b><span aria-hidden="true">→ …</span>
+          <div class="soict-stream-track">
+            <span aria-hidden="true">⋯</span>
+            <div class="soict-stream-window">
+              <div class="tokens" aria-label="Thứ tự đến: e 3, e 1, e 5, e 2, e 4">
+                <b><span data-tex="e_4">e₄</span></b>
+                <b class="selected-item"><span data-tex="e_2">e₂</span></b>
+                <b><span data-tex="e_5">e₅</span></b>
+                <b class="selected-item"><span data-tex="e_1">e₁</span></b>
+                <b><span data-tex="e_3">e₃</span></b>
+              </div>
+            </div>
+            <span aria-hidden="true">→</span>
           </div>
           <p class="stream-selection">Tập <span data-tex="S">S</span> gồm
-            <span class="selected-item" style="--arrival: 1100ms" data-tex="e_1">e₁</span>
-            <span class="selected-item" style="--arrival: 2400ms" data-tex="e_2">e₂</span>
+            <span class="selected-item" style="--arrival: 6500ms" data-tex="e_1">e₁</span>
+            <span class="selected-item" style="--arrival: 8100ms" data-tex="e_2">e₂</span>
           </p>
           <p>Ví dụ, nếu <span data-tex="W_1,W_2\sim\mathcal{N}(2,1)">W₁, W₂ ∼ 𝒩(2, 1)</span> độc lập,
             <span data-tex="B=7">B = 7</span> và <span data-tex="\alpha=5\%">α = 5%</span>,

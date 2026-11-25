@@ -41,7 +41,7 @@ body[data-presentation="ncs-soict"] :is(
 }
 
 body[data-presentation="ncs-soict"] .slide :is(h1, h2) {
-  font-weight: 400;
+  font-weight: 700;
 }
 
 body[data-presentation="ncs-soict"] .math {

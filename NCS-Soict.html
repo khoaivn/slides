@@ -45,8 +45,12 @@
 
     .soict-sections a {
       position: relative;
-      display: grid;
-      place-items: center;
+      display: block;
+      overflow: hidden;
+      line-height: var(--section-bar-height);
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       color: inherit;
       text-decoration: none;
     }
@@ -691,7 +695,16 @@
     </div>
   </dialog>
   <script>
-    const sectionLinks = document.querySelectorAll('.soict-sections a');
+    const sectionBar = document.querySelector('.soict-sections');
+    const sectionLinks = [...sectionBar.querySelectorAll('a')];
+    const sectionSlideCounts = new Map();
+    for (const slide of document.querySelectorAll('#deck .slide')) {
+      const section = slide.dataset.section;
+      sectionSlideCounts.set(section, (sectionSlideCounts.get(section) ?? 0) + 1);
+    }
+    sectionBar.style.gridTemplateColumns = sectionLinks
+      .map(link => `minmax(0, ${sectionSlideCounts.get(link.dataset.section)}fr)`)
+      .join(' ');
     document.addEventListener('slidechange', () => {
       const section = document.querySelector('#deck .slide.active')?.dataset.section;
       for (const link of sectionLinks) {

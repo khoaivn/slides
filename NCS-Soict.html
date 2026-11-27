@@ -384,6 +384,7 @@
     }
 
     .soict-normal svg {
+      contain: paint;
       display: block;
       width: 100%;
       height: auto
@@ -565,9 +566,6 @@
             aria-label="Normal density centered at μ. The shaded region extends one standard deviation on either side of the mean."
             data-vi-label="Mật độ chuẩn có tâm tại μ. Vùng tô màu kéo dài một độ lệch chuẩn về mỗi phía.">
             <defs>
-              <clipPath id="normal-center">
-                <rect x="295" y="20" width="170" height="210" />
-              </clipPath>
               <path id="normal-density" d="M 40 230
   C 54.2 229.9 68.3 229.8 82.5 229.6
   C 96.7 229.3 110.8 228.9 125.0 227.9
@@ -587,12 +585,16 @@
   C 691.7 229.8 705.8 229.9 720.0 229.9
 " />
             </defs>
-            <use href="#normal-density" fill="var(--teal)" opacity=".2" clip-path="url(#normal-center)" />
-            <path d="M 40 230 H 720 M 380 37 V 230 M 295 113 V 230 M 465 113 V 230" fill="none" stroke="var(--muted)"
+            <path id="normal-center" fill="var(--teal)" opacity=".2"
+              d="M 295 230 V 112.9 C 309.2 93.4 323.3 73.9 337.5 59.7 C 351.7 45.5 365.8 37 380 37
+              C 394.2 37 408.3 45.5 422.5 59.7 C 436.7 73.9 450.8 93.4 465 112.9 V 230 Z" />
+            <path id="normal-guides" d="M 40 230 H 720 M 380 37 V 230 M 295 113 V 230 M 465 113 V 230" fill="none" stroke="var(--muted)"
               stroke-width="1.5" />
             <use href="#normal-density" fill="none" stroke="var(--teal)" stroke-width="4" />
             <g fill="var(--ink)" font-size="23" text-anchor="middle">
-              <text x="295" y="264">μ − σ</text><text x="380" y="264">μ</text><text x="465" y="264">μ + σ</text>
+              <text id="normal-lower" x="295" y="264">μ − σ</text>
+              <text x="380" y="264">μ</text>
+              <text id="normal-upper" x="465" y="264">μ + σ</text>
             </g>
             <text x="720" y="264" text-anchor="end" fill="var(--muted)" font-size="20">Wₑ</text>
           </svg>
@@ -874,6 +876,7 @@
   <script src="script.js?v=20261116-step-sync"></script>
   <script src="soict-language.js"></script>
   <script defer src="soict-stream.js?v=midpoint"></script>
+  <script defer src="soict-normal.js"></script>
   <script src="remote.js?v=20261119-soict"></script>
 </body>
 

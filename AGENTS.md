@@ -11,3 +11,7 @@ Use these fonts across all slide decks:
 - Pseudocode uses Georgia for text and KaTeX Main and KaTeX Math for formulas.
 
 Load `presentation-typography.css` for slide decks. Mark pseudocode containers with `.pseudocode` and use `data-tex` for formulas. Enable MathML output with `data-math-output="mathml"` on the deck body so that `math.js` uses Latin Modern Math outside pseudocode and KaTeX HTML inside it.
+
+# Bilingual slide decks
+
+Keep the English and Vietnamese versions of each bilingual slide deck in sync. Apply changes to both versions in the same update and verify that slide order, content, formulas, figures, and animations match across languages.

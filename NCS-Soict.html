@@ -173,6 +173,10 @@
       margin: 12px 0 0
     }
 
+    .soict-problem-layout {
+      column-gap: 60px;
+    }
+
     .soict-problem-details {
       display: grid;
       align-content: start;
@@ -188,14 +192,12 @@
       text-wrap: balance;
     }
 
-    .soict-stream-example h3 {
-      margin-top: 16px;
-      margin-bottom: 4px;
-    }
-
     .soict-problem-layout .soict-equation {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 10px 0;
       text-align: center;
-      padding: 8px 0;
       font-size: 26px;
     }
 
@@ -205,17 +207,29 @@
 
     .soict-problem-layout .soict-stream-example {
       position: relative;
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: grid;
+      align-content: space-between;
+      row-gap: 22px;
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .soict-stream-example::before {
+      position: absolute;
+      inset: 0 auto 0 -31px;
+      width: 2px;
+      background: var(--teal);
+      content: "";
+    }
+
+    .soict-stream-example h3 {
+      margin: 0;
     }
 
     .soict-stream-track {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin: 22px 0;
       contain: layout paint;
     }
 
@@ -275,7 +289,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      min-height: 54px;
+      margin: 0;
       color: var(--teal);
     }
 
@@ -548,10 +563,14 @@
             </span>
           </p>
           <p class="soict-equation">
-            <span class="soict-equation-label"><span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span></span>
-            &ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span><br>
-            <span class="soict-equation-label" data-vi="với ràng buộc">subject to</span>
-            &ensp;<span data-tex="\Pr\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">Pr[∑ₑ∈ₛ Wₑ ≤ B] ≥ 1 − α</span>
+            <span>
+              <span class="soict-equation-label"><span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span></span>
+              &ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span>
+            </span>
+            <span>
+              <span class="soict-equation-label" data-vi="với ràng buộc">subject to</span>
+              &ensp;<span data-tex="\Pr\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">Pr[∑ₑ∈ₛ Wₑ ≤ B] ≥ 1 − α</span>
+            </span>
           </p>
         </div>
       </div>

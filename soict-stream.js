@@ -8,6 +8,7 @@
   const overlay = example.querySelector('.soict-stream-overlay');
   const motion = matchMedia('screen and (prefers-reduced-motion: no-preference)');
   const pending = 'soict-stream-pending';
+  const highlighted = 'soict-stream-highlighted';
   const items = [...stream.children];
   const selection = example.querySelector('.stream-selection-items');
   let picks = [];
@@ -28,13 +29,16 @@
     const scaleX = bounds.width / overlay.clientWidth;
     const scaleY = bounds.height / overlay.clientHeight;
     const track = viewport.getBoundingClientRect();
-    const pickup = track.left + track.width / 3;
+    const midpoint = track.left + track.width / 2;
+    const pickup = track.left + track.width * (2 / 3);
 
     for (const pick of picks) {
       if (pick.landed) continue;
       if (!pick.flight) {
         const rect = pick.source.getBoundingClientRect();
-        if (rect.left + rect.width / 2 < pickup) continue;
+        const center = rect.left + rect.width / 2;
+        if (center >= midpoint) pick.source.classList.add(highlighted);
+        if (center < pickup) continue;
         const token = pick.source.cloneNode(true);
         token.classList.add('soict-stream-flight');
         token.removeAttribute('data-tex');
@@ -65,7 +69,7 @@
     cancelAnimationFrame(frame);
     overlay.replaceChildren();
     for (const { source, target } of picks) {
-      source.classList.remove(pending);
+      source.classList.remove(pending, highlighted);
       target.classList.remove(pending);
     }
     picks = [];

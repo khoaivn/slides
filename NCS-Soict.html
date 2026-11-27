@@ -382,19 +382,23 @@
 
     .soict-normal-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 430px;
-      gap: 36px;
-      align-items: center;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      column-gap: 60px;
+      align-items: stretch;
+      min-height: 440px;
       margin-top: 24px
     }
 
     .soict-normal {
-      margin: 0
+      display: grid;
+      align-content: center;
+      gap: 12px;
+      margin: 0;
+      text-align: center;
     }
 
     .soict-normal .soict-normal-formula {
-      margin: 0 0 10px;
-      text-align: center;
+      margin: 0;
       font-size: 36px;
       color: #924210;
     }
@@ -407,28 +411,34 @@
     }
 
     .soict-normal figcaption {
-      text-align: center;
-      font-size: 22px
+      font-size: 24px;
     }
 
     .soict-normal-definitions {
+      position: relative;
+      display: grid;
+      align-content: space-evenly;
+      gap: 18px;
       margin: 0;
-      padding-left: 24px;
-      border-left: 2px solid var(--teal);
-      font-size: 23px;
-      line-height: 1.35
+      font-size: 24px;
+      line-height: 1.35;
+    }
+
+    .soict-normal-definitions::before {
+      position: absolute;
+      inset: 0 auto 0 -31px;
+      width: 2px;
+      background: var(--teal);
+      content: "";
     }
 
     .soict-normal-definitions dt {
-      font-weight: 700
+      font-weight: 700;
     }
 
     .soict-normal-definitions dd {
-      margin: 4px 0 16px
-    }
-
-    .soict-normal-definitions dd:last-child {
-      margin-bottom: 0
+      margin: 6px 0 0;
+      text-wrap: balance;
     }
   </style>
 </head>
@@ -623,12 +633,18 @@
           </figcaption>
         </figure>
         <dl class="soict-normal-definitions">
-          <dt><span data-vi="Kỳ vọng">Mean</span> <span data-tex="\mu=\mathbb{E}[W_e]">μ = E[Wₑ]</span></dt>
-          <dd><span data-vi="Giá trị trung bình dài hạn của Wₑ và là tâm của đường cong hình chuông.">The long-run average of Wₑ and the center of the bell curve.</span></dd>
-          <dt><span data-vi="Phương sai">Variance</span> <span data-tex="\sigma^2=\mathbb{E}[(W_e-\mu)^2]">σ² = E[(Wₑ − μ)²]</span></dt>
-          <dd><span data-vi="Kỳ vọng của bình phương độ lệch so với kỳ vọng.">The expected squared distance from the mean.</span></dd>
-          <dt><span data-vi="Độ lệch chuẩn">Standard deviation</span> <span data-tex="\sigma=\sqrt{\operatorname{Var}(W_e)}">σ = √Var(Wₑ)</span></dt>
-          <dd><span data-vi="Căn bậc hai của phương sai, có cùng đơn vị với Wₑ.">The square root of the variance, in the same units as Wₑ.</span></dd>
+          <div>
+            <dt><span data-vi="Kỳ vọng">Mean</span> <span data-tex="\mu=\mathbb{E}[W_e]">μ = E[Wₑ]</span></dt>
+            <dd><span data-vi="Giá trị trung bình dài hạn của Wₑ và là tâm của đường cong hình chuông.">The long-run average of Wₑ and the center of the bell curve.</span></dd>
+          </div>
+          <div>
+            <dt><span data-vi="Phương sai">Variance</span> <span data-tex="\sigma^2=\mathbb{E}[(W_e-\mu)^2]">σ² = E[(Wₑ − μ)²]</span></dt>
+            <dd><span data-vi="Kỳ vọng của bình phương độ lệch so với kỳ vọng.">The expected squared distance from the mean.</span></dd>
+          </div>
+          <div>
+            <dt><span data-vi="Độ lệch chuẩn">Standard deviation</span> <span data-tex="\sigma=\sqrt{\operatorname{Var}(W_e)}">σ = √Var(Wₑ)</span></dt>
+            <dd><span data-vi="Căn bậc hai của phương sai, có cùng đơn vị với Wₑ.">The square root of the variance, in the same units as Wₑ.</span></dd>
+          </div>
         </dl>
       </div>
       <span class="slide-page-number" aria-label="Slide 4">4</span>

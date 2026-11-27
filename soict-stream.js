@@ -9,7 +9,7 @@
   const motion = matchMedia('screen and (prefers-reduced-motion: no-preference)');
   const pending = 'soict-stream-pending';
   const items = [...stream.children];
-  const targets = [...example.querySelectorAll('.stream-selection > [data-tex]')];
+  const selection = example.querySelector('.stream-selection-items');
   let picks = [];
   let playing = false;
   let frame = 0;
@@ -64,27 +64,29 @@
   function clearRound() {
     cancelAnimationFrame(frame);
     overlay.replaceChildren();
-    for (const { source } of picks) source.classList.remove(pending);
-    for (const target of targets) target.classList.remove(pending);
+    for (const { source, target } of picks) {
+      source.classList.remove(pending);
+      target.classList.remove(pending);
+    }
     picks = [];
   }
 
   function startRound() {
     clearRound();
     const available = items.map((_, index) => index);
-    const chosen = targets.map(() => {
+    const count = 2 + Math.floor(Math.random() * 4);
+    const chosen = Array.from({ length: count }, () => {
       const index = Math.floor(Math.random() * available.length);
       return available.splice(index, 1)[0];
     }).sort((a, b) => b - a);
 
-    picks = chosen.map((index, destination) => {
+    picks = chosen.map(index => {
       const source = items[index];
-      const target = targets[destination];
-      target.dataset.tex = source.dataset.tex;
-      target.replaceChildren(...source.cloneNode(true).childNodes);
+      const target = source.cloneNode(true);
       target.classList.add(pending);
       return { source, target, flight: null, landed: false };
     });
+    selection.replaceChildren(...picks.map(({ target }) => target));
     frame = requestAnimationFrame(advance);
   }
 

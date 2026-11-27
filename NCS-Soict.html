@@ -212,19 +212,25 @@
     }
 
     .soict-stream-items > span,
-    .stream-selection > [data-tex],
+    .stream-selection-items > span,
     .soict-stream-flight {
       font-size: 36px;
       line-height: 1;
       color: var(--teal);
     }
 
-    .stream-selection > [data-tex],
+    .stream-selection-items > span,
     .soict-stream-flight {
       color: #924210;
     }
 
-    .stream-selection > [data-tex] {
+    .stream-selection-items {
+      display: flex;
+      align-items: center;
+      gap: inherit;
+    }
+
+    .stream-selection-items > span {
       min-inline-size: 1.35em;
     }
 
@@ -499,8 +505,10 @@
           <div class="soict-stream-overlay" aria-hidden="true"></div>
           <p class="stream-selection">
             <span><span data-vi="Tập">Set</span> <span data-tex="S">S</span>:</span>
-            <span data-tex="e_{1}">e₁</span>
-            <span data-tex="e_{2}">e₂</span>
+            <span class="stream-selection-items">
+              <span data-tex="e_{1}">e₁</span>
+              <span data-tex="e_{2}">e₂</span>
+            </span>
           </p>
         </div>
       </div>
@@ -823,7 +831,7 @@
   </script>
   <script src="script.js?v=20261116-step-sync"></script>
   <script src="soict-language.js"></script>
-  <script defer src="soict-stream.js?v=loop"></script>
+  <script defer src="soict-stream.js?v=variable-size"></script>
   <script src="remote.js?v=20261119-soict"></script>
 </body>
 

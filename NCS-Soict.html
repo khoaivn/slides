@@ -470,7 +470,6 @@
           <h3><span data-vi="Ràng buộc xác suất Gaussian">Gaussian chance constraint</span></h3>
           <p><span data-vi="Với ngân sách">Given a budget</span> <span data-tex="B&gt;0">B &gt; 0</span><span data-vi=", xác suất tổng chi phí vượt ngân sách không được quá">, the probability that the total cost exceeds the budget must be at most</span> <span data-tex="\alpha">α</span><span data-vi=", với">, where</span>
             <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
-          <p class="soict-equation"><span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span> <span data-vi="để"></span>&ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span></p>
         </div>
         <div class="soict-stream-example">
           <h3><span data-vi="Luồng">Stream</span></h3>
@@ -509,6 +508,12 @@
               <span data-tex="e_{1}">e₁</span>
               <span data-tex="e_{2}">e₂</span>
             </span>
+          </p>
+          <p class="soict-equation">
+            <span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span>
+            &ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span><br>
+            <span data-vi="với ràng buộc">subject to</span>
+            &ensp;<span data-tex="\Pr\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">Pr[∑ₑ∈ₛ Wₑ ≤ B] ≥ 1 − α</span>
           </p>
         </div>
       </div>

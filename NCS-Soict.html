@@ -173,6 +173,34 @@
       margin: 12px 0 0
     }
 
+    .soict-gaussian-reduction {
+      margin-bottom: 22px;
+    }
+
+    .soict-gaussian-reduction > div {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .soict-gaussian-reduction h3,
+    .soict-gaussian-reduction p {
+      margin: 0;
+    }
+
+    .soict-gaussian-reduction .soict-equation {
+      display: grid;
+      place-items: center;
+      min-height: 84px;
+      margin-top: auto;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    .soict-reduction-summary {
+      text-wrap: balance;
+    }
+
     .soict-problem-layout {
       column-gap: 60px;
     }
@@ -650,47 +678,27 @@
       <span class="slide-page-number" aria-label="Slide 4">4</span>
       <aside class="speaker-notes"><span data-vi="Kỳ vọng μ là trung bình dài hạn và là tâm của đường cong. Phương sai là kỳ vọng của bình phương độ lệch giữa Wₑ và μ. Độ lệch chuẩn là căn bậc hai của phương sai và có cùng đơn vị với Wₑ. Khoảng [μ − σ, μ + σ] chuẩn hóa về [−1, 1], nên xác suất bằng 2Φ(1) − 1 ≈ 0,6827.">The mean μ is the long-run average and the center of the bell curve. To get the variance, square the distance of Wₑ from μ and take its expectation. The standard deviation is the square root of the variance, so it measures spread in the same units as Wₑ. The interval [μ − σ, μ + σ] standardizes to [−1, 1], so its probability is 2Φ(1) − 1 ≈ 0.6827.</span></aside>
     </section>
-    <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00" data-section="problem">
-      <h2><span data-vi="Ràng buộc xác suất Gaussian">The Gaussian chance constraint</span></h2>
-      <p><span data-vi="Các chi phí Gaussian độc lập có">Independent Gaussian resources have</span> <span data-tex="\mu_e\ge0">\mu_e\ge0</span> <span data-vi="và">and</span> <span
-          data-tex="\sigma_e^2&gt;0">\sigma_e^2&gt;0</span><span data-vi=". Kỳ vọng và phương sai của tổng lần lượt bằng tổng các kỳ vọng và tổng các phương sai.">. Their means and variances add.</span></p>
-      <p class="soict-equation"><span data-tex="g(S)=\mu(S)+z_\alpha\sqrt{v(S)}\le B">g(S)=\mu(S)+z_\alpha\sqrt{v(S)}\le
-          B</span></p>
-      <div class="soict-columns">
+    <section class="slide" data-title="From Gaussian risk to additive knapsacks" data-time="2:20" data-section="problem">
+      <h2><span data-vi="Từ ràng buộc Gaussian đến bài toán ba lô">From Gaussian risk to additive knapsacks</span></h2>
+      <div class="soict-columns soict-gaussian-reduction">
         <div>
-          <h3><span data-vi="Mức rủi ro">Risk level</span></h3>
-          <p><span data-tex="z_\alpha=\Phi^{-1}(1-\alpha)">z_\alpha=\Phi^{-1}(1-\alpha)</span> <span data-vi="với">for</span> <span
-              data-tex="0&lt;\alpha&lt;1/2">0&lt;\alpha&lt;1/2</span>.</p>
+          <h3><span data-vi="Ràng buộc xác suất Gaussian">Gaussian chance constraint</span></h3>
+          <p><span data-vi="Các chi phí Gaussian độc lập có">Independent Gaussian costs have</span> <span data-tex="\mu_e\ge0">μₑ ≥ 0</span> <span data-vi="và">and</span> <span data-tex="\sigma_e^2&gt;0">σₑ² &gt; 0</span>.</p>
+          <p><span data-tex="\mu(S)=\sum_{e\in S}\mu_e,\quad v(S)=\sum_{e\in S}\sigma_e^2">μ(S) = ∑ μₑ, v(S) = ∑ σₑ²</span></p>
+          <p><span data-tex="z_\alpha=\Phi^{-1}(1-\alpha),\quad 0&lt;\alpha&lt;1/2">zα = Φ⁻¹(1 − α), 0 &lt; α &lt; ½</span></p>
+          <p class="soict-equation"><span data-tex="g(S)=\mu(S)+z_\alpha\sqrt{v(S)}\le B">g(S) = μ(S) + zα√v(S) ≤ B</span></p>
         </div>
         <div>
-          <h3><span data-vi="Phương sai của tổng">Aggregate variance</span></h3>
-          <p><span data-tex="v(S)=\sum_{e\in S}\sigma_e^2">v(S)=\sum_{e\in S}\sigma_e^2</span><span data-vi=". Số hạng căn bậc hai khiến biểu thức không có dạng cộng theo phần tử.">. The square-root term makes the score nonadditive.</span></p>
+          <h3><span data-vi="Ba lô theo tiếp tuyến">Tangent knapsack</span></h3>
+          <p><span data-tex="\sqrt{x}=\min_{\theta&gt;0}\left(\frac{x}{2\theta}+\frac{\theta}{2}\right),\quad x&gt;0">√x = min (x/(2θ) + θ/2), x &gt; 0</span></p>
+          <p><span data-vi="Với mỗi">For each</span> <span data-tex="\theta&gt;0">θ &gt; 0</span><span data-vi=", chi phí và dung lượng là">, the item cost and capacity are</span></p>
+          <p><span data-tex="c_\theta(e)=\mu_e+\frac{z_\alpha\sigma_e^2}{2\theta},\quad C_\theta=B-\frac{z_\alpha\theta}{2}">cθ(e) = μₑ + zασₑ²/(2θ), Cθ = B − zαθ/2</span></p>
+          <p class="soict-equation"><span data-tex="\sum_{e\in S} c_\theta(e)\le C_\theta">∑ cθ(e) ≤ Cθ</span></p>
         </div>
       </div>
+      <p class="soict-reduction-summary"><span data-vi="Mọi tập vừa ba lô đều thỏa ràng buộc xác suất. Với mỗi tập khả thi khác rỗng, hai điều kiện khớp chính xác tại">Every set that fits the knapsack satisfies the chance constraint. For each nonempty feasible set, the two conditions agree at</span> <span data-tex="\theta=\sqrt{v(S)}">θ = √v(S)</span>.</p>
       <span class="slide-page-number" aria-label="Slide 5">5</span>
-      <aside class="speaker-notes"><span data-vi="Dùng tính chất tổng các biến Gaussian độc lập vẫn là Gaussian để giải thích sự tương đương. Tập rỗng khả thi. Kỳ vọng và phương sai không âm đảm bảo tập con của một tập khả thi cũng khả thi. Nguồn: Mục 3.">Use Gaussian closure to explain the exact equivalence. The empty set is feasible. Nonnegative means and variances also imply downward closure. Source: §3.</span></aside>
-    </section>
-    <section class="slide" data-title="A family of additive knapsacks" data-time="1:20" data-section="algorithm">
-      <h2><span data-vi="Họ ràng buộc ba lô dạng cộng">A family of additive knapsacks</span></h2>
-      <p class="soict-intro"><span data-vi="Mọi tập thỏa ràng buộc theo tiếp tuyến đều thỏa ràng buộc xác suất. Mỗi tập khả thi khác rỗng thuộc ba lô tại">Every tangent-feasible set meets the chance constraint. Each nonempty chance-feasible set belongs to the knapsack at</span> <span data-tex="\theta=\sqrt{v(S)}">\theta=\sqrt{v(S)}</span>.</p>
-      <p class="soict-equation"><span
-          data-tex="\sqrt{x}=\min_{\theta&gt;0}\left(\frac{x}{2\theta}+\frac{\theta}{2}\right)">\sqrt{x}=\min_{\theta&gt;0}\left(\frac{x}{2\theta}+\frac{\theta}{2}\right)</span>
-      </p>
-      <div class="soict-columns">
-        <div>
-          <h3><span data-vi="Chi phí của phần tử e">Cost of item e</span></h3>
-          <p class="soict-equation"><span
-              data-tex="c_\theta(e)=\mu_e+\frac{z_\alpha\sigma_e^2}{2\theta}">c_\theta(e)=\mu_e+\frac{z_\alpha\sigma_e^2}{2\theta}</span>
-          </p>
-        </div>
-        <div>
-          <h3><span data-vi="Dung lượng">Capacity</span></h3>
-          <p class="soict-equation"><span
-              data-tex="C_\theta=B-\frac{z_\alpha\theta}{2}">C_\theta=B-\frac{z_\alpha\theta}{2}</span></p>
-        </div>
-      </div>
-      <span class="slide-page-number" aria-label="Slide 6">6</span>
-      <aside class="speaker-notes"><span data-vi="Với x dương, giá trị nhỏ nhất đạt được tại độ lệch chuẩn của tổng. Kỳ vọng không âm cho cận trên B/zα của tham số tiếp tuyến tương ứng. Tập rỗng thuộc mọi ba lô theo tiếp tuyến. Nguồn: Bổ đề 1.">The minimum is attained at the aggregate standard deviation for positive x. Nonnegative means bound the matching tangent by B/zα. The empty set belongs to every tangent knapsack. Source: Lemma 1.</span></aside>
+      <aside class="speaker-notes"><span data-vi="Tổng các chi phí Gaussian độc lập vẫn là Gaussian. Cộng kỳ vọng và phương sai để quy ràng buộc xác suất về điều kiện g(S) ≤ B. Tiếp tuyến chặn trên căn bậc hai và khớp chính xác khi θ bằng độ lệch chuẩn của tổng. Khi cố định θ, chuyển phần hằng sang dung lượng để được điều kiện ba lô dạng cộng. Tập rỗng khả thi theo ràng buộc ban đầu. Nguồn: Mục 3 và Bổ đề 1.">The sum of independent Gaussian costs is Gaussian. Add the means and variances to obtain the equivalent test g(S) ≤ B. Each tangent bounds the square root from above, with equality when θ is the aggregate standard deviation. Fix θ and move the constant term into the capacity to obtain an additive knapsack. The empty set is feasible under the original constraint. Sources: §3 and Lemma 1.</span></aside>
     </section>
     <section class="slide" data-title="A geometric grid preserves half the value" data-time="1:20" data-section="algorithm">
       <h2><span data-vi="Lưới hình học giữ ít nhất nửa giá trị">A geometric grid preserves half the value</span></h2>
@@ -710,7 +718,7 @@
           <p><span data-vi="Chia thành hai tập thỏa ràng buộc theo tiếp tuyến, hoặc tách một phần tử tự nó thỏa ràng buộc xác suất và giữ phần còn lại trong ba lô.">Split it into two tangent-feasible sets, or separate one chance-feasible singleton from the tangent-feasible remainder.</span></p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 7">7</span>
+      <span class="slide-page-number" aria-label="Slide 6">6</span>
       <aside class="speaker-notes"><span data-vi="Chọn j sao cho θ_j ≤ √v(O) &lt; 3θ_j/2. Giải thích cách chia thành hai tập và vì sao nghiệm một phần tử phải được kiểm tra theo ràng buộc ban đầu. Nguồn: Bổ đề 2.">Pick j with θ_j ≤ √v(O) &lt; 3θ_j/2. Explain the two-piece repair and why the singleton safeguard is checked against the original constraint. Source: Lemma 2.</span></aside>
     </section>
     <section class="slide" data-title="Two candidate sets per active state" data-time="1:30" data-section="algorithm">
@@ -721,7 +729,7 @@
         <li><strong><span data-vi="Các tập ứng viên.">Candidate sets.</span></strong> <span data-vi="Thử tập thứ nhất, rồi thử tập thứ hai nếu cần. Chỉ thêm phần tử nếu còn đủ dung lượng và mật độ lợi ích biên ít nhất">Test the first set, then the second if needed. Add the item only if it fits and its marginal density is at least</span> <span data-tex="u/4">u/4</span>.</li>
         <li><strong><span data-vi="Xử lý cuối luồng.">Postprocessing.</span></strong> <span data-vi="Chạy thuật toán tất định xấp xỉ ½ cho bài toán tối đa hóa dưới môđun không ràng buộc trên tập thứ nhất. So sánh tập con thu được, hai tập ứng viên và nghiệm một phần tử khả thi tốt nhất hiện có.">Run deterministic ½-approximate unconstrained submodular maximization on the first set. Compare that subset, both candidates, and the feasible singleton incumbent.</span></li>
       </ol>
-      <span class="slide-page-number" aria-label="Slide 8">8</span>
+      <span class="slide-page-number" aria-label="Slide 7">7</span>
       <aside class="speaker-notes"><span data-vi="Hai tập rời nhau vì chỉ thử tập thứ hai khi tập thứ nhất không nhận phần tử. Tập con thu được vẫn khả thi. Nếu u không vượt giá trị tối ưu của ba lô theo tiếp tuyến, trạng thái cố định trả về giá trị ít nhất u/8. Nguồn: Thuật toán 1 và Bổ đề 3.">The two sets are disjoint because the second is tested only after the first fails. The postprocessed subset stays feasible by downward closure. For u no greater than the tangent optimum, the fixed state returns value at least u/8. Source: Algorithm 1 and Lemma 3.</span></aside>
     </section>
     <section class="slide" data-title="Objective guesses activate during the stream" data-time="1:10" data-section="algorithm">
@@ -742,7 +750,7 @@
           <p><span data-vi="Cập nhật các thống kê và tạo trạng thái trước khi xét phần tử vừa đến.">Update the statistics and create the state before testing the arriving item.</span></p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 9">9</span>
+      <span class="slide-page-number" aria-label="Slide 8">8</span>
       <aside class="speaker-notes"><span data-vi="Mục tiêu là ước lượng lớn nhất trên lưới không vượt OPTθ. Giá trị này lớn hơn OPTθ/(1+δ) nên cận dưới không loại nó. Nghiệm một phần tử khi dừng được dùng để cập nhật nghiệm tốt nhất. Nguồn: Bổ đề 4.">The target is the largest grid guess no greater than OPTθ. It is above OPTθ/(1+δ), so the lower pruning threshold never removes it. A terminal singleton updates the incumbent. Source: Lemma 4.</span>
       </aside>
     </section>
@@ -768,7 +776,7 @@
               K\varepsilon+K^2\right)</span></p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 10">10</span>
+      <span class="slide-page-number" aria-label="Slide 9">9</span>
       <aside class="speaker-notes"><span data-vi="Nhân các hệ số ½ của nghiệm đối chiếu, 1/(1+16ε) của ước lượng và 1/8 của trạng thái cố định. Định lý dùng truy vấn hàm giá trị và mô hình real-RAM chính xác. Các thừa số lược bỏ là (1+log Λ)(1+log Γ). Nguồn: Định lý 1.">Compose the half-value comparator, the 1/(1+16ε) guess factor and the fixed-state 1/8 factor. The theorem assumes exact value-oracle and real-RAM access. The suppressed factors are (1+log Λ)(1+log Γ). Source: Theorem 1.</span></aside>
     </section>
     <section class="slide" data-title="The experiment compares two selection settings" data-time="0:55" data-section="experiment">
@@ -784,7 +792,7 @@
           <p><span data-vi="Max-Cut với trọng số đơn vị trên 9.877 đỉnh và 25.973 cạnh. Hàm mục tiêu không đơn điệu và mỗi truy vấn cho giá trị chính xác.">Unit-weight Max-Cut on 9,877 vertices and 25,973 edges. The objective is non-monotone and the oracle is exact.</span></p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 11">11</span>
+      <span class="slide-page-number" aria-label="Slide 10">10</span>
       <aside class="speaker-notes"><span data-vi="Email-Eu-core dùng 100 lần mô phỏng Monte Carlo cho mỗi truy vấn và 1.000 lần mô phỏng độc lập để đánh giá cuối cùng. Max-Cut dùng mười thứ tự luồng trên cùng một bộ chi phí Gaussian. Nguồn: Mục 5.">Email-Eu-core uses 100 Monte Carlo realizations per oracle query and 1,000 independent realizations for final evaluation. Max-Cut varies ten stream orders on one fixed Gaussian resource instance. Source: §5.</span></aside>
     </section>
     <section class="slide" data-title="Influence maximization uses fewer oracle queries" data-time="0:55" data-section="experiment">
@@ -798,7 +806,7 @@
           <p><span data-vi="Số truy vấn của FOCUS tại B = 10">FOCUS queries at B = 10</span><br><span data-vi="so với 103,3 nghìn của Offline-Greedy-CC">vs. 103.3k for Offline-Greedy-CC</span></p>
         </div>
       </div>
-      <span class="slide-page-number" aria-label="Slide 12">12</span>
+      <span class="slide-page-number" aria-label="Slide 11">11</span>
       <aside class="speaker-notes"><span data-vi="Số truy vấn được báo cáo dưới dạng xấp xỉ. Hình 1 biểu diễn trung bình và khoảng tin cậy Student t hai phía ở mức 95%. Nguồn: Mục 5, Hình 1.">Reported query counts are approximate. These are query counts, not timing measurements. The plots in Figure 1 show means and two-sided 95% Student-t intervals. Source: §5, Fig. 1.</span>
       </aside>
     </section>
@@ -832,7 +840,7 @@
           </tr>
         </tbody>
       </table>
-      <span class="slide-page-number" aria-label="Slide 13">13</span>
+      <span class="slide-page-number" aria-label="Slide 12">12</span>
       <aside class="speaker-notes"><span data-vi="Mốc so sánh là thuật toán tham lam ngoại tuyến. Các tỷ số giá trị mục tiêu là kết quả thực nghiệm. Trên biểu đồ của cả hai thực nghiệm, mọi giá trị trung bình và khoảng tin cậy của tỷ số chi phí Gaussian trên ngân sách đều dưới 1. Nguồn: Mục 5, Hình 2.">The comparison is with an offline heuristic and the observed objective ratios are empirical. All plotted chance-cost means and intervals for both experiments remained below one. Source: §5, Fig. 2.</span></aside>
     </section>
     <section class="slide" data-title="Gaussian feasibility in a single pass" data-time="0:45" data-section="conclusion">
@@ -843,7 +851,7 @@
         <li><span data-vi="Cận bộ nhớ phụ thuộc vào dữ liệu. Trường hợp phương sai bằng 0 và bảo đảm với số học hữu hạn vẫn là các hướng nghiên cứu mở.">The memory bound depends on instance widths. Zero-variance items and finite-precision guarantees remain open for this analysis.</span></li>
       </ol>
       <p><strong><span data-vi="Câu hỏi?">Questions?</span></strong></p>
-      <span class="slide-page-number" aria-label="Slide 14">14</span>
+      <span class="slide-page-number" aria-label="Slide 13">13</span>
       <aside class="speaker-notes"><span data-vi="Nhắc lại mối liên hệ giữa tính khả thi chính xác và bảo đảm xấp xỉ. Thực nghiệm cho thấy sự đánh đổi giữa số truy vấn và bộ nhớ. Mô hình giả sử phương sai dương và phép toán số thực chính xác. Nguồn: Mục 6.">Recap the link from exact feasibility to the approximation. Experiments illustrate the query-memory trade-off. The model assumes strictly positive variances and exact real arithmetic. Source: §6.</span>
       </aside>
     </section>
@@ -870,8 +878,8 @@
     <a href="#1" data-section="introduction" data-vi="Giới thiệu">Introduction</a>
     <a href="#3" data-section="problem" data-vi="Bài toán">Problem</a>
     <a href="#6" data-section="algorithm" data-vi="Thuật toán">Algorithm</a>
-    <a href="#11" data-section="experiment" data-vi="Thực nghiệm">Experiment</a>
-    <a href="#14" data-section="conclusion" data-vi="Kết luận">Conclusion</a>
+    <a href="#10" data-section="experiment" data-vi="Thực nghiệm">Experiment</a>
+    <a href="#13" data-section="conclusion" data-vi="Kết luận">Conclusion</a>
   </nav>
   <canvas id="annotationCanvas" aria-label="Slide annotations"></canvas>
   <div id="laserPointer" hidden aria-hidden="true"></div>

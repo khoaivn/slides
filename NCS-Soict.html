@@ -201,20 +201,17 @@
       overflow: hidden;
     }
 
-    .soict-stream-example .tokens {
-      gap: 12px;
-      margin: 0;
-    }
-
-    .soict-stream-example .tokens b {
-      flex: 1;
+    .soict-stream-items {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: center;
+      min-height: 54px;
+      row-gap: 8px;
       text-align: center;
-      border-bottom-color: var(--line);
     }
 
-    .soict-stream-example .tokens .selected-item {
-      border-bottom-color: var(--teal);
-      background: #def0ee;
+    .soict-stream-items .selected-item {
+      color: var(--teal);
     }
 
     .soict-stream-example .stream-selection {
@@ -226,15 +223,17 @@
     }
 
     @media screen and (prefers-reduced-motion: no-preference) {
-      .slide.active .soict-stream-window > .tokens {
+      .slide.active .soict-stream-window > .soict-stream-items {
         /* Keep motion out of the scaled slide's composited transform layers. */
         position: relative;
-        animation: soict-stream-conveyor 9s linear forwards;
+        width: 400%;
+        grid-template-columns: repeat(20, minmax(0, 1fr));
+        animation: soict-stream-conveyor 22.5s linear forwards;
       }
     }
 
     @keyframes soict-stream-conveyor {
-      from { left: -100%; }
+      from { left: -400%; }
       to { left: 100%; }
     }
 
@@ -437,12 +436,27 @@
           <div class="soict-stream-track">
             <span aria-hidden="true">⋯</span>
             <div class="soict-stream-window">
-              <div class="tokens" aria-label="Arrival order: e 3, e 1, e 5, e 2, e 4" data-vi-label="Thứ tự đến: e 3, e 1, e 5, e 2, e 4">
-                <b><span data-tex="e_4">e₄</span></b>
-                <b class="selected-item"><span data-tex="e_2">e₂</span></b>
-                <b><span data-tex="e_5">e₅</span></b>
-                <b class="selected-item"><span data-tex="e_1">e₁</span></b>
-                <b><span data-tex="e_3">e₃</span></b>
+              <div class="soict-stream-items">
+                <span data-tex="e_{17}">e₁₇</span>
+                <span data-tex="e_{9}">e₉</span>
+                <span data-tex="e_{12}">e₁₂</span>
+                <span data-tex="e_{6}">e₆</span>
+                <span data-tex="e_{19}">e₁₉</span>
+                <span data-tex="e_{13}">e₁₃</span>
+                <span data-tex="e_{7}">e₇</span>
+                <span data-tex="e_{16}">e₁₆</span>
+                <span data-tex="e_{11}">e₁₁</span>
+                <span data-tex="e_{20}">e₂₀</span>
+                <span data-tex="e_{10}">e₁₀</span>
+                <span data-tex="e_{15}">e₁₅</span>
+                <span data-tex="e_{8}">e₈</span>
+                <span data-tex="e_{18}">e₁₈</span>
+                <span data-tex="e_{14}">e₁₄</span>
+                <span data-tex="e_{4}">e₄</span>
+                <span class="selected-item" data-tex="e_{2}">e₂</span>
+                <span data-tex="e_{5}">e₅</span>
+                <span class="selected-item" data-tex="e_{1}">e₁</span>
+                <span data-tex="e_{3}">e₃</span>
               </div>
             </div>
             <span aria-hidden="true">→</span>

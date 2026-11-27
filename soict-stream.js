@@ -8,12 +8,9 @@
   const overlay = example.querySelector('.soict-stream-overlay');
   const motion = matchMedia('screen and (prefers-reduced-motion: no-preference)');
   const pending = 'soict-stream-pending';
-  const picks = [...stream.querySelectorAll('.selected-item')].map(source => ({
-    source,
-    target: example.querySelector(`.stream-selection > [data-tex="${source.dataset.tex}"]`),
-    flight: null,
-    landed: false
-  }));
+  const items = [...stream.children];
+  const targets = [...example.querySelectorAll('.stream-selection > [data-tex]')];
+  let picks = [];
   let playing = false;
   let frame = 0;
 
@@ -39,7 +36,7 @@
         const rect = pick.source.getBoundingClientRect();
         if (rect.left + rect.width / 2 < pickup) continue;
         const token = pick.source.cloneNode(true);
-        token.classList.replace('selected-item', 'soict-stream-flight');
+        token.classList.add('soict-stream-flight');
         token.removeAttribute('data-tex');
         const start = localPoint(rect, bounds, scaleX, scaleY);
         start.x = Math.min(start.x, (pickup - bounds.left - rect.width / 2) / scaleX);
@@ -64,21 +61,44 @@
     frame = picks.every(pick => pick.landed) ? 0 : requestAnimationFrame(advance);
   }
 
+  function clearRound() {
+    cancelAnimationFrame(frame);
+    overlay.replaceChildren();
+    for (const { source } of picks) source.classList.remove(pending);
+    for (const target of targets) target.classList.remove(pending);
+    picks = [];
+  }
+
+  function startRound() {
+    clearRound();
+    const available = items.map((_, index) => index);
+    const chosen = targets.map(() => {
+      const index = Math.floor(Math.random() * available.length);
+      return available.splice(index, 1)[0];
+    }).sort((a, b) => b - a);
+
+    picks = chosen.map((index, destination) => {
+      const source = items[index];
+      const target = targets[destination];
+      target.dataset.tex = source.dataset.tex;
+      target.replaceChildren(...source.cloneNode(true).childNodes);
+      target.classList.add(pending);
+      return { source, target, flight: null, landed: false };
+    });
+    frame = requestAnimationFrame(advance);
+  }
+
   function syncStream() {
     const active = motion.matches && problemSlide.classList.contains('active');
     if (active === playing) return;
     playing = active;
-    cancelAnimationFrame(frame);
-    overlay.replaceChildren();
-    for (const pick of picks) {
-      pick.flight = null;
-      pick.landed = false;
-      pick.source.classList.remove(pending);
-      pick.target.classList.toggle(pending, active);
-    }
-    if (active) frame = requestAnimationFrame(advance);
+    if (active) startRound();
+    else clearRound();
   }
 
+  stream.addEventListener('animationiteration', event => {
+    if (playing && event.animationName === 'soict-stream-conveyor') startRound();
+  });
   document.addEventListener('slidechange', syncStream);
   motion.addEventListener('change', syncStream);
   syncStream();

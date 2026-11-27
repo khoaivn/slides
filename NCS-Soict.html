@@ -224,6 +224,10 @@
       color: #924210;
     }
 
+    .stream-selection > [data-tex] {
+      min-inline-size: 1.35em;
+    }
+
     .soict-stream-overlay {
       display: none;
       position: absolute;
@@ -259,7 +263,7 @@
         position: relative;
         width: 400%;
         grid-template-columns: repeat(20, minmax(0, 1fr));
-        animation: soict-stream-conveyor 22.5s linear forwards;
+        animation: soict-stream-conveyor 22.5s linear infinite;
       }
     }
 
@@ -463,7 +467,7 @@
           <p class="soict-equation"><span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span> <span data-vi="để"></span>&ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span></p>
         </div>
         <div class="soict-stream-example">
-          <h3><span data-vi="Từ luồng phần tử đến tập được chọn">From the stream to the selected set</span></h3>
+          <h3><span data-vi="Luồng">Stream</span></h3>
           <div class="soict-stream-track">
             <span aria-hidden="true">⋯</span>
             <div class="soict-stream-window">
@@ -484,9 +488,9 @@
                 <span data-tex="e_{18}">e₁₈</span>
                 <span data-tex="e_{14}">e₁₄</span>
                 <span data-tex="e_{4}">e₄</span>
-                <span class="selected-item" data-tex="e_{2}">e₂</span>
+                <span data-tex="e_{2}">e₂</span>
                 <span data-tex="e_{5}">e₅</span>
-                <span class="selected-item" data-tex="e_{1}">e₁</span>
+                <span data-tex="e_{1}">e₁</span>
                 <span data-tex="e_{3}">e₃</span>
               </div>
             </div>
@@ -819,7 +823,7 @@
   </script>
   <script src="script.js?v=20261116-step-sync"></script>
   <script src="soict-language.js"></script>
-  <script defer src="soict-stream.js"></script>
+  <script defer src="soict-stream.js?v=loop"></script>
   <script src="remote.js?v=20261119-soict"></script>
 </body>
 

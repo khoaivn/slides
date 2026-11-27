@@ -587,21 +587,29 @@
             <g fill="var(--ink)" font-size="23" text-anchor="middle">
               <text x="295" y="264">μ − σ</text><text x="380" y="264">μ</text><text x="465" y="264">μ + σ</text>
             </g>
-            <text x="720" y="264" text-anchor="end" fill="var(--muted)" font-size="20">x</text>
+            <text x="720" y="264" text-anchor="end" fill="var(--muted)" font-size="20">Wₑ</text>
           </svg>
-          <figcaption><span data-vi="Khoảng 68% xác suất nằm trong khoảng cách một độ lệch chuẩn tính từ kỳ vọng.">About 68% of the probability lies within one standard deviation of the mean.</span></figcaption>
+          <figcaption>
+            <span data-tex="\mu=10">μ = 10</span><br>
+            <span data-tex="\begin{aligned}
+              \sigma=1:\quad &amp;\Pr(9\le W_e\le11)\approx0.6827\\
+              \sigma=2:\quad &amp;\Pr(8\le W_e\le12)\approx0.6827\\
+              \sigma=3:\quad &amp;\Pr(7\le W_e\le13)\approx0.6827
+            \end{aligned}">σ = 1: Pr(9 ≤ Wₑ ≤ 11) ≈ 0.6827; σ = 2: Pr(8 ≤ Wₑ ≤ 12) ≈ 0.6827; σ = 3: Pr(7 ≤ Wₑ ≤ 13) ≈ 0.6827</span><br>
+            <span data-tex="\Pr(\mu-\sigma\le W_e\le\mu+\sigma)=2\Phi(1)-1\approx68\%">Pr(μ − σ ≤ Wₑ ≤ μ + σ) = 2Φ(1) − 1 ≈ 68%</span>
+          </figcaption>
         </figure>
         <dl class="soict-normal-definitions">
-          <dt><span data-vi="Kỳ vọng">Mean</span> <span data-tex="\mu=\mathbb{E}[X]">μ = E[X]</span></dt>
-          <dd><span data-vi="Giá trị trung bình dài hạn của X và là tâm của đường cong hình chuông.">The long-run average of X and the center of the bell curve.</span></dd>
-          <dt><span data-vi="Phương sai">Variance</span> <span data-tex="\sigma^2=\mathbb{E}[(X-\mu)^2]">σ² = E[(X − μ)²]</span></dt>
+          <dt><span data-vi="Kỳ vọng">Mean</span> <span data-tex="\mu=\mathbb{E}[W_e]">μ = E[Wₑ]</span></dt>
+          <dd><span data-vi="Giá trị trung bình dài hạn của Wₑ và là tâm của đường cong hình chuông.">The long-run average of Wₑ and the center of the bell curve.</span></dd>
+          <dt><span data-vi="Phương sai">Variance</span> <span data-tex="\sigma^2=\mathbb{E}[(W_e-\mu)^2]">σ² = E[(Wₑ − μ)²]</span></dt>
           <dd><span data-vi="Kỳ vọng của bình phương độ lệch so với kỳ vọng.">The expected squared distance from the mean.</span></dd>
-          <dt><span data-vi="Độ lệch chuẩn">Standard deviation</span> <span data-tex="\sigma=\sqrt{\operatorname{Var}(X)}">σ = √Var(X)</span></dt>
-          <dd><span data-vi="Căn bậc hai của phương sai, có cùng đơn vị với X.">The square root of the variance, in the same units as X.</span></dd>
+          <dt><span data-vi="Độ lệch chuẩn">Standard deviation</span> <span data-tex="\sigma=\sqrt{\operatorname{Var}(W_e)}">σ = √Var(Wₑ)</span></dt>
+          <dd><span data-vi="Căn bậc hai của phương sai, có cùng đơn vị với Wₑ.">The square root of the variance, in the same units as Wₑ.</span></dd>
         </dl>
       </div>
       <span class="slide-page-number" aria-label="Slide 4">4</span>
-      <aside class="speaker-notes"><span data-vi="Kỳ vọng μ là trung bình dài hạn và là tâm của đường cong. Phương sai là kỳ vọng của bình phương độ lệch giữa X và μ. Độ lệch chuẩn là căn bậc hai của phương sai và có cùng đơn vị với X. Vùng tô màu chứa khoảng 68% xác suất.">The mean μ is the long-run average and the center of the bell curve. To get the variance, square the distance of X from μ and take its expectation. The standard deviation is the square root of the variance, so it measures spread in the same units as X. The shaded interval contains about 68% of the probability.</span></aside>
+      <aside class="speaker-notes"><span data-vi="Kỳ vọng μ là trung bình dài hạn và là tâm của đường cong. Phương sai là kỳ vọng của bình phương độ lệch giữa Wₑ và μ. Độ lệch chuẩn là căn bậc hai của phương sai và có cùng đơn vị với Wₑ. Với μ = 10 và σ lần lượt bằng 1, 2, 3, các khoảng là [9, 11], [8, 12] và [7, 13]. Mỗi khoảng đều chuẩn hóa về [−1, 1], nên xác suất bằng 2Φ(1) − 1 ≈ 0,6827.">The mean μ is the long-run average and the center of the bell curve. To get the variance, square the distance of Wₑ from μ and take its expectation. The standard deviation is the square root of the variance, so it measures spread in the same units as Wₑ. With μ = 10 and σ equal to 1, 2, or 3, the intervals are [9, 11], [8, 12], and [7, 13]. Each standardizes to [−1, 1], so its probability is 2Φ(1) − 1 ≈ 0.6827.</span></aside>
     </section>
     <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00" data-section="problem">
       <h2><span data-vi="Ràng buộc xác suất Gaussian">The Gaussian chance constraint</span></h2>

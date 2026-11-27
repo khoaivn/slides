@@ -169,7 +169,22 @@
       margin: 12px 0 0
     }
 
-    .soict-problem-layout h3 {
+    .soict-problem-details {
+      display: grid;
+      align-content: start;
+      gap: 22px;
+    }
+
+    .soict-problem-details h3 {
+      margin: 0 0 6px;
+    }
+
+    .soict-problem-details p {
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    .soict-stream-example h3 {
       margin-top: 16px;
       margin-bottom: 4px;
     }
@@ -461,15 +476,21 @@
     <section class="slide" data-title="Problem" data-time="1:00" data-section="problem">
       <h2><span data-vi="Bài toán">Problem</span></h2>
       <div class="soict-columns soict-problem-layout">
-        <div>
+        <div class="soict-problem-details">
           <p><span data-vi="Các phần tử của tập nền">Items from the ground set</span> <span data-tex="V">V</span> <span data-vi="xuất hiện lần lượt trong một luồng theo thứ tự ngẫu nhiên, mỗi phần tử đúng một lần.">arrive one at a time in random order, each exactly once.</span></p>
-          <h3><span data-vi="Chi phí ngẫu nhiên">Random costs</span></h3>
-          <p><span data-vi="Mỗi chi phí">Each cost</span> <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span>.</p>
-          <h3><span data-vi="Hàm lợi ích">Utility function</span></h3>
-          <p><span data-vi="Cho hàm dưới môđun (submodular)">Let</span> <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span><span data-vi=", có thể không đơn điệu và được chuẩn hóa với"> be a possibly non-monotone submodular function normalized by</span> <span data-tex="f(\varnothing)=0">f(∅) = 0</span>.</p>
-          <h3><span data-vi="Ràng buộc xác suất Gaussian">Gaussian chance constraint</span></h3>
-          <p><span data-vi="Với ngân sách">Given a budget</span> <span data-tex="B&gt;0">B &gt; 0</span><span data-vi=", xác suất tổng chi phí vượt ngân sách không được quá">, the probability that the total cost exceeds the budget must be at most</span> <span data-tex="\alpha">α</span><span data-vi=", với">, where</span>
-            <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
+          <div>
+            <h3><span data-vi="Chi phí ngẫu nhiên">Random costs</span></h3>
+            <p><span data-vi="Mỗi chi phí">Each cost</span> <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span>.</p>
+          </div>
+          <div>
+            <h3><span data-vi="Hàm lợi ích">Utility function</span></h3>
+            <p><span data-vi="Cho hàm dưới môđun (submodular)">Let</span> <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span><span data-vi=", có thể không đơn điệu và được chuẩn hóa với"> be a possibly non-monotone submodular function normalized by</span> <span data-tex="f(\varnothing)=0">f(∅) = 0</span>.</p>
+          </div>
+          <div>
+            <h3><span data-vi="Ràng buộc xác suất Gaussian">Gaussian chance constraint</span></h3>
+            <p><span data-vi="Với ngân sách">Given a budget</span> <span data-tex="B&gt;0">B &gt; 0</span><span data-vi=", xác suất tổng chi phí vượt ngân sách không được quá">, the probability that the total cost exceeds the budget must be at most</span> <span data-tex="\alpha">α</span><span data-vi=", với">, where</span>
+              <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
+          </div>
         </div>
         <div class="soict-stream-example">
           <h3><span data-vi="Luồng">Stream</span></h3>

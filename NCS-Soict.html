@@ -198,6 +198,7 @@
       flex: 1;
       min-width: 0;
       overflow: hidden;
+      contain: paint;
     }
 
     .soict-stream-example .tokens {
@@ -224,13 +225,19 @@
       color: var(--teal);
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-      .slide.active .soict-stream-example .tokens {
+    .stream-selection-items {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      .slide.active .soict-stream-window > .tokens {
         animation: soict-stream-conveyor 9s linear forwards;
       }
 
-      .slide.active .stream-selection .selected-item {
-        animation: soict-stream-arrival 480ms ease-out both;
+      .slide.active .stream-selection-items > span {
+        animation: soict-stream-arrival 1ms step-end both;
         animation-delay: var(--arrival);
       }
     }
@@ -241,8 +248,8 @@
     }
 
     @keyframes soict-stream-arrival {
-      from { opacity: 0; transform: translateY(-12px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { visibility: hidden; }
+      to { visibility: visible; }
     }
 
     .soict-steps {
@@ -454,9 +461,12 @@
             </div>
             <span aria-hidden="true">→</span>
           </div>
-          <p class="stream-selection"><span data-vi="Tập">Set</span> <span data-tex="S">S</span> <span data-vi="gồm">contains</span>
-            <span class="selected-item" style="--arrival: 6500ms" data-tex="e_1">e₁</span>
-            <span class="selected-item" style="--arrival: 8100ms" data-tex="e_2">e₂</span>
+          <p class="stream-selection">
+            <span class="stream-selection-label"><span data-vi="Tập">Set</span> <span data-tex="S">S</span> <span data-vi="gồm">contains</span></span>
+            <span class="stream-selection-items">
+              <span style="--arrival: 6500ms" data-tex="e_1">e₁</span>
+              <span style="--arrival: 8100ms" data-tex="e_2">e₂</span>
+            </span>
           </p>
           <p><span data-vi="Ví dụ, nếu">For example, if</span> <span data-tex="W_1,W_2\sim\mathcal{N}(2,1)">W₁, W₂ ∼ 𝒩(2, 1)</span>,
             <span data-tex="B=7">B = 7</span> <span data-vi="và">and</span> <span data-tex="\alpha=5\%">α = 5%</span><span data-vi=", tập này khả thi vì">, this set is feasible because</span> <span data-tex="\Pr[W_1+W_2&gt;7]\approx 1{,}7\%">Pr[W₁ + W₂ &gt; 7] ≈ 1,7%</span>.</p>

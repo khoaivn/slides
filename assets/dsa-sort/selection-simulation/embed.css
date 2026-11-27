@@ -2,7 +2,7 @@
 
 .data-row>.simulation-controls,.data-row>.data-inputs{flex:1 1 calc(50% - 4.5px);min-width:0}.data-inputs{display:grid;grid-template-columns:minmax(0,1fr) auto}.data-inputs .array-field>textarea{grid-column:1 / -1}.data-row #apply{padding:7px 10px}.simulation-controls{border-bottom:0;padding-bottom:0}.data-inputs .array-field>label{white-space:nowrap}
 
-.pseudocode-toggle{border:0;border-radius:0;background:transparent;padding:0;color:var(--green);font:700 12px "Latin Modern Sans",sans-serif;letter-spacing:1.6px;cursor:pointer;text-align:left}.pseudocode-toggle:hover{background:transparent;text-decoration:underline;text-underline-offset:4px}.code-head:has(.pseudocode-toggle[aria-expanded="false"]){margin-bottom:0}
+.pseudocode-toggle{border:0;border-radius:0;background:transparent;padding:0;color:var(--green);font:700 12px Helvetica,Arial,sans-serif;letter-spacing:1.6px;cursor:pointer;text-align:left}.pseudocode-toggle:hover{background:transparent;text-decoration:underline;text-underline-offset:4px}.code-head:has(.pseudocode-toggle[aria-expanded="false"]){margin-bottom:0}
 
 /* Icon áp dụng nằm cùng hàng với dãy số. */
 .data-inputs{grid-template-columns:minmax(0,1fr) auto auto}
@@ -46,11 +46,11 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
 .stats b,.bar b,.heap-value,.heap-index,.heap-empty,.heap-chip,
 .intro-note>span,.complexity b{font-family:"Latin Modern Sans",sans-serif}
 
-/* Giữ nguyên cỡ chữ và bố cục của mã giả. */
+/* Font monospace cho mã giả, giữ nguyên cỡ chữ và bố cục. */
 #chart .bar b{font-size:32px;line-height:1;top:auto;bottom:calc(100% + 6px);color:inherit}
 #chart{margin-top:44px}
 
-#code,.code-line,.code-line span{font-family:Georgia,serif;font-variant-ligatures:none}
+#code,.code-line,.code-line span{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;font-variant-ligatures:none}
 
 /* Tô màu cú pháp; giữ khoảng cách ký tự của mã giả. */
 .code-line span{margin-right:0}

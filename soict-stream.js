@@ -31,7 +31,7 @@
     const scaleX = bounds.width / overlay.clientWidth;
     const scaleY = bounds.height / overlay.clientHeight;
     const track = viewport.getBoundingClientRect();
-    const pickup = track.left + track.width * 0.72;
+    const pickup = track.left + track.width * (2 / 3);
 
     for (const pick of picks) {
       if (pick.landed) continue;

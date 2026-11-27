@@ -199,6 +199,10 @@
       font-size: 26px;
     }
 
+    .soict-equation-label {
+      color: #000;
+    }
+
     .soict-problem-layout .soict-stream-example {
       position: relative;
       align-self: stretch;
@@ -535,9 +539,9 @@
             </span>
           </p>
           <p class="soict-equation">
-            <span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span>
+            <span class="soict-equation-label"><span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span></span>
             &ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span><br>
-            <span data-vi="với ràng buộc">subject to</span>
+            <span class="soict-equation-label" data-vi="với ràng buộc">subject to</span>
             &ensp;<span data-tex="\Pr\left[\sum_{e\in S}W_e\le B\right]\ge 1-\alpha">Pr[∑ₑ∈ₛ Wₑ ≤ B] ≥ 1 − α</span>
           </p>
         </div>

@@ -357,8 +357,8 @@
   <script>if (new URLSearchParams(location.search).has("preview")) document.body.classList.add("preview");</script>
   <header class="toolbar"><a class="brand" href="#1" aria-label="First slide">SOICT <span>Research
         presentation</span></a>
-    <div class="tools"><a class="library-link" href="NCS-Soict-note.html" target="_blank" rel="noopener"
-        title="Ghi chú thuyết trình Việt / Anh" aria-label="Ghi chú thuyết trình Việt / Anh">VI/EN</a><a
+    <div class="tools"><a id="languageToggle" class="library-link" href="?lang=vi" lang="vi" hreflang="vi"
+        title="Chuyển sang tiếng Việt" aria-label="Chuyển sang tiếng Việt">VI</a><a
         class="library-link" href="index.html" title="Chọn bài thuyết trình" aria-label="Chọn bài thuyết trình"><svg
           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
           <path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z" />
@@ -408,48 +408,43 @@
           height="33">
       </div>
       <div class="cover-content">
-        <h1>Deterministic One-Pass Streaming for<br>Non-Monotone Submodular Maximization<br><em>under a Gaussian Chance
-            Constraint</em></h1>
+        <h1><span data-vi="Thuật toán tất định một lượt trên luồng">Deterministic One-Pass Streaming for</span><br><span data-vi="để tối đa hóa hàm dưới môđun không đơn điệu">Non-Monotone Submodular Maximization</span><br><em><span data-vi="với ràng buộc xác suất Gaussian">under a Gaussian Chance Constraint</span></em></h1>
         <p class="authors">Dung T. Pham · Tan D. Tran · Canh V. Pham</p>
-        <p class="affiliation">ORLab, Phenikaa School of Computing</p>
+        <p class="affiliation" data-vi="ORLab, Trường Công nghệ Thông tin và Truyền thông, Đại học Phenikaa">ORLab, Phenikaa School of Computing</p>
       </div>
-      <aside class="speaker-notes">Introduce FOCUS and state the two goals: select a valuable set in a single pass and
-        satisfy a probability bound on total resource consumption. Source: manuscript p. 1.</aside>
+      <aside class="speaker-notes"><span data-vi="Giới thiệu FOCUS và hai mục tiêu: chọn tập có giá trị cao trong một lượt và đáp ứng giới hạn xác suất về tổng mức sử dụng tài nguyên. Nguồn: bản thảo, trang 1.">Introduce FOCUS and state the two goals: select a valuable set in a single pass and satisfy a probability bound on total resource consumption. Source: manuscript p. 1.</span></aside>
     </section>
     <section class="slide" data-title="Outline" data-time="0:15" data-section="introduction">
-      <h2>Outline</h2>
+      <h2><span data-vi="Bố cục">Outline</span></h2>
       <ul class="talk-overview" role="list">
-        <li>Problem</li>
-        <li>Algorithm</li>
-        <li>Experiment</li>
-        <li>Conclusion</li>
+        <li><span data-vi="Bài toán">Problem</span></li>
+        <li><span data-vi="Thuật toán">Algorithm</span></li>
+        <li><span data-vi="Thực nghiệm">Experiment</span></li>
+        <li><span data-vi="Kết luận">Conclusion</span></li>
       </ul>
       <span class="slide-page-number" aria-label="Slide 2">2</span>
-      <aside class="speaker-notes">Start with the problem and the Gaussian budget, then present the algorithm, the
-        experiment, and the conclusion.</aside>
+      <aside class="speaker-notes"><span data-vi="Bắt đầu với bài toán và ngân sách Gaussian, sau đó trình bày thuật toán, kết quả thực nghiệm và kết luận.">Start with the problem and the Gaussian budget, then present the algorithm, the experiment, and the conclusion.</span></aside>
     </section>
-    <section class="slide" lang="vi" data-title="Bài toán" data-time="1:00" data-section="problem">
-      <h2>Bài toán</h2>
+    <section class="slide" data-title="Problem" data-time="1:00" data-section="problem">
+      <h2><span data-vi="Bài toán">Problem</span></h2>
       <div class="soict-columns soict-problem-layout">
         <div>
-          <p>Các phần tử của tập nền <span data-tex="V">V</span> xuất hiện lần lượt trong một luồng theo thứ tự ngẫu nhiên, mỗi phần tử đúng một lần.</p>
-          <h3>Chi phí ngẫu nhiên</h3>
-          <p>Mỗi chi phí <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span>.</p>
-          <h3>Hàm lợi ích</h3>
-          <p>Cho hàm dưới môđun (submodular) <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span>,
-            có thể không đơn điệu và được chuẩn hóa với <span data-tex="f(\varnothing)=0">f(∅) = 0</span>.</p>
-          <h3>Ràng buộc xác suất Gaussian</h3>
-          <p>Với ngân sách <span data-tex="B&gt;0">B &gt; 0</span>, xác suất tổng chi phí vượt ngân sách
-            không được quá <span data-tex="\alpha">α</span>, với
+          <p><span data-vi="Các phần tử của tập nền">Items from the ground set</span> <span data-tex="V">V</span> <span data-vi="xuất hiện lần lượt trong một luồng theo thứ tự ngẫu nhiên, mỗi phần tử đúng một lần.">arrive one at a time in random order, each exactly once.</span></p>
+          <h3><span data-vi="Chi phí ngẫu nhiên">Random costs</span></h3>
+          <p><span data-vi="Mỗi chi phí">Each cost</span> <span data-tex="W_e\sim\mathcal{N}(\mu_e,\sigma_e^2)">Wₑ ∼ 𝒩(μₑ, σₑ²)</span>.</p>
+          <h3><span data-vi="Hàm lợi ích">Utility function</span></h3>
+          <p><span data-vi="Cho hàm dưới môđun (submodular)">Let</span> <span data-tex="f\colon 2^V\to\mathbb{R}_{\ge 0}">f: 2ⱽ → ℝ≥₀</span><span data-vi=", có thể không đơn điệu và được chuẩn hóa với"> be a possibly non-monotone submodular function normalized by</span> <span data-tex="f(\varnothing)=0">f(∅) = 0</span>.</p>
+          <h3><span data-vi="Ràng buộc xác suất Gaussian">Gaussian chance constraint</span></h3>
+          <p><span data-vi="Với ngân sách">Given a budget</span> <span data-tex="B&gt;0">B &gt; 0</span><span data-vi=", xác suất tổng chi phí vượt ngân sách không được quá">, the probability that the total cost exceeds the budget must be at most</span> <span data-tex="\alpha">α</span><span data-vi=", với">, where</span>
             <span data-tex="0&lt;\alpha&lt;\tfrac12">0 &lt; α &lt; ½</span>.</p>
-          <p class="soict-equation">Hãy tìm một tập <span data-tex="S">S</span> để &ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span></p>
+          <p class="soict-equation"><span data-vi="Hãy tìm một tập">Choose a set</span> <span data-tex="S">S</span> <span data-vi="để"></span>&ensp;<span data-tex="\max_{S\subseteq V} f(S)">max f(S), S ⊆ V</span></p>
         </div>
         <div class="soict-stream-example">
-          <h3>Từ luồng phần tử đến tập được chọn</h3>
+          <h3><span data-vi="Từ luồng phần tử đến tập được chọn">From the stream to the selected set</span></h3>
           <div class="soict-stream-track">
             <span aria-hidden="true">⋯</span>
             <div class="soict-stream-window">
-              <div class="tokens" aria-label="Thứ tự đến: e 3, e 1, e 5, e 2, e 4">
+              <div class="tokens" aria-label="Arrival order: e 3, e 1, e 5, e 2, e 4" data-vi-label="Thứ tự đến: e 3, e 1, e 5, e 2, e 4">
                 <b><span data-tex="e_4">e₄</span></b>
                 <b class="selected-item"><span data-tex="e_2">e₂</span></b>
                 <b><span data-tex="e_5">e₅</span></b>
@@ -459,27 +454,26 @@
             </div>
             <span aria-hidden="true">→</span>
           </div>
-          <p class="stream-selection">Tập <span data-tex="S">S</span> gồm
+          <p class="stream-selection"><span data-vi="Tập">Set</span> <span data-tex="S">S</span> <span data-vi="gồm">contains</span>
             <span class="selected-item" style="--arrival: 6500ms" data-tex="e_1">e₁</span>
             <span class="selected-item" style="--arrival: 8100ms" data-tex="e_2">e₂</span>
           </p>
-          <p>Ví dụ, nếu <span data-tex="W_1,W_2\sim\mathcal{N}(2,1)">W₁, W₂ ∼ 𝒩(2, 1)</span>,
-            <span data-tex="B=7">B = 7</span> và <span data-tex="\alpha=5\%">α = 5%</span>,
-            tập này khả thi vì <span data-tex="\Pr[W_1+W_2&gt;7]\approx 1{,}7\%">Pr[W₁ + W₂ &gt; 7] ≈ 1,7%</span>.</p>
-          <p>Mục tiêu là chọn tập khả thi có <span data-tex="f(S)">f(S)</span> lớn nhất.</p>
+          <p><span data-vi="Ví dụ, nếu">For example, if</span> <span data-tex="W_1,W_2\sim\mathcal{N}(2,1)">W₁, W₂ ∼ 𝒩(2, 1)</span>,
+            <span data-tex="B=7">B = 7</span> <span data-vi="và">and</span> <span data-tex="\alpha=5\%">α = 5%</span><span data-vi=", tập này khả thi vì">, this set is feasible because</span> <span data-tex="\Pr[W_1+W_2&gt;7]\approx 1{,}7\%">Pr[W₁ + W₂ &gt; 7] ≈ 1,7%</span>.</p>
+          <p><span data-vi="Mục tiêu là chọn tập khả thi có">The goal is to find a feasible set that maximizes</span> <span data-tex="f(S)">f(S)</span><span data-vi=" lớn nhất.">.</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 3">3</span>
-      <aside class="speaker-notes">Tính dưới môđun nghĩa là lợi ích biên của một phần tử giảm khi tập đã chọn lớn hơn.
-        Mục tiêu là tìm tập có lợi ích lớn nhất trong số các tập thỏa giới hạn rủi ro.</aside>
+      <aside class="speaker-notes"><span data-vi="Tính dưới môđun nghĩa là lợi ích biên của một phần tử giảm khi tập đã chọn lớn hơn. Mục tiêu là tìm tập có lợi ích lớn nhất trong số các tập thỏa giới hạn rủi ro.">Submodularity means that an item’s marginal utility decreases as the selected set grows. The goal is to find the highest-utility set among those that meet the risk limit.</span></aside>
     </section>
     <section class="slide" data-title="The normal distribution" data-time="0:45" data-section="problem">
-      <h2>The normal distribution</h2>
+      <h2><span data-vi="Phân phối chuẩn">The normal distribution</span></h2>
       <p><span data-tex="W_e\sim\mathcal{N}(\mu,\sigma^2)">Wₑ ∼ 𝒩(μ, σ²)</span></p>
       <div class="soict-normal-layout">
         <figure class="soict-normal">
           <svg viewBox="0 0 760 300" role="img"
-            aria-label="Normal density centered at μ. The shaded region extends one standard deviation on either side of the mean.">
+            aria-label="Normal density centered at μ. The shaded region extends one standard deviation on either side of the mean."
+            data-vi-label="Mật độ chuẩn có tâm tại μ. Vùng tô màu kéo dài một độ lệch chuẩn về mỗi phía.">
             <defs>
               <clipPath id="normal-center">
                 <rect x="295" y="20" width="170" height="210" />
@@ -510,259 +504,230 @@
             <g fill="var(--ink)" font-size="23" text-anchor="middle">
               <text x="295" y="264">μ − σ</text><text x="380" y="264">μ</text><text x="465" y="264">μ + σ</text>
             </g>
-            <text x="41" y="31" fill="var(--muted)" font-size="20">Density</text>
+            <text x="41" y="31" fill="var(--muted)" font-size="20" data-vi="Mật độ">Density</text>
             <text x="720" y="264" text-anchor="end" fill="var(--muted)" font-size="20">x</text>
           </svg>
-          <figcaption>About 68% of the probability lies within one standard deviation of the mean.</figcaption>
+          <figcaption><span data-vi="Khoảng 68% xác suất nằm trong khoảng cách một độ lệch chuẩn tính từ kỳ vọng.">About 68% of the probability lies within one standard deviation of the mean.</span></figcaption>
         </figure>
         <dl class="soict-normal-definitions">
-          <dt>Mean <span data-tex="\mu=\mathbb{E}[X]">μ = E[X]</span></dt>
-          <dd>The long-run average of X and the center of the bell curve.</dd>
-          <dt>Variance <span data-tex="\sigma^2=\mathbb{E}[(X-\mu)^2]">σ² = E[(X − μ)²]</span></dt>
-          <dd>The expected squared distance from the mean.</dd>
-          <dt>Standard deviation <span data-tex="\sigma=\sqrt{\operatorname{Var}(X)}">σ = √Var(X)</span></dt>
-          <dd>The square root of the variance, in the same units as X.</dd>
+          <dt><span data-vi="Kỳ vọng">Mean</span> <span data-tex="\mu=\mathbb{E}[X]">μ = E[X]</span></dt>
+          <dd><span data-vi="Giá trị trung bình dài hạn của X và là tâm của đường cong hình chuông.">The long-run average of X and the center of the bell curve.</span></dd>
+          <dt><span data-vi="Phương sai">Variance</span> <span data-tex="\sigma^2=\mathbb{E}[(X-\mu)^2]">σ² = E[(X − μ)²]</span></dt>
+          <dd><span data-vi="Kỳ vọng của bình phương độ lệch so với kỳ vọng.">The expected squared distance from the mean.</span></dd>
+          <dt><span data-vi="Độ lệch chuẩn">Standard deviation</span> <span data-tex="\sigma=\sqrt{\operatorname{Var}(X)}">σ = √Var(X)</span></dt>
+          <dd><span data-vi="Căn bậc hai của phương sai, có cùng đơn vị với X.">The square root of the variance, in the same units as X.</span></dd>
         </dl>
       </div>
       <span class="slide-page-number" aria-label="Slide 4">4</span>
-      <aside class="speaker-notes">The mean μ is the long-run average and the center of the bell curve. To get the
-        variance, square the distance of X from μ and take its expectation. The standard deviation is the square root of
-        the variance, so it measures spread in the same units as X. The shaded interval contains about 68% of the
-        probability.</aside>
+      <aside class="speaker-notes"><span data-vi="Kỳ vọng μ là trung bình dài hạn và là tâm của đường cong. Phương sai là kỳ vọng của bình phương độ lệch giữa X và μ. Độ lệch chuẩn là căn bậc hai của phương sai và có cùng đơn vị với X. Vùng tô màu chứa khoảng 68% xác suất.">The mean μ is the long-run average and the center of the bell curve. To get the variance, square the distance of X from μ and take its expectation. The standard deviation is the square root of the variance, so it measures spread in the same units as X. The shaded interval contains about 68% of the probability.</span></aside>
     </section>
     <section class="slide" data-title="The Gaussian chance constraint" data-time="1:00" data-section="problem">
-      <h2>The Gaussian chance constraint</h2>
-      <p>Independent Gaussian resources have <span data-tex="\mu_e\ge0">\mu_e\ge0</span> and <span
-          data-tex="\sigma_e^2&gt;0">\sigma_e^2&gt;0</span>. Their means and variances add.</p>
+      <h2><span data-vi="Ràng buộc xác suất Gaussian">The Gaussian chance constraint</span></h2>
+      <p><span data-vi="Các chi phí Gaussian độc lập có">Independent Gaussian resources have</span> <span data-tex="\mu_e\ge0">\mu_e\ge0</span> <span data-vi="và">and</span> <span
+          data-tex="\sigma_e^2&gt;0">\sigma_e^2&gt;0</span><span data-vi=". Kỳ vọng và phương sai của tổng lần lượt bằng tổng các kỳ vọng và tổng các phương sai.">. Their means and variances add.</span></p>
       <p class="soict-equation"><span data-tex="g(S)=\mu(S)+z_\alpha\sqrt{v(S)}\le B">g(S)=\mu(S)+z_\alpha\sqrt{v(S)}\le
           B</span></p>
       <div class="soict-columns">
         <div>
-          <h3>Risk level</h3>
-          <p><span data-tex="z_\alpha=\Phi^{-1}(1-\alpha)">z_\alpha=\Phi^{-1}(1-\alpha)</span> for <span
+          <h3><span data-vi="Mức rủi ro">Risk level</span></h3>
+          <p><span data-tex="z_\alpha=\Phi^{-1}(1-\alpha)">z_\alpha=\Phi^{-1}(1-\alpha)</span> <span data-vi="với">for</span> <span
               data-tex="0&lt;\alpha&lt;1/2">0&lt;\alpha&lt;1/2</span>.</p>
         </div>
         <div>
-          <h3>Aggregate variance</h3>
-          <p><span data-tex="v(S)=\sum_{e\in S}\sigma_e^2">v(S)=\sum_{e\in S}\sigma_e^2</span>. The square-root term
-            makes the score nonadditive.</p>
+          <h3><span data-vi="Phương sai của tổng">Aggregate variance</span></h3>
+          <p><span data-tex="v(S)=\sum_{e\in S}\sigma_e^2">v(S)=\sum_{e\in S}\sigma_e^2</span><span data-vi=". Số hạng căn bậc hai khiến biểu thức không có dạng cộng theo phần tử.">. The square-root term makes the score nonadditive.</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 5">5</span>
-      <aside class="speaker-notes">Use Gaussian closure to explain the exact equivalence. The empty set is feasible.
-        Nonnegative means and variances also imply downward closure. Source: §3.</aside>
+      <aside class="speaker-notes"><span data-vi="Dùng tính chất tổng các biến Gaussian độc lập vẫn là Gaussian để giải thích sự tương đương. Tập rỗng khả thi. Kỳ vọng và phương sai không âm đảm bảo tập con của một tập khả thi cũng khả thi. Nguồn: Mục 3.">Use Gaussian closure to explain the exact equivalence. The empty set is feasible. Nonnegative means and variances also imply downward closure. Source: §3.</span></aside>
     </section>
     <section class="slide" data-title="A family of additive knapsacks" data-time="1:20" data-section="algorithm">
-      <h2>A family of additive knapsacks</h2>
-      <p class="soict-intro">Every tangent-feasible set meets the chance constraint. Each nonempty chance-feasible set
-        belongs to the knapsack at <span data-tex="\theta=\sqrt{v(S)}">\theta=\sqrt{v(S)}</span>.</p>
+      <h2><span data-vi="Họ ràng buộc ba lô dạng cộng">A family of additive knapsacks</span></h2>
+      <p class="soict-intro"><span data-vi="Mọi tập thỏa ràng buộc theo tiếp tuyến đều thỏa ràng buộc xác suất. Mỗi tập khả thi khác rỗng thuộc ba lô tại">Every tangent-feasible set meets the chance constraint. Each nonempty chance-feasible set belongs to the knapsack at</span> <span data-tex="\theta=\sqrt{v(S)}">\theta=\sqrt{v(S)}</span>.</p>
       <p class="soict-equation"><span
           data-tex="\sqrt{x}=\min_{\theta&gt;0}\left(\frac{x}{2\theta}+\frac{\theta}{2}\right)">\sqrt{x}=\min_{\theta&gt;0}\left(\frac{x}{2\theta}+\frac{\theta}{2}\right)</span>
       </p>
       <div class="soict-columns">
         <div>
-          <h3>Cost of item e</h3>
+          <h3><span data-vi="Chi phí của phần tử e">Cost of item e</span></h3>
           <p class="soict-equation"><span
               data-tex="c_\theta(e)=\mu_e+\frac{z_\alpha\sigma_e^2}{2\theta}">c_\theta(e)=\mu_e+\frac{z_\alpha\sigma_e^2}{2\theta}</span>
           </p>
         </div>
         <div>
-          <h3>Capacity</h3>
+          <h3><span data-vi="Dung lượng">Capacity</span></h3>
           <p class="soict-equation"><span
               data-tex="C_\theta=B-\frac{z_\alpha\theta}{2}">C_\theta=B-\frac{z_\alpha\theta}{2}</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 6">6</span>
-      <aside class="speaker-notes">The minimum is attained at the aggregate standard deviation for positive x.
-        Nonnegative means bound the matching tangent by B/zα. The empty set belongs to every tangent knapsack. Source:
-        Lemma 1.</aside>
+      <aside class="speaker-notes"><span data-vi="Với x dương, giá trị nhỏ nhất đạt được tại độ lệch chuẩn của tổng. Kỳ vọng không âm cho cận trên B/zα của tham số tiếp tuyến tương ứng. Tập rỗng thuộc mọi ba lô theo tiếp tuyến. Nguồn: Bổ đề 1.">The minimum is attained at the aggregate standard deviation for positive x. Nonnegative means bound the matching tangent by B/zα. The empty set belongs to every tangent knapsack. Source: Lemma 1.</span></aside>
     </section>
     <section class="slide" data-title="A geometric grid preserves half the value" data-time="1:20" data-section="algorithm">
-      <h2>A geometric grid preserves half the value</h2>
-      <p class="soict-intro">By submodularity, one piece has value at least <span
+      <h2><span data-vi="Lưới hình học giữ ít nhất nửa giá trị">A geometric grid preserves half the value</span></h2>
+      <p class="soict-intro"><span data-vi="Theo tính dưới môđun, ít nhất một phần có giá trị không nhỏ hơn">By submodularity, one piece has value at least</span> <span
           data-tex="\mathrm{OPT}/2">\mathrm{OPT}/2</span>.</p>
       <p class="soict-equation"><span
           data-tex="\theta_j=\frac{B}{z_\alpha}\left(\frac32\right)^{-j},\qquad j=0,1,2,\ldots">\theta_j=\frac{B}{z_\alpha}\left(\frac32\right)^{-j},\qquad
           j=0,1,2,\ldots</span></p>
       <div class="soict-columns">
         <div>
-          <h3>At the grid point below the optimum’s standard deviation</h3>
-          <p>The optimal set has total additive cost at most <span data-tex="9C_{\theta_j}/8">9C_{\theta_j}/8</span>.
+          <h3><span data-vi="Tại điểm lưới dưới độ lệch chuẩn của nghiệm tối ưu">At the grid point below the optimum’s standard deviation</span></h3>
+          <p><span data-vi="Tập tối ưu có tổng chi phí dạng cộng không quá">The optimal set has total additive cost at most</span> <span data-tex="9C_{\theta_j}/8">9C_{\theta_j}/8</span>.
           </p>
         </div>
         <div>
-          <h3>Two feasible pieces</h3>
-          <p>Split it into two tangent-feasible sets, or separate one chance-feasible singleton from the
-            tangent-feasible remainder.</p>
+          <h3><span data-vi="Hai phần khả thi">Two feasible pieces</span></h3>
+          <p><span data-vi="Chia thành hai tập thỏa ràng buộc theo tiếp tuyến, hoặc tách một phần tử tự nó thỏa ràng buộc xác suất và giữ phần còn lại trong ba lô.">Split it into two tangent-feasible sets, or separate one chance-feasible singleton from the tangent-feasible remainder.</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 7">7</span>
-      <aside class="speaker-notes">Pick j with θ_j ≤ √v(O) &lt; 3θ_j/2. Explain the two-piece repair and why the
-        singleton safeguard is checked against the original constraint. Source: Lemma 2.</aside>
+      <aside class="speaker-notes"><span data-vi="Chọn j sao cho θ_j ≤ √v(O) &lt; 3θ_j/2. Giải thích cách chia thành hai tập và vì sao nghiệm một phần tử phải được kiểm tra theo ràng buộc ban đầu. Nguồn: Bổ đề 2.">Pick j with θ_j ≤ √v(O) &lt; 3θ_j/2. Explain the two-piece repair and why the singleton safeguard is checked against the original constraint. Source: Lemma 2.</span></aside>
     </section>
     <section class="slide" data-title="Two candidate sets per active state" data-time="1:30" data-section="algorithm">
-      <h2>Two candidate sets per active state</h2>
-      <p>For a tangent and an objective guess <span data-tex="u">u</span>, normalize capacity to 1.</p>
+      <h2><span data-vi="Hai tập ứng viên trong mỗi trạng thái">Two candidate sets per active state</span></h2>
+      <p><span data-vi="Với một tiếp tuyến và một ước lượng giá trị">For a tangent and an objective guess</span> <span data-tex="u">u</span><span data-vi=", chuẩn hóa dung lượng về 1.">, normalize capacity to 1.</span></p>
       <ol class="soict-steps">
-        <li><strong>Large item.</strong> Keep an eligible singleton and terminate the state if its cost is at least ½
-          and its value density is at least <span data-tex="u/4">u/4</span>.</li>
-        <li><strong>Candidate sets.</strong> Test the first set, then the second if needed. Add the item only if it fits
-          and its marginal density is at least <span data-tex="u/4">u/4</span>.</li>
-        <li><strong>Postprocessing.</strong> Run deterministic ½-approximate unconstrained submodular maximization on
-          the first set. Compare that subset, both candidates, and the feasible singleton incumbent.</li>
+        <li><strong><span data-vi="Phần tử lớn.">Large item.</span></strong> <span data-vi="Giữ nghiệm một phần tử và dừng trạng thái nếu phần tử đủ điều kiện, có chi phí ít nhất ½ và mật độ giá trị ít nhất">Keep an eligible singleton and terminate the state if its cost is at least ½ and its value density is at least</span> <span data-tex="u/4">u/4</span>.</li>
+        <li><strong><span data-vi="Các tập ứng viên.">Candidate sets.</span></strong> <span data-vi="Thử tập thứ nhất, rồi thử tập thứ hai nếu cần. Chỉ thêm phần tử nếu còn đủ dung lượng và mật độ lợi ích biên ít nhất">Test the first set, then the second if needed. Add the item only if it fits and its marginal density is at least</span> <span data-tex="u/4">u/4</span>.</li>
+        <li><strong><span data-vi="Xử lý cuối luồng.">Postprocessing.</span></strong> <span data-vi="Chạy thuật toán tất định xấp xỉ ½ cho bài toán tối đa hóa dưới môđun không ràng buộc trên tập thứ nhất. So sánh tập con thu được, hai tập ứng viên và nghiệm một phần tử khả thi tốt nhất hiện có.">Run deterministic ½-approximate unconstrained submodular maximization on the first set. Compare that subset, both candidates, and the feasible singleton incumbent.</span></li>
       </ol>
       <span class="slide-page-number" aria-label="Slide 8">8</span>
-      <aside class="speaker-notes">The two sets are disjoint because the second is tested only after the first fails.
-        The postprocessed subset stays feasible by downward closure. For u no greater than the tangent optimum, the
-        fixed state returns value at least u/8. Source: Algorithm 1 and Lemma 3.</aside>
+      <aside class="speaker-notes"><span data-vi="Hai tập rời nhau vì chỉ thử tập thứ hai khi tập thứ nhất không nhận phần tử. Tập con thu được vẫn khả thi. Nếu u không vượt giá trị tối ưu của ba lô theo tiếp tuyến, trạng thái cố định trả về giá trị ít nhất u/8. Nguồn: Thuật toán 1 và Bổ đề 3.">The two sets are disjoint because the second is tested only after the first fails. The postprocessed subset stays feasible by downward closure. For u no greater than the tangent optimum, the fixed state returns value at least u/8. Source: Algorithm 1 and Lemma 3.</span></aside>
     </section>
     <section class="slide" data-title="Objective guesses activate during the stream" data-time="1:10" data-section="algorithm">
-      <h2>Objective guesses activate during the stream</h2>
-      <p class="soict-intro">The target guess stays active and follows the same updates as a state started at the
-        beginning, until termination.</p>
-      <p>For each tangent, track the largest eligible singleton value <span data-tex="M_j">M_j</span> and density <span
-          data-tex="D_j">D_j</span>.</p>
+      <h2><span data-vi="Kích hoạt ước lượng trong khi đọc luồng">Objective guesses activate during the stream</span></h2>
+      <p class="soict-intro"><span data-vi="Ước lượng mục tiêu duy trì hoạt động và nhận các cập nhật như một trạng thái được tạo từ đầu cho đến khi dừng.">The target guess stays active and follows the same updates as a state started at the beginning, until termination.</span></p>
+      <p><span data-vi="Với mỗi tiếp tuyến, theo dõi giá trị lớn nhất">For each tangent, track the largest eligible singleton value</span> <span data-tex="M_j">M_j</span> <span data-vi="và mật độ lớn nhất">and density</span> <span
+          data-tex="D_j">D_j</span><span data-vi=" trong số các phần tử đủ điều kiện"> among eligible items</span>.</p>
       <p class="soict-equation"><span
           data-tex="u=(1+\delta)^k,\quad k\in\mathbb Z,\quad \frac{M_j}{1+\delta}\le u\le 4D_j,\qquad \delta=16\varepsilon">u=(1+\delta)^k,\quad
           k\in\mathbb Z,\quad \frac{M_j}{1+\delta}\le u\le 4D_j,\qquad \delta=16\varepsilon</span></p>
       <div class="soict-columns">
         <div>
-          <h3>Before the crossing</h3>
-          <p>Earlier items cannot pass the target state’s density test.</p>
+          <h3><span data-vi="Trước khi đạt ngưỡng">Before the crossing</span></h3>
+          <p><span data-vi="Các phần tử đến trước đều không đạt ngưỡng mật độ của trạng thái mục tiêu.">Earlier items cannot pass the target state’s density test.</span></p>
         </div>
         <div>
-          <h3>At the crossing</h3>
-          <p>Update the statistics and create the state before testing the arriving item.</p>
+          <h3><span data-vi="Khi đạt ngưỡng">At the crossing</span></h3>
+          <p><span data-vi="Cập nhật các thống kê và tạo trạng thái trước khi xét phần tử vừa đến.">Update the statistics and create the state before testing the arriving item.</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 9">9</span>
-      <aside class="speaker-notes">The target is the largest grid guess no greater than OPTθ. It is above OPTθ/(1+δ), so
-        the lower pruning threshold never removes it. A terminal singleton updates the incumbent. Source: Lemma 4.
+      <aside class="speaker-notes"><span data-vi="Mục tiêu là ước lượng lớn nhất trên lưới không vượt OPTθ. Giá trị này lớn hơn OPTθ/(1+δ) nên cận dưới không loại nó. Nghiệm một phần tử khi dừng được dùng để cập nhật nghiệm tốt nhất. Nguồn: Bổ đề 4.">The target is the largest grid guess no greater than OPTθ. It is above OPTθ/(1+δ), so the lower pruning threshold never removes it. A terminal singleton updates the incumbent. Source: Lemma 4.</span>
       </aside>
     </section>
     <section class="slide" data-title="Deterministic approximation in one pass" data-time="1:30" data-section="algorithm">
-      <h2>Deterministic approximation in one pass</h2>
-      <p class="soict-intro"><span data-tex="K">K</span> is the maximum feasible cardinality. The bounds suppress
-        logarithmic factors in the instance widths.</p>
+      <h2><span data-vi="Bảo đảm xấp xỉ tất định trong một lượt">Deterministic approximation in one pass</span></h2>
+      <p class="soict-intro"><span data-tex="K">K</span> <span data-vi="là số phần tử tối đa của một tập khả thi. Các cận lược bỏ các thừa số lôgarit phụ thuộc vào dữ liệu.">is the maximum feasible cardinality. The bounds suppress logarithmic factors in the instance widths.</span></p>
       <p class="soict-equation"><span
           data-tex="f(S_{\mathrm{alg}})\ge\frac{\mathrm{OPT}}{16(1+16\varepsilon)}\ge\left(\frac1{16}-\varepsilon\right)\mathrm{OPT}">f(S_{\mathrm{alg}})\ge\frac{\mathrm{OPT}}{16(1+16\varepsilon)}\ge\left(\frac1{16}-\varepsilon\right)\mathrm{OPT}</span>
       </p>
-      <p>Exact chance feasibility for every stream order and <span
+      <p><span data-vi="Bảo đảm thỏa ràng buộc xác suất với mọi thứ tự luồng và">Exact chance feasibility for every stream order and</span> <span
           data-tex="0&lt;\varepsilon&lt;1/16">0&lt;\varepsilon&lt;1/16</span>.</p>
       <div class="soict-columns">
         <div>
-          <h3>Value-oracle queries</h3>
+          <h3><span data-vi="Số truy vấn hàm giá trị">Value-oracle queries</span></h3>
           <p class="soict-equation"><span
               data-tex="\widetilde{O}\!\left(\frac{n+K^2}{\varepsilon}\right)">\widetilde{O}\!\left(\frac{n+K^2}{\varepsilon}\right)</span>
           </p>
         </div>
         <div>
-          <h3>Memory</h3>
+          <h3><span data-vi="Bộ nhớ">Memory</span></h3>
           <p class="soict-equation"><span
               data-tex="\widetilde{O}\!\left(\frac K\varepsilon+K^2\right)">\widetilde{O}\!\left(\frac
               K\varepsilon+K^2\right)</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 10">10</span>
-      <aside class="speaker-notes">Compose the half-value comparator, the 1/(1+16ε) guess factor and the fixed-state 1/8
-        factor. The theorem assumes exact value-oracle and real-RAM access. The suppressed factors are (1+log Λ)(1+log
-        Γ). Source: Theorem 1.</aside>
+      <aside class="speaker-notes"><span data-vi="Nhân các hệ số ½ của nghiệm đối chiếu, 1/(1+16ε) của ước lượng và 1/8 của trạng thái cố định. Định lý dùng truy vấn hàm giá trị và mô hình real-RAM chính xác. Các thừa số lược bỏ là (1+log Λ)(1+log Γ). Nguồn: Định lý 1.">Compose the half-value comparator, the 1/(1+16ε) guess factor and the fixed-state 1/8 factor. The theorem assumes exact value-oracle and real-RAM access. The suppressed factors are (1+log Λ)(1+log Γ). Source: Theorem 1.</span></aside>
     </section>
     <section class="slide" data-title="The experiment compares two selection settings" data-time="0:55" data-section="experiment">
-      <h2>The experiment compares two selection settings</h2>
-      <p class="soict-intro">Ten runs per budget at <span data-tex="\alpha=0.05">\alpha=0.05</span>. The baseline is the
-        offline heuristic Offline-Greedy-CC.</p>
+      <h2><span data-vi="Hai bài toán trong thực nghiệm">The experiment compares two selection settings</span></h2>
+      <p class="soict-intro"><span data-vi="Mỗi mức ngân sách có mười lần chạy với">Ten runs per budget at</span> <span data-tex="\alpha=0.05">\alpha=0.05</span><span data-vi=". Mốc so sánh là thuật toán tham lam ngoại tuyến Offline-Greedy-CC.">. The baseline is the offline heuristic Offline-Greedy-CC.</span></p>
       <div class="soict-columns">
         <div>
           <h3>Email-Eu-core</h3>
-          <p>Influence maximization with the independent-cascade model. The objective is monotone and the oracle
-            estimates spread.</p>
+          <p><span data-vi="Tối đa hóa ảnh hưởng theo mô hình thác độc lập. Hàm mục tiêu đơn điệu và độ lan truyền được ước lượng qua truy vấn.">Influence maximization with the independent-cascade model. The objective is monotone and the oracle estimates spread.</span></p>
         </div>
         <div>
           <h3>ca-HepTh</h3>
-          <p>Unit-weight Max-Cut on 9,877 vertices and 25,973 edges. The objective is non-monotone and the oracle is
-            exact.</p>
+          <p><span data-vi="Max-Cut với trọng số đơn vị trên 9.877 đỉnh và 25.973 cạnh. Hàm mục tiêu không đơn điệu và mỗi truy vấn cho giá trị chính xác.">Unit-weight Max-Cut on 9,877 vertices and 25,973 edges. The objective is non-monotone and the oracle is exact.</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 11">11</span>
-      <aside class="speaker-notes">Email-Eu-core uses 100 Monte Carlo realizations per oracle query and 1,000
-        independent realizations for final evaluation. Max-Cut varies ten stream orders on one fixed Gaussian resource
-        instance. Source: §5.</aside>
+      <aside class="speaker-notes"><span data-vi="Email-Eu-core dùng 100 lần mô phỏng Monte Carlo cho mỗi truy vấn và 1.000 lần mô phỏng độc lập để đánh giá cuối cùng. Max-Cut dùng mười thứ tự luồng trên cùng một bộ chi phí Gaussian. Nguồn: Mục 5.">Email-Eu-core uses 100 Monte Carlo realizations per oracle query and 1,000 independent realizations for final evaluation. Max-Cut varies ten stream orders on one fixed Gaussian resource instance. Source: §5.</span></aside>
     </section>
     <section class="slide" data-title="Influence maximization uses fewer oracle queries" data-time="0:55" data-section="experiment">
-      <h2>Influence maximization uses fewer oracle queries</h2>
-      <p class="soict-intro">For Email-Eu-core, each query estimates spread from 100 cascade realizations.</p>
+      <h2><span data-vi="Tối đa hóa ảnh hưởng dùng ít truy vấn hơn">Influence maximization uses fewer oracle queries</span></h2>
+      <p class="soict-intro"><span data-vi="Trên Email-Eu-core, mỗi truy vấn ước lượng độ lan truyền từ 100 lần mô phỏng thác.">For Email-Eu-core, each query estimates spread from 100 cascade realizations.</span></p>
       <div class="soict-result">
-        <div><strong>477.8</strong>
-          <p>FOCUS mean spread at B = 10<br>up from 291.7 at B = 2</p>
+        <div><strong data-vi="477,8">477.8</strong>
+          <p><span data-vi="Độ lan truyền trung bình của FOCUS tại B = 10">FOCUS mean spread at B = 10</span><br><span data-vi="tăng từ 291,7 tại B = 2">up from 291.7 at B = 2</span></p>
         </div>
-        <div><strong>39.4k</strong>
-          <p>FOCUS queries at B = 10<br>vs. 103.3k for Offline-Greedy-CC</p>
+        <div><strong data-vi="39,4 nghìn">39.4k</strong>
+          <p><span data-vi="Số truy vấn của FOCUS tại B = 10">FOCUS queries at B = 10</span><br><span data-vi="so với 103,3 nghìn của Offline-Greedy-CC">vs. 103.3k for Offline-Greedy-CC</span></p>
         </div>
       </div>
       <span class="slide-page-number" aria-label="Slide 12">12</span>
-      <aside class="speaker-notes">Reported query counts are approximate. These are query counts, not timing
-        measurements. The plots in Figure 1 show means and two-sided 95% Student-t intervals. Source: §5, Fig. 1.
+      <aside class="speaker-notes"><span data-vi="Số truy vấn được báo cáo dưới dạng xấp xỉ. Hình 1 biểu diễn trung bình và khoảng tin cậy Student t hai phía ở mức 95%. Nguồn: Mục 5, Hình 1.">Reported query counts are approximate. These are query counts, not timing measurements. The plots in Figure 1 show means and two-sided 95% Student-t intervals. Source: §5, Fig. 1.</span>
       </aside>
     </section>
     <section class="slide" data-title="Max-Cut trades retained memory for fewer queries" data-time="1:00" data-section="experiment">
-      <h2>Max-Cut trades retained memory for fewer queries</h2>
-      <p class="soict-intro">FOCUS uses more retained memory in the reported implementation.</p>
+      <h2><span data-vi="Max-Cut dùng ít truy vấn hơn với nhiều bộ nhớ hơn">Max-Cut trades retained memory for fewer queries</span></h2>
+      <p class="soict-intro"><span data-vi="Bản triển khai FOCUS trong thực nghiệm giữ nhiều dữ liệu hơn trong bộ nhớ.">FOCUS uses more retained memory in the reported implementation.</span></p>
       <table class="soict-table">
-        <caption>ca-HepTh results across budgets 50–250</caption>
+        <caption><span data-vi="Kết quả trên ca-HepTh với ngân sách từ 50 đến 250">ca-HepTh results across budgets 50–250</span></caption>
         <thead>
           <tr>
-            <th scope="col">Measure</th>
+            <th scope="col"><span data-vi="Chỉ số">Measure</span></th>
             <th scope="col">FOCUS</th>
             <th scope="col">Offline-Greedy-CC</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Oracle queries</th>
-            <td>126–413k</td>
-            <td>6.4–14.4M</td>
+            <th scope="row"><span data-vi="Số truy vấn">Oracle queries</span></th>
+            <td data-vi="126–413 nghìn">126–413k</td>
+            <td data-vi="6,4–14,4 triệu">6.4–14.4M</td>
           </tr>
           <tr>
-            <th scope="row">Objective relative to baseline</th>
-            <td>84.2–94.2%</td>
+            <th scope="row"><span data-vi="Giá trị mục tiêu so với mốc">Objective relative to baseline</span></th>
+            <td data-vi="84,2–94,2%">84.2–94.2%</td>
             <td>100%</td>
           </tr>
           <tr>
-            <th scope="row">Normalized chance cost</th>
-            <td>0.740–0.952</td>
-            <td>≤ 1 by design</td>
+            <th scope="row"><span data-vi="Tỷ số chi phí Gaussian trên ngân sách">Normalized chance cost</span></th>
+            <td data-vi="0,740–0,952">0.740–0.952</td>
+            <td><span data-vi="≤ 1 theo thiết kế">≤ 1 by design</span></td>
           </tr>
         </tbody>
       </table>
       <span class="slide-page-number" aria-label="Slide 13">13</span>
-      <aside class="speaker-notes">The comparison is with an offline heuristic and the observed objective ratios are
-        empirical. All plotted chance-cost means and intervals for both experiments remained below one. Source: §5, Fig.
-        2.</aside>
+      <aside class="speaker-notes"><span data-vi="Mốc so sánh là thuật toán tham lam ngoại tuyến. Các tỷ số giá trị mục tiêu là kết quả thực nghiệm. Trên biểu đồ của cả hai thực nghiệm, mọi giá trị trung bình và khoảng tin cậy của tỷ số chi phí Gaussian trên ngân sách đều dưới 1. Nguồn: Mục 5, Hình 2.">The comparison is with an offline heuristic and the observed objective ratios are empirical. All plotted chance-cost means and intervals for both experiments remained below one. Source: §5, Fig. 2.</span></aside>
     </section>
     <section class="slide" data-title="Gaussian feasibility in a single pass" data-time="0:45" data-section="conclusion">
-      <h2>Gaussian feasibility in a single pass</h2>
+      <h2><span data-vi="Thỏa ràng buộc Gaussian trong một lượt">Gaussian feasibility in a single pass</span></h2>
       <ol class="soict-steps">
-        <li>The exact tangent representation turns the Gaussian budget into additive knapsacks.</li>
-        <li>The geometric grid and online guesses yield a deterministic one-pass approximation.</li>
-        <li>The memory bound depends on instance widths. Zero-variance items and finite-precision guarantees remain open
-          for this analysis.</li>
+        <li><span data-vi="Biểu diễn tiếp tuyến chính xác chuyển ràng buộc ngân sách Gaussian thành họ ràng buộc ba lô dạng cộng.">The exact tangent representation turns the Gaussian budget into additive knapsacks.</span></li>
+        <li><span data-vi="Lưới hình học và các ước lượng trực tuyến cho thuật toán xấp xỉ tất định trong một lượt.">The geometric grid and online guesses yield a deterministic one-pass approximation.</span></li>
+        <li><span data-vi="Cận bộ nhớ phụ thuộc vào dữ liệu. Trường hợp phương sai bằng 0 và bảo đảm với số học hữu hạn vẫn là các hướng nghiên cứu mở.">The memory bound depends on instance widths. Zero-variance items and finite-precision guarantees remain open for this analysis.</span></li>
       </ol>
-      <p><strong>Questions?</strong></p>
+      <p><strong><span data-vi="Câu hỏi?">Questions?</span></strong></p>
       <span class="slide-page-number" aria-label="Slide 14">14</span>
-      <aside class="speaker-notes">Recap the link from exact feasibility to the approximation. Experiments illustrate
-        the query-memory trade-off. The model assumes strictly positive variances and exact real arithmetic. Source: §6.
+      <aside class="speaker-notes"><span data-vi="Nhắc lại mối liên hệ giữa tính khả thi chính xác và bảo đảm xấp xỉ. Thực nghiệm cho thấy sự đánh đổi giữa số truy vấn và bộ nhớ. Mô hình giả sử phương sai dương và phép toán số thực chính xác. Nguồn: Mục 6.">Recap the link from exact feasibility to the approximation. Experiments illustrate the query-memory trade-off. The model assumes strictly positive variances and exact real arithmetic. Source: §6.</span>
       </aside>
     </section>
   </main>
   <aside id="notesPanel" hidden aria-label="Speaker notes">
-    <div class="notes-header"><strong>Speaker notes</strong><span id="slideTime"></span><button id="closeNotes"
+    <div class="notes-header"><strong data-vi="Ghi chú thuyết trình">Speaker notes</strong>
+      <a href="NCS-Soict-note.html" target="_blank" rel="noopener" data-vi="Ghi chú song ngữ">Bilingual notes</a><span id="slideTime"></span><button id="closeNotes"
         aria-label="Close notes">×</button></div>
     <p id="noteText"></p>
   </aside>
   <div id="overview" hidden role="dialog" aria-modal="true" aria-label="Slide overview">
     <div class="overview-head">
-      <h2>Slide overview</h2><button id="closeOverview">Close ×</button>
+      <h2 data-vi="Tổng quan các slide">Slide overview</h2><button id="closeOverview" data-vi="Đóng ×">Close ×</button>
     </div>
     <div id="overviewGrid"></div>
   </div>
@@ -773,11 +738,11 @@
   </footer>
   <nav class="soict-sections" aria-label="Presentation sections">
     <div id="progressFill" aria-hidden="true"></div>
-    <a href="#1" data-section="introduction">Introduction</a>
-    <a href="#3" data-section="problem">Problem</a>
-    <a href="#6" data-section="algorithm">Algorithm</a>
-    <a href="#11" data-section="experiment">Experiment</a>
-    <a href="#14" data-section="conclusion">Conclusion</a>
+    <a href="#1" data-section="introduction" data-vi="Giới thiệu">Introduction</a>
+    <a href="#3" data-section="problem" data-vi="Bài toán">Problem</a>
+    <a href="#6" data-section="algorithm" data-vi="Thuật toán">Algorithm</a>
+    <a href="#11" data-section="experiment" data-vi="Thực nghiệm">Experiment</a>
+    <a href="#14" data-section="conclusion" data-vi="Kết luận">Conclusion</a>
   </nav>
   <canvas id="annotationCanvas" aria-label="Slide annotations"></canvas>
   <div id="laserPointer" hidden aria-hidden="true"></div>
@@ -816,6 +781,7 @@
     });
   </script>
   <script src="script.js?v=20261116-step-sync"></script>
+  <script src="soict-language.js"></script>
   <script src="remote.js?v=20261119-soict"></script>
 </body>
 

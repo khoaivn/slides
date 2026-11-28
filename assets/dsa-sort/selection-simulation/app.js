@@ -12,8 +12,8 @@ if(new URLSearchParams(location.search).get('bubble-passes')==='3'){
  selectionOptions.bubblePasses=3;
  algorithms.bubbleBasic.code[0]='for end = n − 1 đến n - 3';
 }
-if(showBubbleIndices){
- selectionOptions.bubbleIndices=true;
+if(showBubbleIndices||selectionOptions.bubblePasses===3){
+ selectionOptions.bubbleUseI=true;
  for(const variant of [algorithms.bubbleBasic,algorithms.bubble]){
   variant.code=variant.code.map(line=>line.replace(/\bend\b/g,'i'));
  }

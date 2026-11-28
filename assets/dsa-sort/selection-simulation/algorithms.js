@@ -38,7 +38,7 @@ if(type==='bubble'){
 if(type==='bubbleBasic'){
  const done=[];
  const last=options.bubblePasses===3?Math.max(1,n-3):1;
- const outerName=options.bubbleIndices?'i':'end';
+ const outerName=options.bubbleUseI?'i':'end';
  for(let i=n-1;i>=last;i--){
   emit('Bắt đầu lượt với '+outerName+' = '+i+'; luôn thực hiện đủ các lượt.',0,[],[],done,{i});
   for(let j=0;j<i;j++){

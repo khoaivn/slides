@@ -234,14 +234,15 @@ if(type==='insertion'){
 }
 if(type==='merge'){
  const sort=(l,r)=>{
-  emit(`MergeSort(A, ${l}, ${r})`,0,range(l,r+1));
-  emit(l<r?`l < r: tiếp tục chia đoạn [${l}…${r}].`:`l < r sai: đoạn có tối đa một phần tử, dừng.`,1,range(l,r+1));
+  emit(`MergeSort(A, ${l}, ${r})`,0,range(l,r+1),[],[],{l,r});
+  emit(l<r?`l < r: tiếp tục chia đoạn [${l}…${r}].`:`l < r sai: đoạn có tối đa một phần tử, dừng.`,1,range(l,r+1),[],[],{l,r});
   if(l>=r)return;
   const m=Math.floor((l+r)/2);
-  emit(`mid = ⌊(${l} + ${r}) / 2⌋ = ${m}.`,2,range(l,m+1),range(m+1,r+1));
-  emit(`Sắp xếp đoạn trái [${l}…${m}].`,3,range(l,m+1));
+  const indices={l,r,mid:m};
+  emit(`mid = ⌊(${l} + ${r}) / 2⌋ = ${m}.`,2,range(l,m+1),range(m+1,r+1),[],indices);
+  emit(`Sắp xếp đoạn trái [${l}…${m}].`,3,range(l,m+1),[],[],indices);
   sort(l,m);
-  emit(`Sắp xếp đoạn phải [${m+1}…${r}].`,4,range(m+1,r+1));
+  emit(`Sắp xếp đoạn phải [${m+1}…${r}].`,4,range(m+1,r+1),[],[],indices);
   sort(m+1,r);
   const left=a.slice(l,m+1),right=a.slice(m+1,r+1),buffer=[];
   let i=0,j=0;
@@ -253,7 +254,7 @@ if(type==='merge'){
   for(let k=0;k<buffer.length;k++){
    a[l+k]=buffer[k];writes++;
   }
-  emit(`Merge(A, ${l}, ${m}, ${r}): đoạn [${l}…${r}] đã được trộn có thứ tự.`,5,range(l,r+1));
+  emit(`Merge(A, ${l}, ${m}, ${r}): đoạn [${l}…${r}] đã được trộn có thứ tự.`,5,range(l,r+1),[],[],indices);
  };
  sort(0,n-1);
 }

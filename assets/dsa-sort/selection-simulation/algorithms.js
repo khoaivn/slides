@@ -150,13 +150,15 @@ if(type==='quickLomuto'){
 if(type==='quickDivide'){
  const done=[];
  const sort=(left,right)=>{
-  emit(`quickSort(A, ${left}, ${right})`,0,range(left,right+1),[],done);
-  emit(left<right?`Đoạn [${left}…${right}] cần chia tiếp.`:`Đoạn [${left}…${right}] có tối đa một phần tử, dừng.`,1,range(left,right+1),[],done);
+  const bounds={l:left,r:right};
+  emit(`quickSort(A, ${left}, ${right})`,0,range(left,right+1),[],done,bounds);
+  emit(left<right?`Đoạn [${left}…${right}] cần chia tiếp.`:`Đoạn [${left}…${right}] có tối đa một phần tử, dừng.`,1,range(left,right+1),[],done,bounds);
   if(left>=right){if(left===right)done.push(left);return}
   // Partition by rank while preserving the input order within each half.
   const pi=Math.floor((left+right)/2);
   const values=a.slice(left,right+1);
   const leftSize=pi-left+1;
+  const partitionIndices={...bounds,pi};
   // Find the boundary value without sorting the displayed segment.
   let boundary;
   for(const value of values){
@@ -180,10 +182,10 @@ if(type==='quickDivide'){
    if(a[left+offset]!==partitioned[offset])writes++;
    a[left+offset]=partitioned[offset];
   }
-  emit(`Chia đều theo số lượng: phần nhỏ [${left}…${pi}] có ${pi-left+1} phần tử, phần lớn [${pi+1}…${right}] có ${right-pi} phần tử. Giá trị bằng nhau có thể ở cả hai phần.`,2,range(left,pi+1),range(pi+1,right+1),done);
-  emit(`Tiếp tục chia phần trái [${left}…${pi}].`,3,range(left,pi+1),[],done);
+  emit(`Chia đều theo số lượng: phần nhỏ [${left}…${pi}] có ${pi-left+1} phần tử, phần lớn [${pi+1}…${right}] có ${right-pi} phần tử. Giá trị bằng nhau có thể ở cả hai phần.`,2,range(left,pi+1),range(pi+1,right+1),done,partitionIndices);
+  emit(`Tiếp tục chia phần trái [${left}…${pi}].`,3,range(left,pi+1),[],done,partitionIndices);
   sort(left,pi);
-  emit(`Tiếp tục chia phần phải [${pi+1}…${right}].`,4,range(pi+1,right+1),[],done);
+  emit(`Tiếp tục chia phần phải [${pi+1}…${right}].`,4,range(pi+1,right+1),[],done,partitionIndices);
   sort(pi+1,right);
  };
  sort(0,n-1);

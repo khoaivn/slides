@@ -77,9 +77,10 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
  font-weight:700;
  line-height:1;
 }
-.array-index-j{color:var(--status-active)}
+.array-index-j,.array-index-r{color:var(--status-active)}
 .array-index-markers:has(>.array-index-min){grid-template-rows:20px auto}
 .array-index-min{grid-row:2;color:var(--status-pivot);font-size:.85em}
+.array-index-pi{color:var(--status-pivot)}
 #chart.insertion-chart .bar:not(.held-key)>b{color:var(--ink)}
 #chart .bar.held-key{background:transparent;color:var(--status-pivot)}
 #chart .bar.held-key b{bottom:auto;top:calc(-1 * var(--key-offset));padding:5px 0;border:2px solid var(--status-pivot);border-radius:6px;background:#fff7ed}

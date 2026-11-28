@@ -64,6 +64,7 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
 
 /* Key nằm trên một hàng riêng, cao hơn cả cột lớn nhất. */
 #chart.insertion-chart{margin-top:100px;margin-bottom:42px;height:189px}
+.insertion-chart .insertion-boundary{height:0;background:transparent}
 .insertion-chart .insertion-index{
  position:absolute;
  top:calc(100% + 2px);

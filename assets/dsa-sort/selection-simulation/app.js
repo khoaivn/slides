@@ -28,15 +28,27 @@ function renderHeap(s){
 }
 const $=id=>document.getElementById(id);let category='sorting',target=54,lastTypes={sorting:initialAlgorithm,searching:'linear'};let type=initialAlgorithm,input=[42,18,67,9,54,31,82,23,60,12],steps=[],position=0,timer=null;
 function pause(){clearTimeout(timer);timer=null;setPlayIcon(position===steps.length-1?'replay':'play');$('state').textContent=position===steps.length-1?'Hoàn thành':position?'Tạm dừng':'Sẵn sàng'}
-function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);$('chart').replaceChildren(...s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=document.createElement('small');index.textContent=i;
-if(s.insertionIndices?.i===i||s.insertionIndices?.j===i){
- const marker=document.createElement('span');
- const isOuterIndex=s.insertionIndices.i===i;
- marker.className=isOuterIndex?'insertion-index':'insertion-index insertion-index-j';
- marker.textContent=isOuterIndex?'i':'j';
- index.append(marker);
+function renderArrayIndex(position,indices){
+ const index=document.createElement('small');index.textContent=position;
+ if(indices?.i===position||indices?.j===position){
+  const marker=document.createElement('span');
+  const isOuterIndex=indices.i===position;
+  marker.className=isOuterIndex?'insertion-index':'insertion-index insertion-index-j';
+  marker.textContent=isOuterIndex?'i':'j';
+  index.append(marker);
+ }
+ return index;
 }
-bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar}));$('comparisons').textContent=s.comparisons;$('writes').textContent=s.writes;$('step-count').textContent=`${position} / ${steps.length-1}`;$('timeline').value=position;$('prev').disabled=position===0;$('next').disabled=position===steps.length-1;document.querySelectorAll('.code-line').forEach(el=>el.classList.toggle('highlight',Number(el.dataset.sourceLine)===s.line))}
+function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);const bars=s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=renderArrayIndex(i,s.insertionIndices);bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar});
+if(type==='insertion'){
+ const boundary=document.createElement('div');
+ boundary.className='bar insertion-boundary';
+ boundary.setAttribute('aria-label','Chỉ số -1, ngoài mảng');
+ boundary.append(renderArrayIndex(-1,s.insertionIndices));
+ bars.unshift(boundary);
+}
+$('chart').replaceChildren(...bars);
+$('comparisons').textContent=s.comparisons;$('writes').textContent=s.writes;$('step-count').textContent=`${position} / ${steps.length-1}`;$('timeline').value=position;$('prev').disabled=position===0;$('next').disabled=position===steps.length-1;document.querySelectorAll('.code-line').forEach(el=>el.classList.toggle('highlight',Number(el.dataset.sourceLine)===s.line))}
 // Add a function heading while retaining the generator's source-line mapping.
 const pseudocodeFunctions={
  selection:'selectionSort(A, n)',

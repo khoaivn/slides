@@ -88,17 +88,17 @@ if(type==='lomutoPartition'){
   emit(`Chọn pivot = A[${right}] = ${pivot}.`,1,[],[right]);
   emit(`Khởi tạo i = ${i}.`,2,[],[right],[],{i});
   for(let j=left;j<right;j++){
-   emit(`j = ${j}: xét A[${j}] = ${a[j]}.`,3,[j],[right],[],{i,j});
+   emit(`j = ${j}: xét A[${j}] = ${a[j]}.`,3,[j],[right],range(left,i+1),{i,j});
    comparisons++;
-   emit(`${a[j]} < ${pivot}: ${a[j]<pivot?'đúng':'sai'}.`,4,[j],[right],[],{i,j});
+   emit(`${a[j]} < ${pivot}: ${a[j]<pivot?'đúng':'sai'}.`,4,[j],[right],range(left,i+1),{i,j});
    if(a[j]<pivot){
-    i++;emit(`Tăng i lên ${i}.`,5,[i,j],[right],[],{i,j});
-    swap(i,j);emit(`Đổi chỗ A[${i}] và A[${j}].`,6,[i,j],[right],[],{i,j});
+    i++;emit(`Tăng i lên ${i}.`,5,[i,j],[right],range(left,i),{i,j});
+    swap(i,j);emit(`Đổi chỗ A[${i}] và A[${j}].`,6,i===j?[]:[j],[right],range(left,i+1),{i,j});
    }
   }
   swap(i+1,right);
-  emit(`Đưa pivot ${pivot} về vị trí ${i+1}.`,7,[],[i+1],[],{i});
-  emit(`Trả về ${i+1}. Bên trái < ${pivot}, bên phải ≥ ${pivot}.`,8,range(left,i+1),[i+1],[],{i});
+  emit(`Đưa pivot ${pivot} về vị trí ${i+1}.`,7,[],[i+1],range(left,i+1),{i});
+  emit(`Trả về ${i+1}. Bên trái < ${pivot}, bên phải ≥ ${pivot}.`,8,[],[i+1],range(left,i+1),{i});
  }
 }
 if(type==='quickHoareSort'){

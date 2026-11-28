@@ -96,6 +96,7 @@ function updateCategoryUI(){
  smallerLegend.hidden=type!=='quickDivide';
  document.querySelector('.legend .active').parentElement.lastChild.textContent='Đang xét';
  if(type==='quickDivide'){$('legend-pivot').textContent='Phần lớn hơn';}
+ if(type==='lomutoPartition')$('legend-done').textContent='Nhỏ hơn pivot';
  $('property-label').textContent=searching?'THỨ TỰ MẢNG':'ỔN ĐỊNH';
  document.querySelectorAll('[data-category]').forEach(b=>{const selected=b.dataset.category===category;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected)});
  document.querySelectorAll('#algos button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.algo===type));

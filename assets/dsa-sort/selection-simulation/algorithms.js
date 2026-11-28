@@ -163,11 +163,12 @@ if(type==='insertion'){
    comparisons++;
    emit(`So sánh ${a[j]} với key = ${key}.`,2,[j],[j+1],range(0,j).concat(range(j+2,i+1)),{i,j});
    if(a[j]<=key)break;
+   const shiftedIndex=j;
    a[j+1]=a[j];
    writes++;
-   heldKey={value:key,index:j};
-   emit(`Dịch ${a[j]} sang phải; key = ${key} đang được giữ riêng.`,3,[],[j],range(0,j).concat(range(j+1,i+1)),{i,j});
+   heldKey={value:key,index:shiftedIndex};
    j--;
+   emit(`Dịch ${a[shiftedIndex]} sang phải; key = ${key} đang được giữ riêng.`,3,[],[shiftedIndex],range(0,shiftedIndex).concat(range(shiftedIndex+1,i+1)),{i,j});
   }
   a[j+1]=key;
   writes++;

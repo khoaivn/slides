@@ -74,7 +74,8 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
  font-weight:700;
  line-height:1;
 }
-.insertion-chart .insertion-index-j{color:#6b3fa0}
+.insertion-chart .insertion-index-j{color:var(--status-active)}
+#chart.insertion-chart .bar:not(.held-key)>b{color:var(--ink)}
 #chart .bar.held-key{background:transparent;color:var(--status-pivot)}
 #chart .bar.held-key b{bottom:auto;top:calc(-1 * var(--key-offset));padding:5px 0;border:2px solid var(--status-pivot);border-radius:6px;background:#fff7ed}
 #chart .bar.held-key b::before{

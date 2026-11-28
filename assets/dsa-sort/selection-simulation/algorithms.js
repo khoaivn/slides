@@ -161,12 +161,12 @@ if(type==='insertion'){
   emit(`Giữ key = ${key}, tìm vị trí chèn.`,1,[i],[],range(0,i),{i,j});
   while(j>=0){
    comparisons++;
-   emit(`So sánh ${a[j]} với key = ${key}.`,2,[j],[j+1],[],{i,j});
+   emit(`So sánh ${a[j]} với key = ${key}.`,2,[j],[j+1],range(0,j).concat(range(j+2,i+1)),{i,j});
    if(a[j]<=key)break;
    a[j+1]=a[j];
    writes++;
    heldKey={value:key,index:j};
-   emit(`Dịch ${a[j]} sang phải; key = ${key} đang được giữ riêng.`,3,[],[j,j+1],[],{i,j});
+   emit(`Dịch ${a[j]} sang phải; key = ${key} đang được giữ riêng.`,3,[],[j],range(0,j).concat(range(j+1,i+1)),{i,j});
    j--;
   }
   a[j+1]=key;

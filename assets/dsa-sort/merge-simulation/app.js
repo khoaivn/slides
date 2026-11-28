@@ -19,6 +19,20 @@ function move(delta){stop();position=Math.max(0,Math.min(steps.length-1,position
 function tick(){if(position<steps.length-1){position++;render();}if(position===steps.length-1){stop();return;}timer=setTimeout(tick,700/Number($('speed').value));}
 function play(){if(timer){stop();return;}if(position===steps.length-1){position=0;render();}$('play').textContent='Ⅱ Tạm dừng';timer=setTimeout(tick,700/Number($('speed').value));}
 $('play').onclick=play;$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);$('reset').onclick=()=>{stop();position=0;render();};$('apply').onclick=apply;$('timeline').oninput=()=>{stop();position=Number($('timeline').value);render();};
-document.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;if(['ArrowUp','ArrowDown',' '].includes(e.key)){e.preventDefault();if(e.key===' ')play();else move(e.key==='ArrowUp'?-1:1);}});
+document.addEventListener('keydown',e=>{
+ if(e.target.matches('input,select,textarea')||e.target.isContentEditable)return;
+ if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&window.parent!==window){
+  if(e.altKey||e.ctrlKey||e.metaKey||e.isComposing)return;
+  e.preventDefault();
+  const parentOrigin=location.protocol==='file:'||location.origin==='null'?'*':location.origin;
+  window.parent.postMessage({type:'presentation-key',key:e.key},parentOrigin);
+  return;
+ }
+ if(['ArrowUp','ArrowDown',' '].includes(e.key)){
+  e.preventDefault();
+  if(e.key===' ')play();
+  else move(e.key==='ArrowUp'?-1:1);
+ }
+});
 window.addEventListener('message',e=>{if(e.source!==parent)return;const local=location.protocol==='file:'&&['null','file://'].includes(e.origin);if(e.origin!==location.origin&&!local)return;if(e.data?.type==='selection-pause')stop();if(e.data?.type==='selection-play')play();if(e.data?.type==='selection-step'&&[1,-1].includes(e.data.delta))move(e.data.delta);if(e.data?.type==='selection-speed'&&[1,-1].includes(e.data.delta))$('speed').selectedIndex=Math.max(0,Math.min(3,$('speed').selectedIndex+e.data.delta));});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});apply();

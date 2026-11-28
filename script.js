@@ -3,7 +3,34 @@ const slides=[...document.querySelectorAll('.slide')];
 const $=id=>document.getElementById(id);
 let current=0,blocked=false,lastFocus=null,presentationStepIndex=0;
 function fit(){const d=$('deck');const scaleX=d.clientWidth/1280,scaleY=d.clientHeight/720;slides.forEach(s=>s.style.transform=`scale(${scaleX},${scaleY})`);}
-function go(index,updateHash=true){if(updateHash&&window.presentationStep?.(current,index)){presentationStepIndex=Math.max(0,presentationStepIndex+Math.sign(index-current));document.dispatchEvent(new Event('presentationstepchange'));return;}if(index!==current)presentationStepIndex=0;current=Math.min(slides.length-1,Math.max(0,index));slides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.setAttribute('aria-hidden',String(i!==current));});$('counter').textContent=`${String(current+1).padStart(2,'0')} / ${slides.length}`;$('sectionLabel').textContent=slides[current].dataset.title;$('progressFill').style.width=`${(current+1)/slides.length*100}%`;$('prevBtn').disabled=current===0;$('nextBtn').disabled=current===slides.length-1;$('noteText').textContent=slides[current].querySelector('.speaker-notes').textContent;$('slideTime').textContent=`Suggested time ${slides[current].dataset.time}`;document.querySelectorAll('#overviewGrid button').forEach((b,i)=>b.classList.toggle('current',i===current));if(updateHash)history.replaceState(null,'',`#${current+1}`);fit();document.dispatchEvent(new Event('slidechange'));}
+function go(index,updateHash=true){
+ if(updateHash&&window.presentationStep?.(current,index)){
+  presentationStepIndex=Math.max(0,presentationStepIndex+Math.sign(index-current));
+  document.dispatchEvent(new Event('presentationstepchange'));
+  return;
+ }
+ const next=Math.min(slides.length-1,Math.max(0,index));
+ const focused=document.activeElement;
+ const leavingFocusedSimulation=next!==current&&focused?.matches('iframe.sort-simulation')&&slides[current]?.contains(focused);
+ if(index!==current)presentationStepIndex=0;
+ current=next;
+ slides.forEach((s,i)=>{
+  s.classList.toggle('active',i===current);
+  s.setAttribute('aria-hidden',String(i!==current));
+ });
+ $('counter').textContent=`${String(current+1).padStart(2,'0')} / ${slides.length}`;
+ $('sectionLabel').textContent=slides[current].dataset.title;
+ $('progressFill').style.width=`${(current+1)/slides.length*100}%`;
+ $('prevBtn').disabled=current===0;
+ $('nextBtn').disabled=current===slides.length-1;
+ $('noteText').textContent=slides[current].querySelector('.speaker-notes').textContent;
+ $('slideTime').textContent=`Suggested time ${slides[current].dataset.time}`;
+ document.querySelectorAll('#overviewGrid button').forEach((b,i)=>b.classList.toggle('current',i===current));
+ if(leavingFocusedSimulation)$('deck').focus({preventScroll:true});
+ if(updateHash)history.replaceState(null,'',`#${current+1}`);
+ fit();
+ document.dispatchEvent(new Event('slidechange'));
+}
 function fromHash(){const number=Number(location.hash.slice(1));go(Number.isInteger(number)&&number>=1&&number<=slides.length?number-1:0,false);}
 function notes(show=$('notesPanel').hidden){$('notesPanel').hidden=!show;$('notesBtn').setAttribute('aria-pressed',String(show));}
 function overview(show=$('overview').hidden){if(show){lastFocus=document.activeElement;$('overview').hidden=false;document.querySelectorAll('#overviewGrid button')[current].focus();}else{$('overview').hidden=true;lastFocus?.focus();}}

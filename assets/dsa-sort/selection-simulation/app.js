@@ -14,7 +14,9 @@ if(new URLSearchParams(location.search).get('bubble-passes')==='3'){
 }
 if(showBubbleIndices){
  selectionOptions.bubbleIndices=true;
- algorithms.bubbleBasic.code=algorithms.bubbleBasic.code.map(line=>line.replace(/\bend\b/g,'i'));
+ for(const variant of [algorithms.bubbleBasic,algorithms.bubble]){
+  variant.code=variant.code.map(line=>line.replace(/\bend\b/g,'i'));
+ }
 }
 function renderHeap(s){
   $('heap-view').hidden=type!=='heap';
@@ -50,7 +52,7 @@ function renderArrayIndex(position,indices){
  }
  return index;
 }
-function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);const showPassIndices=(type==='selection'&&showSelectionIndices)||(type==='bubbleBasic'&&showBubbleIndices);$('chart').classList.toggle('with-pass-indices',showPassIndices);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);const bars=s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=renderArrayIndex(i,type==='insertion'||showPassIndices?s.arrayIndices:null);bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar});
+function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);const showPassIndices=(type==='selection'&&showSelectionIndices)||(showBubbleIndices&&(type==='bubbleBasic'||type==='bubble'));$('chart').classList.toggle('with-pass-indices',showPassIndices);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);const bars=s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=renderArrayIndex(i,type==='insertion'||showPassIndices?s.arrayIndices:null);bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar});
 if(type==='insertion'){
  const boundary=document.createElement('div');
  boundary.className='bar insertion-boundary';

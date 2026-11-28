@@ -14,7 +14,27 @@ algorithms.quickLomuto={name:'Quick Sort (Lomuto)',time:'O(n log n)',space:'O(lo
 algorithms.hoarePartition={name:'Hoare Partition',time:'O(n)',space:'O(1)',stable:'Không',about:'Chọn phần tử đầu làm mốc. Hai con trỏ đi từ hai đầu, đổi chỗ các phần tử sai phía và trả về ranh giới khi gặp nhau.',code:['hoarePartition(A, l, r)','  pivot = A[l]','  i = l - 1','  u = r + 1','  while (true)','    do','      i++','    while (A[i] < pivot)','    do','      u--','    while (A[u] > pivot)','    if (i >= u)','      return u','    swap(A[i], A[u])']};
 algorithms.quickHoareSort={name:'Quick Sort (Hoare)',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Dùng Hoare chọn phần tử đầu làm mốc để chia đoạn, rồi đệ quy hai phần tại ranh giới trả về.',code:['quickSort(A, l, r)','  if (l < r)','    pi = hoarePartition(A, l, r)','    quickSort(A, l, pi)','    quickSort(A, pi + 1, r)']};
 function generateSteps(input,type,options={}){const a=[...input],steps=[];let comparisons=0,writes=0,heldKey=null;const emit=(message,line,active=[],pivot=[],done=[],arrayIndices=null)=>steps.push({a:[...a],message,line,active:[...active],pivot:[...pivot],done:[...done],comparisons,writes,heldKey:heldKey?{...heldKey}:null,arrayIndices});const swap=(i,j)=>{if(i!==j){[a[i],a[j]]=[a[j],a[i]];writes++}};const range=(l,r)=>Array.from({length:Math.max(0,r-l)},(_,i)=>l+i);const n=a.length;emit('Mảng đã sẵn sàng. Nhấn Chạy mô phỏng hoặc đi từng bước.',-1);
-if(type==='bubble'){let done=[];for(let end=n-1;end>0;end--){let changed=false;for(let j=0;j<end;j++){comparisons++;emit(`So sánh ${a[j]} và ${a[j+1]}.`,3,[j,j+1],[],done);if(a[j]>a[j+1]){swap(j,j+1);changed=true;emit('Đổi chỗ hai phần tử liền kề.',4,[],[j,j+1],done)}}done.push(end);emit(`${a[end]} đã ở đúng vị trí.`,0,[],[],done);if(!changed){emit('Không có đổi chỗ trong lượt này. Mảng đã có thứ tự.',6,[],[],range(0,n));break}}}
+if(type==='bubble'){
+ const done=[];
+ for(let i=n-1;i>0;i--){
+  let changed=false;
+  for(let j=0;j<i;j++){
+   comparisons++;
+   emit('So sánh '+a[j]+' và '+a[j+1]+'.',3,[j,j+1],[],done,{i,j});
+   if(a[j]>a[j+1]){
+    swap(j,j+1);
+    changed=true;
+    emit('Đổi chỗ hai phần tử liền kề.',4,[],[j,j+1],done,{i,j});
+   }
+  }
+  done.push(i);
+  emit(a[i]+' đã ở đúng vị trí.',0,[],[],done,{i});
+  if(!changed){
+   emit('Không có đổi chỗ trong lượt này. Mảng đã có thứ tự.',6,[],[],range(0,n),{i});
+   break;
+  }
+ }
+}
 if(type==='bubbleBasic'){
  const done=[];
  const last=options.bubblePasses===3?Math.max(1,n-3):1;

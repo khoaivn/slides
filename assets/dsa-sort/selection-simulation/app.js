@@ -1,4 +1,5 @@
 const requestedAlgorithm=new URLSearchParams(location.search).get('algorithm');
+const showSelectionIndices=new URLSearchParams(location.search).has('selection-indices');
 const initialAlgorithm=['selection','bubble','bubbleBasic','insertion','merge','heap','quick','quickDivide','lomutoPartition','quickLomuto','hoarePartition','quickHoareSort'].includes(requestedAlgorithm)?requestedAlgorithm:'selection';
 document.body.classList.toggle('hoare-partition',initialAlgorithm==='hoarePartition');
 document.body.classList.toggle('heap-simulation',initialAlgorithm==='heap');
@@ -30,21 +31,26 @@ const $=id=>document.getElementById(id);let category='sorting',target=54,lastTyp
 function pause(){clearTimeout(timer);timer=null;setPlayIcon(position===steps.length-1?'replay':'play');$('state').textContent=position===steps.length-1?'Hoàn thành':position?'Tạm dừng':'Sẵn sàng'}
 function renderArrayIndex(position,indices){
  const index=document.createElement('small');index.textContent=position;
- if(indices?.i===position||indices?.j===position){
-  const marker=document.createElement('span');
-  const isOuterIndex=indices.i===position;
-  marker.className=isOuterIndex?'insertion-index':'insertion-index insertion-index-j';
-  marker.textContent=isOuterIndex?'i':'j';
-  index.append(marker);
+ const labels=Object.keys(indices??{}).filter(name=>indices[name]===position);
+ if(labels.length){
+  const markers=document.createElement('span');
+  markers.className='array-index-markers';
+  for(const name of labels){
+   const marker=document.createElement('span');
+   marker.className=`array-index-${name}`;
+   marker.textContent=name;
+   markers.append(marker);
+  }
+  index.append(markers);
  }
  return index;
 }
-function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);const bars=s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=renderArrayIndex(i,s.insertionIndices);bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar});
+function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);const selectionIndices=type==='selection'&&showSelectionIndices;$('chart').classList.toggle('selection-indices',selectionIndices);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);const bars=s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=renderArrayIndex(i,type==='insertion'||selectionIndices?s.arrayIndices:null);bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar});
 if(type==='insertion'){
  const boundary=document.createElement('div');
  boundary.className='bar insertion-boundary';
  boundary.setAttribute('aria-label','Chỉ số -1, ngoài mảng');
- boundary.append(renderArrayIndex(-1,s.insertionIndices));
+ boundary.append(renderArrayIndex(-1,s.arrayIndices));
  bars.unshift(boundary);
 }
 $('chart').replaceChildren(...bars);

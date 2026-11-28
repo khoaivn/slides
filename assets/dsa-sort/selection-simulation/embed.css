@@ -65,16 +65,20 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
 /* Key nằm trên một hàng riêng, cao hơn cả cột lớn nhất. */
 #chart.insertion-chart{margin-top:100px;margin-bottom:42px;height:189px}
 .insertion-chart .insertion-boundary{height:0;background:transparent}
-.insertion-chart .insertion-index{
+#chart.selection-indices{margin-bottom:62px}
+.array-index-markers{
  position:absolute;
  top:calc(100% + 2px);
  inset-inline:0;
+ display:grid;
+ gap:1px;
  color:var(--green);
  font-size:20px;
  font-weight:700;
  line-height:1;
 }
-.insertion-chart .insertion-index-j{color:var(--status-active)}
+.array-index-j{color:var(--status-active)}
+.array-index-min{color:var(--status-pivot);font-size:.85em}
 #chart.insertion-chart .bar:not(.held-key)>b{color:var(--ink)}
 #chart .bar.held-key{background:transparent;color:var(--status-pivot)}
 #chart .bar.held-key b{bottom:auto;top:calc(-1 * var(--key-offset));padding:5px 0;border:2px solid var(--status-pivot);border-radius:6px;background:#fff7ed}

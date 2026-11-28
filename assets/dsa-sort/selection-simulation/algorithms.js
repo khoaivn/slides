@@ -13,7 +13,7 @@ algorithms.lomutoPartition={name:'Lomuto Partition',time:'O(n)',space:'O(1)',sta
 algorithms.quickLomuto={name:'Quick Sort (Lomuto)',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Dùng Lomuto để đưa pivot về đúng vị trí, rồi sắp xếp hai đoạn không chứa pivot.',code:['quickSort(A, l, r)','  if (l < r)','    pi = lomutoPartition(A, l, r)','    quickSort(A, l, pi - 1)','    quickSort(A, pi + 1, r)']};
 algorithms.hoarePartition={name:'Hoare Partition',time:'O(n)',space:'O(1)',stable:'Không',about:'Chọn phần tử đầu làm mốc. Hai con trỏ đi từ hai đầu, đổi chỗ các phần tử sai phía và trả về ranh giới khi gặp nhau.',code:['hoarePartition(A, l, r)','  pivot = A[l]','  i = l - 1','  u = r + 1','  while (true)','    do','      i++','    while (A[i] < pivot)','    do','      u--','    while (A[u] > pivot)','    if (i >= u)','      return u','    swap(A[i], A[u])']};
 algorithms.quickHoareSort={name:'Quick Sort (Hoare)',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Dùng Hoare chọn phần tử đầu làm mốc để chia đoạn, rồi đệ quy hai phần tại ranh giới trả về.',code:['quickSort(A, l, r)','  if (l < r)','    pi = hoarePartition(A, l, r)','    quickSort(A, l, pi)','    quickSort(A, pi + 1, r)']};
-function generateSteps(input,type,options={}){const a=[...input],steps=[];let comparisons=0,writes=0,heldKey=null;const emit=(message,line,active=[],pivot=[],done=[],insertionIndices=null)=>steps.push({a:[...a],message,line,active:[...active],pivot:[...pivot],done:[...done],comparisons,writes,heldKey:heldKey?{...heldKey}:null,insertionIndices});const swap=(i,j)=>{if(i!==j){[a[i],a[j]]=[a[j],a[i]];writes++}};const range=(l,r)=>Array.from({length:Math.max(0,r-l)},(_,i)=>l+i);const n=a.length;emit('Mảng đã sẵn sàng. Nhấn Chạy mô phỏng hoặc đi từng bước.',-1);
+function generateSteps(input,type,options={}){const a=[...input],steps=[];let comparisons=0,writes=0,heldKey=null;const emit=(message,line,active=[],pivot=[],done=[],arrayIndices=null)=>steps.push({a:[...a],message,line,active:[...active],pivot:[...pivot],done:[...done],comparisons,writes,heldKey:heldKey?{...heldKey}:null,arrayIndices});const swap=(i,j)=>{if(i!==j){[a[i],a[j]]=[a[j],a[i]];writes++}};const range=(l,r)=>Array.from({length:Math.max(0,r-l)},(_,i)=>l+i);const n=a.length;emit('Mảng đã sẵn sàng. Nhấn Chạy mô phỏng hoặc đi từng bước.',-1);
 if(type==='bubble'){let done=[];for(let end=n-1;end>0;end--){let changed=false;for(let j=0;j<end;j++){comparisons++;emit(`So sánh ${a[j]} và ${a[j+1]}.`,3,[j,j+1],[],done);if(a[j]>a[j+1]){swap(j,j+1);changed=true;emit('Đổi chỗ hai phần tử liền kề.',4,[],[j,j+1],done)}}done.push(end);emit(`${a[end]} đã ở đúng vị trí.`,0,[],[],done);if(!changed){emit('Không có đổi chỗ trong lượt này. Mảng đã có thứ tự.',6,[],[],range(0,n));break}}}
 if(type==='bubbleBasic'){const done=[];const lastEnd=options.bubblePasses===3?Math.max(1,n-3):1;for(let end=n-1;end>=lastEnd;end--){emit(`Bắt đầu lượt với end = ${end}; luôn thực hiện đủ các lượt.`,0,[],[],done);for(let j=0;j<end;j++){comparisons++;emit(`So sánh ${a[j]} và ${a[j+1]}.`,2,[j,j+1],[],done);if(a[j]>a[j+1]){swap(j,j+1);emit('Đổi chỗ hai phần tử liền kề.',3,[j,j+1],[],done)}}done.push(end);emit(`${a[end]} đã ở đúng vị trí. Tiếp tục lượt kế tiếp nếu còn.`,0,[],[],done)}}
 // Show each complete partition, then recurse on its two parts.
@@ -152,7 +152,24 @@ if(type==='quickDivide'){
  sort(0,n-1);
 }
 if(type==='quickHoare'){const done=[];const sort=(l,r)=>{if(l>r)return;if(l===r){done.push(l);emit(`Đoạn một phần tử tại ${l} đã có thứ tự.`,1,[],[],done);return}const mid=Math.floor((l+r)/2),pivot=a[mid];let pivotIndex=mid,i=l-1,j=r+1;emit(`Đoạn [${l}…${r}]: chọn pivot = ${pivot} tại ${mid}.`,2,[],[pivotIndex],done);emit(`Khởi tạo i = ${i}, j = ${j}.`,3,[],[pivotIndex],done);while(true){do{i++;comparisons++;emit(`i = ${i}: so sánh ${a[i]} < pivot ${pivot}.`,5,[i],[pivotIndex],done)}while(a[i]<pivot);do{j--;comparisons++;emit(`j = ${j}: so sánh ${a[j]} > pivot ${pivot}.`,6,[j],[pivotIndex],done)}while(a[j]>pivot);emit(`Kiểm tra i = ${i}, j = ${j}: ${i>=j?'dừng phân hoạch':'tiếp tục đổi chỗ'}.`,7,[i,j],[pivotIndex],done);if(i>=j)break;swap(i,j);if(pivotIndex===i)pivotIndex=j;else if(pivotIndex===j)pivotIndex=i;emit(`Đổi chỗ A[${i}] và A[${j}]; pivot vẫn là ${pivot}.`,8,[i,j],[pivotIndex],done)}emit(`Chia tại j = ${j}: [${l}…${j}] và [${j+1}…${r}]. Điểm chia chưa phải vị trí cố định của pivot.`,9,[j,j+1],[pivotIndex],done);sort(l,j);emit(`Sắp xếp đoạn phải [${j+1}…${r}].`,10,range(j+1,r+1),[],done);sort(j+1,r)};sort(0,n-1)}
-if(type==='selection'){for(let i=0;i<Math.min(n,options.selectionEnd===undefined?n-1:options.selectionEnd+1);i++){let min=i;emit(`Tìm giá trị nhỏ nhất từ vị trí ${i}.`,1,[],[min],range(0,i));for(let j=i+1;j<n;j++){comparisons++;emit(`So sánh ${a[j]} với giá trị nhỏ nhất hiện tại ${a[min]}.`,3,[j],[min],range(0,i));if(a[j]<a[min]){min=j;emit(`Giá trị nhỏ nhất mới là ${a[min]}.`,3,[],[min],range(0,i))}}swap(i,min);emit(`Đưa ${a[i]} về vị trí ${i}.`,4,[],[i,min],range(0,i+1))}}
+if(type==='selection'){
+ const end=options.selectionEnd===undefined?n-1:options.selectionEnd+1;
+ for(let i=0;i<Math.min(n,end);i++){
+  let min=i;
+  const done=range(0,i);
+  emit(`Tìm giá trị nhỏ nhất từ vị trí ${i}.`,1,[],[min],done,{i,min});
+  for(let j=i+1;j<n;j++){
+   comparisons++;
+   emit(`So sánh ${a[j]} với giá trị nhỏ nhất hiện tại ${a[min]}.`,3,[j],[min],done,{i,j,min});
+   if(a[j]<a[min]){
+    min=j;
+    emit(`Giá trị nhỏ nhất mới là ${a[min]}.`,3,[],[min],done,{i,j,min});
+   }
+  }
+  swap(i,min);
+  emit(`Đưa ${a[i]} về vị trí ${i}.`,4,[],[i,min],range(0,i+1),{i,min});
+ }
+}
 if(type==='insertion'){
  for(let i=1;i<n;i++){
   const key=a[i];

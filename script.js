@@ -39,8 +39,8 @@ $('prevBtn').onclick=()=>go(current-1);$('nextBtn').onclick=()=>go(current+1);$(
 slides.forEach((s,i)=>{const b=document.createElement('button');const n=document.createElement('span');n.textContent=`${String(i+1).padStart(2,'0')} · ${s.dataset.time}`;b.append(n,document.createTextNode(s.dataset.title));b.onclick=()=>{go(i);overview(false);};$('overviewGrid').append(b);});
 // One shortcut handler for every deck and its embedded simulations.
 window.handlePresentationKey = function(e) {
- if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&
-    (e.target?.matches?.('input,textarea,select')||e.target?.isContentEditable))return false;
+ const editable=e.target?.matches?.('input,textarea,select')||e.target?.isContentEditable;
+ if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&editable)return false;
  if(e.altKey||e.ctrlKey||e.metaKey||e.isComposing)return false;
  if(!$('overview').hidden){
   if(e.key==='Escape'){e.preventDefault();overview(false);return true;}
@@ -53,6 +53,12 @@ window.handlePresentationKey = function(e) {
  }
  const key=e.key.toLowerCase();
  const frame=slides[current]?.querySelector('iframe.sort-simulation');
+ if(key==='p'&&frame){
+  if(editable)return false;
+  e.preventDefault();e.stopImmediatePropagation();
+  if(!e.repeat)frame.contentWindow?.postMessage({type:'selection-pseudocode'},location.protocol==='file:'||location.origin==='null'?'*':location.origin);
+  return true;
+ }
  const handled=['arrowright','arrowleft','arrowdown','arrowup','pagedown','pageup','home','end','-','=',' ','n','o','f','l','p','c','escape'].includes(key);
  if(!handled)return false;
  e.preventDefault();e.stopImmediatePropagation();

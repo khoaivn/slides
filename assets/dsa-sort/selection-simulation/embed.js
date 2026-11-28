@@ -20,6 +20,7 @@ if (new URLSearchParams(location.search).get('pseudocode') === 'open') {
 window.addEventListener('message', event => {
  const localFile=location.protocol==='file:'&&['null','file://'].includes(event.origin);
  if(event.source!==window.parent||(event.origin!==location.origin&&!localFile))return;
+ if(event.data?.type==='selection-pseudocode')pseudocodeToggle.click();
  if(event.data?.type==='selection-play')play();
  if(event.data?.type==='selection-speed'&&[1,-1].includes(event.data.delta))changeSpeed(event.data.delta);
  if(event.data?.type==='selection-step'&&[1,-1].includes(event.data.delta))move(event.data.delta);

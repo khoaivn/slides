@@ -6,3 +6,5 @@
 .line .syntax-operator{color:#be123c}
 .line .syntax-function{color:#047857;font-weight:700}
 .line.active{background:#e6f3ed;box-shadow:inset 3px 0 #087f81;color:inherit}
+
+main:has(> #code[hidden]){grid-template-columns:minmax(0,1fr)}

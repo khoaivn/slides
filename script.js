@@ -12,6 +12,8 @@ $('prevBtn').onclick=()=>go(current-1);$('nextBtn').onclick=()=>go(current+1);$(
 slides.forEach((s,i)=>{const b=document.createElement('button');const n=document.createElement('span');n.textContent=`${String(i+1).padStart(2,'0')} · ${s.dataset.time}`;b.append(n,document.createTextNode(s.dataset.title));b.onclick=()=>{go(i);overview(false);};$('overviewGrid').append(b);});
 // One shortcut handler for every deck and its embedded simulations.
 window.handlePresentationKey = function(e) {
+ if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&
+    (e.target?.matches?.('input,textarea,select')||e.target?.isContentEditable))return false;
  if(e.altKey||e.ctrlKey||e.metaKey||e.isComposing)return false;
  if(!$('overview').hidden){
   if(e.key==='Escape'){e.preventDefault();overview(false);return true;}

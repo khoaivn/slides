@@ -106,6 +106,8 @@ function changeSpeed(delta){
  slider.dispatchEvent(new Event('input',{bubbles:true}));
 }
 document.addEventListener('keydown',e=>{
+ if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&
+    (e.target.matches('input,textarea,select')||e.target.isContentEditable))return;
  // Delegate shortcuts to the same handler used outside this iframe.
  if(window.parent!==window){
   try{if(window.parent.handlePresentationKey){window.parent.handlePresentationKey(e);return;}}catch{}

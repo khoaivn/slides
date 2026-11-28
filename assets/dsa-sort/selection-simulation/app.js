@@ -33,7 +33,7 @@ if(s.insertionIndices?.i===i||s.insertionIndices?.j===i){
  const marker=document.createElement('span');
  marker.className='insertion-index';
  marker.textContent=s.insertionIndices.i===i?'i':'j';
- index.append(' ',marker);
+ index.append(marker);
 }
 bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar}));$('comparisons').textContent=s.comparisons;$('writes').textContent=s.writes;$('step-count').textContent=`${position} / ${steps.length-1}`;$('timeline').value=position;$('prev').disabled=position===0;$('next').disabled=position===steps.length-1;document.querySelectorAll('.code-line').forEach(el=>el.classList.toggle('highlight',Number(el.dataset.sourceLine)===s.line))}
 // Add a function heading while retaining the generator's source-line mapping.

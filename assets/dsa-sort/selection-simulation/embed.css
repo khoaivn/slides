@@ -63,8 +63,16 @@ body,button,input,textarea,label,h1,h2,h3,p,#code,.code-line,
 .code-line.highlight{background:#e6f3ed;box-shadow:inset 3px 0 #087f81}
 
 /* Key nằm trên một hàng riêng, cao hơn cả cột lớn nhất. */
-#chart.insertion-chart{margin-top:100px;height:189px}
-.insertion-chart .insertion-index{color:var(--green);font-size:1.15em;font-weight:700}
+#chart.insertion-chart{margin-top:100px;margin-bottom:42px;height:189px}
+.insertion-chart .insertion-index{
+ position:absolute;
+ top:calc(100% + 2px);
+ inset-inline:0;
+ color:var(--green);
+ font-size:20px;
+ font-weight:700;
+ line-height:1;
+}
 #chart .bar.held-key{background:transparent;color:var(--status-pivot)}
 #chart .bar.held-key b{bottom:auto;top:calc(-1 * var(--key-offset));padding:5px 0;border:2px solid var(--status-pivot);border-radius:6px;background:#fff7ed}
 

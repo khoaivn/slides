@@ -52,14 +52,18 @@ function renderArrayIndex(position,indices){
  }
  return index;
 }
-function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);const showPassIndices=(type==='selection'&&showSelectionIndices)||(showBubbleIndices&&(type==='bubbleBasic'||type==='bubble'))||type==='quickDivide'||type==='lomutoPartition';$('chart').classList.toggle('with-pass-indices',showPassIndices);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);const bars=s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=renderArrayIndex(i,type==='insertion'||showPassIndices?s.arrayIndices:null);bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar});
-if(type==='insertion'||type==='lomutoPartition'){
+function renderBoundaryIndex(position,indices){
  const boundary=document.createElement('div');
  boundary.className='bar array-index-boundary';
- boundary.setAttribute('aria-label','Chỉ số -1, ngoài mảng');
- boundary.append(renderArrayIndex(-1,s.arrayIndices));
- bars.unshift(boundary);
+ boundary.setAttribute('aria-label','Chỉ số '+position+', ngoài mảng');
+ boundary.append(renderArrayIndex(position,indices));
+ return boundary;
 }
+function render(){const s=steps[position],max=Math.max(...input);renderHeap(s);renderBST(s);const showPassIndices=(type==='selection'&&showSelectionIndices)||(showBubbleIndices&&(type==='bubbleBasic'||type==='bubble'))||type==='quickDivide'||type==='lomutoPartition'||type==='hoarePartition';$('chart').classList.toggle('with-pass-indices',showPassIndices);$('chart').classList.toggle('insertion-chart',type==='insertion');const chartStyle=getComputedStyle($('chart'));const plotHeight=$('chart').clientHeight-parseFloat(chartStyle.paddingTop)-parseFloat(chartStyle.paddingBottom);const bars=s.a.map((v,i)=>{const lifted=type==='insertion'&&s.heldKey?.index===i;if(lifted)v=s.heldKey.value;const bar=document.createElement('div');bar.className='bar'+(s.pivot.includes(i)?' pivot':s.active.includes(i)?(type==='quickDivide'&&s.line===2?' smaller':' active'):s.done.includes(i)?' done':s.excluded?.includes(i)?' excluded':'');if(lifted){bar.classList.add('held-key');bar.style.setProperty('--key-offset',`${plotHeight*(1-Math.max(3,v/max*100)/100)+100}px`);}bar.style.height=`${Math.max(3,v/max*100)}%`;const value=document.createElement('b');value.textContent=v;const index=renderArrayIndex(i,type==='insertion'||showPassIndices?s.arrayIndices:null);bar.append(value,index);bar.setAttribute('aria-label',`Vị trí ${i}: ${v}`);return bar});
+if(type==='insertion'||type==='lomutoPartition'||type==='hoarePartition'){
+ bars.unshift(renderBoundaryIndex(-1,s.arrayIndices));
+}
+if(type==='hoarePartition')bars.push(renderBoundaryIndex(s.a.length,s.arrayIndices));
 $('chart').replaceChildren(...bars);
 $('comparisons').textContent=s.comparisons;$('writes').textContent=s.writes;$('step-count').textContent=`${position} / ${steps.length-1}`;$('timeline').value=position;$('prev').disabled=position===0;$('next').disabled=position===steps.length-1;document.querySelectorAll('.code-line').forEach(el=>el.classList.toggle('highlight',Number(el.dataset.sourceLine)===s.line))}
 // Add a function heading while retaining the generator's source-line mapping.

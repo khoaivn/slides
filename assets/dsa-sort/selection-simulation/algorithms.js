@@ -11,7 +11,7 @@ algorithms.quickHoare={name:'Quick Sort (Hoare)',time:'O(n log n)',space:'O(log 
 algorithms.quickDivide={name:'Quick Sort',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Chọn trung vị để chia đoạn thành phần nhỏ và phần lớn có số lượng bằng nhau hoặc chênh lệch một phần tử. Tiếp tục chia từng phần đến khi còn tối đa một phần tử. Các giá trị bằng nhau có thể nằm ở cả hai phía.',code:['quickSort(A, l, r)','  if (l < r)','    pi = partition(A, l, r)','    quickSort(A, l, pi)','    quickSort(A, pi + 1, r)']};
 algorithms.lomutoPartition={name:'Lomuto Partition',time:'O(n)',space:'O(1)',stable:'Không',about:'Chọn phần tử cuối làm pivot. Sau phân hoạch, các phần tử bên trái nhỏ hơn pivot, các phần tử bên phải lớn hơn hoặc bằng pivot.',code:['lomutoPartition(A, l, r)','  pivot = A[r]','  i = l - 1','  for (j = l; j < r; j++)','    if (A[j] < pivot)','      i++','      swap(A[i], A[j])','  swap(A[i + 1], A[r])','  return i + 1']};
 algorithms.quickLomuto={name:'Quick Sort (Lomuto)',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Dùng Lomuto để đưa pivot về đúng vị trí, rồi sắp xếp hai đoạn không chứa pivot.',code:['quickSort(A, l, r)','  if (l < r)','    pi = lomutoPartition(A, l, r)','    quickSort(A, l, pi - 1)','    quickSort(A, pi + 1, r)']};
-algorithms.hoarePartition={name:'Hoare Partition',time:'O(n)',space:'O(1)',stable:'Không',about:'Chọn phần tử đầu làm mốc. Hai con trỏ đi từ hai đầu, đổi chỗ các phần tử sai phía và trả về ranh giới khi gặp nhau.',code:['hoarePartition(A, l, r)','  pivot = A[l]','  i = l - 1','  u = r + 1','  while (true)','    do','      i++','    while (A[i] < pivot)','    do','      u--','    while (A[u] > pivot)','    if (i >= u)','      return u','    swap(A[i], A[u])']};
+algorithms.hoarePartition={name:'Hoare Partition',time:'O(n)',space:'O(1)',stable:'Không',about:'Chọn phần tử đầu làm mốc. Hai con trỏ đi từ hai đầu, đổi chỗ các phần tử sai phía và trả về ranh giới khi gặp nhau.',code:['hoarePartition(A, l, r)','  pivot = A[l]','  i = l - 1','  j = r + 1','  while (true)','    do','      i++','    while (A[i] < pivot)','    do','      j--','    while (A[j] > pivot)','    if (i >= j)','      return j','    swap(A[i], A[j])']};
 algorithms.quickHoareSort={name:'Quick Sort (Hoare)',time:'O(n log n)',space:'O(log n)*',stable:'Không',about:'Dùng Hoare chọn phần tử đầu làm mốc để chia đoạn, rồi đệ quy hai phần tại ranh giới trả về.',code:['quickSort(A, l, r)','  if (l < r)','    pi = hoarePartition(A, l, r)','    quickSort(A, l, pi)','    quickSort(A, pi + 1, r)']};
 function generateSteps(input,type,options={}){const a=[...input],steps=[];let comparisons=0,writes=0,heldKey=null;const emit=(message,line,active=[],pivot=[],done=[],arrayIndices=null)=>steps.push({a:[...a],message,line,active:[...active],pivot:[...pivot],done:[...done],comparisons,writes,heldKey:heldKey?{...heldKey}:null,arrayIndices});const swap=(i,j)=>{if(i!==j){[a[i],a[j]]=[a[j],a[i]];writes++}};const range=(l,r)=>Array.from({length:Math.max(0,r-l)},(_,i)=>l+i);const n=a.length;emit('Mảng đã sẵn sàng. Nhấn Chạy mô phỏng hoặc đi từng bước.',-1);
 if(type==='bubble'){
@@ -56,27 +56,27 @@ if(type==='bubbleBasic'){
 // Show each complete partition, then recurse on its two parts.
 if(type==='hoarePartition'){
  if(n){
-  const l=0,r=n-1,pivot=a[l];let pivotIndex=l,i=l-1,u=r+1;
+  const l=0,r=n-1,pivot=a[l];let pivotIndex=l,i=l-1,j=r+1;
   emit(`hoarePartition(A, ${l}, ${r})`,0,range(l,r+1));
   emit(`Chọn pivot = A[${l}] = ${pivot}.`,1,[],[pivotIndex]);
-  emit(`i = ${i}.`,2,[],[pivotIndex]);
-  emit(`u = ${u}.`,3,[],[pivotIndex]);
+  emit(`i = ${i}.`,2,[],[pivotIndex],[],{i});
+  emit(`j = ${j}.`,3,[],[pivotIndex],[],{i,j});
   while(true){
-   emit('Bắt đầu một lượt quét từ hai đầu.',4,[],[pivotIndex]);
+   emit('Bắt đầu một lượt quét từ hai đầu.',4,[],[pivotIndex],[],{i,j});
    do{
-    emit('Dịch con trỏ i sang phải ít nhất một lần.',5,[],[pivotIndex]);
-    i++;emit(`Tăng i lên ${i}.`,6,[i],[pivotIndex]);
-    comparisons++;emit(`A[${i}] = ${a[i]} < pivot ${pivot}: ${a[i]<pivot?'đúng, tiếp tục':'sai, dừng i'}.`,7,[i],[pivotIndex]);
+    emit('Dịch con trỏ i sang phải ít nhất một lần.',5,[],[pivotIndex],[],{i,j});
+    i++;emit(`Tăng i lên ${i}.`,6,[i],[pivotIndex],[],{i,j});
+    comparisons++;emit(`A[${i}] = ${a[i]} < pivot ${pivot}: ${a[i]<pivot?'đúng, tiếp tục':'sai, dừng i'}.`,7,[i],[pivotIndex],[],{i,j});
    }while(a[i]<pivot);
    do{
-    emit('Dịch con trỏ u sang trái ít nhất một lần.',8,[i],[pivotIndex]);
-    u--;emit(`Giảm u xuống ${u}.`,9,[i,u],[pivotIndex]);
-    comparisons++;emit(`A[${u}] = ${a[u]} > pivot ${pivot}: ${a[u]>pivot?'đúng, tiếp tục':'sai, dừng u'}.`,10,[i,u],[pivotIndex]);
-   }while(a[u]>pivot);
-   emit(`i = ${i}, u = ${u}: i ≥ u là ${i>=u?'đúng':'sai'}.`,11,[i,u],[pivotIndex]);
-   if(i>=u){emit(`Trả về u = ${u}. Phần trái [${l}…${u}] ≤ ${pivot}, phần phải [${u+1}…${r}] ≥ ${pivot}. Đây là ranh giới chia, không phải vị trí cố định của pivot.`,12,range(l,u+1),range(u+1,r+1));break}
-   swap(i,u);if(pivotIndex===i)pivotIndex=u;else if(pivotIndex===u)pivotIndex=i;
-   emit(`Đổi chỗ A[${i}] và A[${u}]. Giá trị pivot vẫn là ${pivot}.`,13,[i,u],[pivotIndex]);
+    emit('Dịch con trỏ j sang trái ít nhất một lần.',8,[i],[pivotIndex],[],{i,j});
+    j--;emit(`Giảm j xuống ${j}.`,9,[i,j],[pivotIndex],[],{i,j});
+    comparisons++;emit(`A[${j}] = ${a[j]} > pivot ${pivot}: ${a[j]>pivot?'đúng, tiếp tục':'sai, dừng j'}.`,10,[i,j],[pivotIndex],[],{i,j});
+   }while(a[j]>pivot);
+   emit(`i = ${i}, j = ${j}: i ≥ j là ${i>=j?'đúng':'sai'}.`,11,[i,j],[pivotIndex],[],{i,j});
+   if(i>=j){emit(`Trả về j = ${j}. Phần trái [${l}…${j}] ≤ ${pivot}, phần phải [${j+1}…${r}] ≥ ${pivot}. Đây là ranh giới chia, không phải vị trí cố định của pivot.`,12,range(l,j+1),range(j+1,r+1),[],{i,j});break}
+   swap(i,j);if(pivotIndex===i)pivotIndex=j;else if(pivotIndex===j)pivotIndex=i;
+   emit(`Đổi chỗ A[${i}] và A[${j}]. Giá trị pivot vẫn là ${pivot}.`,13,[i,j],[pivotIndex],[],{i,j});
   }
  }
 }
